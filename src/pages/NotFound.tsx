@@ -1,7 +1,10 @@
 import { Button } from '@/components/ui/button';
+import { Footet } from '@/components/Footer';
+import { Navigation } from '@/components/Navigation';
 
 export default function NotFoundPage() {
   return (
+    <Navigation />
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-blue-50 p-6 text-center">
       <div className="space-y-6 max-w-md">
         <div className="space-y-3">
@@ -20,5 +23,6 @@ export default function NotFoundPage() {
         </div>
       </div>
     </div>
+    <Footet />
   );
 }
