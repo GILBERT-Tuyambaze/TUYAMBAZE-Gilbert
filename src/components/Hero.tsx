@@ -114,7 +114,7 @@ export default function Hero() {
             <div className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button size="lg" className="group relative overflow-hidden">
                 <a href="/assets/Gilbert-TUYAMBAZE-RESUME.pdf" download="">
-                  <a href="public/assets/Gilbert-TUYAMBAZE-CV.pdf" download="">
+                  <a href="/assets/Gilbert-TUYAMBAZE-CV.pdf" download="">
                   <span className="relative z-10 flex items-center gap-2">
                     <Download className="w-5 h-5" />
                     Download CV
