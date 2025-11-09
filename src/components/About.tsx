@@ -55,8 +55,8 @@ export default function About() {
 
   const skills = [
     'React', 'TypeScript', 'Next.js', 'Node.js', 'Python', 'JavaScript',
-    'HTML5', 'CSS3', 'Tailwind CSS', 'MongoDB', 'PostgreSQL', 'Git',
-    'Docker', 'AWS', 'Figma', 'Adobe Creative Suite', 'Logic Pro X'
+    'HTML5', 'CSS3', 'Tailwind CSS', 'Git','PHP','JAVA',
+    'Adobe Creative Suite'
   ];
 
   const expertise = [
