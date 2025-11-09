@@ -52,7 +52,7 @@ export default function Projects() {
       title: 'Nyagatare ss',
       description: 'A full-featured School platform with full Applying process, payment processing, and admin dashboard.',
       image: '/assets/nss.png',
-      technologies: ['React', 'Next.js','TypeScript', 'Supabase', 'Stripe', 'Tailwind CSS'],
+      technologies: ['React', 'Next.js','TypeScript', 'Supabase', 'Stripe', 'Tailwind CSS','Html','css3'],
       liveUrl: 'https://nyagatare-secondary-school.vercel.app/',
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/',
       type: 'Web Development'
@@ -61,7 +61,7 @@ export default function Projects() {
       title: 'Movie Streaming Site',
       description: 'A collaborative, and A full-featured Movie Streaming platform with Best user-friendly UI, User Auth, and admin dashboard.',
       image: '/assets/orangeflix.png',
-      technologies: ['Next.js', 'TypeScript', 'Tailwind', 'SupaBase', 'react'],
+      technologies: ['Next.js', 'TypeScript', 'Tailwind', 'SupaBase', 'react','Html','css3'],
       liveUrl: 'https://orangeflixx.vercel.app/',
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/',
       type: 'Web Development'
@@ -70,7 +70,7 @@ export default function Projects() {
       title: 'Music Streaming Interface',
       description: 'A modern music streaming interface design with intuitive navigation and beautiful visualizations.',
       image: '/assets/archive.png',
-      technologies: ['Figma', 'all kinds of AI','Adobe XD', 'Principle', 'After Effects'],
+      technologies: ['Chtgpt','suno ai', 'leornord.ai','runway.ai' ,'After Effects'],
       liveUrl: 'https://www.youtube.com/@ashola-1',
       githubUrl: '#',
       type: 'UI/UX Design'
@@ -79,7 +79,7 @@ export default function Projects() {
       title: 'Tour booking & Exploring',
       description: 'A responsive Tour booking & Exploring website with full tour showcase, full function booking, smooth animations and modern design.',
       image: '/assets/tour.png',
-      technologies: ['React', 'Framer Motion', 'Tailwind CSS', 'Vite'],
+      technologies: ['React', 'Html','Css3','web3','Typescript','Nexr.js','Tailwind CSS', 'Vite'],
       liveUrl: 'https://winning4tours.vercel.app/',
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/',
       type: 'Web Development'
@@ -88,7 +88,7 @@ export default function Projects() {
       title: 'Consulting Platform',
       description: 'A responsive Consluring Platform, Showcasing all service offerd, Containing different fully working forms, and best animations',
       image: '/assets/bright.png',
-      technologies: ['react', 'typscript', 'Next.js','js', 'Html'],
+      technologies: ['react', 'typscript', 'Next.js','js', 'Html','Css3'],
       liveUrl: 'https://bright-bridge.vercel.app',
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/',
       type: 'Web Development'
@@ -97,7 +97,7 @@ export default function Projects() {
       title: 'Online learning Platform',
       description: 'A responsive web site for online learning with user auth, user-friendly UI, and other more tech.',
       image: '/assets/twigane-class.png',
-      technologies: ['SupaBase', 'react', 'js', 'Node.js', 'Next.js', 'vite'],
+      technologies: ['SupaBase', 'react', 'js','Html','Css3', 'Node.js', 'Next.js', 'vite'],
       liveUrl: 'https://twigane-class.vercel.app',
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/',
       type: 'Web Development'
