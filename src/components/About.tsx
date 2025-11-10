@@ -82,8 +82,8 @@ export default function About() {
 
   const education = [
     {
-      degree: 'Bachelor of Computer Science & Applied Physics',
-      institution: 'University of Technology',
+      degree: 'PLanning to take double Major in Bcs Computer Science & Bsc Applied Physics',
+      institution: 'University ..',
       year: '2025-now',
       icon: GraduationCap
     },
