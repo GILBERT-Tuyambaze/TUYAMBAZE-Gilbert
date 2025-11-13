@@ -83,6 +83,9 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const heroImageSrc =
+    theme === 'dark' ? '/images/gilbert-tuyambaze-dark.jpeg' : '/images/gilbert-tuyambaze-light.jpeg';
+
   return (
     <nav
       className={`nav-container fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -99,8 +102,12 @@ export default function Navigation() {
               onClick={() => scrollToSection('#home')}
               className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent hover:scale-105 transition-transform"
             >
-              <div className="w-12 h-full flex items-center justify-center">
-                <img src="/images/gilbert-tuyambaze-dark.jpeg"/>
+              <div className="w-12 h-full flex rounded-full items-center justify-center">
+                <img
+                    src={heroImageSrc}
+                    alt="Gilbert Tuyambaze"
+                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+                  />
               </div>
             </button>
           </div>
