@@ -102,11 +102,12 @@ export default function Navigation() {
               onClick={() => scrollToSection('#home')}
               className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent hover:scale-105 transition-transform"
             >
-              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-primary shadow-lg ring-2 ring-purple-500/30 hover:ring-pink-500/40 transition-all duration-500">
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-border shadow-lg transition-transform duration-300 hover:scale-105">
                 <img
                     src={heroImageSrc}
                     alt="Gilbert Tuyambaze"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-center"
+                    loading="lazy"
                   />
               </div>
             </button>
