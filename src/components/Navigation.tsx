@@ -99,7 +99,9 @@ export default function Navigation() {
               onClick={() => scrollToSection('#home')}
               className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent hover:scale-105 transition-transform"
             >
-              Gilbert.
+              <div className="w-12 h-full flex items-center justify-center">
+                <img src="/images/gilbert-tuyambaze-dark.jpeg"/>
+              </div>
             </button>
           </div>
 
