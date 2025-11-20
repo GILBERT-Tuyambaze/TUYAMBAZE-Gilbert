@@ -80,7 +80,7 @@ export default function Projects() {
       description: 'A responsive Tour booking & Exploring website with full tour showcase, full function booking, smooth animations and modern design.',
       image: '/assets/tour.png',
       technologies: ['React', 'Html','Css3','web3','Typescript','Nexr.js','Tailwind CSS', 'Vite'],
-      liveUrl: 'https://winning4tours.vercel.app/',
+      liveUrl: 'https://winning4tours.com',
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/',
       type: 'Web Development'
     },
