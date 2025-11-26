@@ -25,7 +25,7 @@ export default function Services() {
       }
     }
   }
-}
+};
 
   useEffect(() => {
     // Services section animations
