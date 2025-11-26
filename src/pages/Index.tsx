@@ -5,7 +5,7 @@ import Services from '@/components/Services';
 import Projects from '@/components/Projects';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
-import Head from "next/head";
+import Head from 'next/head';
 
 
 export default function Index() {
