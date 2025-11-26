@@ -15,7 +15,7 @@ export default function Projects() {
     "name": "Gilbert Tuyambaze"
   },
   "url": "https://tuyambaze-gilbert.vercel.app/#projects"
-},
+};
 
   useEffect(() => {
     // Projects section animations
