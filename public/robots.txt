@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://tuyambaze-gilbert.vercel.app/sitemap.xml
