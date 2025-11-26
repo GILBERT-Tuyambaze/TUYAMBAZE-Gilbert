@@ -7,14 +7,14 @@ import { revealElements } from '@/hooks/useScrollReveal';
 
 export default function Projects() {
   {
-  "@context": "https://schema.org",
-  "@type": "CreativeWork",
-  "name": "Featured Projects by Gilbert Tuyambaze",
-  "creator": {
-    "@type": "Person",
-    "name": "Gilbert Tuyambaze"
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  'name': 'Featured Projects by Gilbert Tuyambaze',
+  'creator': {
+    '@type': 'Person',
+    'name': 'Gilbert Tuyambaze'
   },
-  "url": "https://tuyambaze-gilbert.vercel.app/#projects"
+  'url': 'https://tuyambaze-gilbert.vercel.app/#projects'
 };
 
   useEffect(() => {
