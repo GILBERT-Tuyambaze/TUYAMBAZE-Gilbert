@@ -5,27 +5,17 @@ import { Code, Palette, Music, Globe, Smartphone, Headphones, ArrowRight } from 
 import { revealElements } from '@/hooks/useScrollReveal';
 
 export default function Services() {
-  {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "serviceType": "Web Development, UI/UX Design, Music Production, Audio Editing",
-  "provider": {
-    "@type": "Person",
-    "name": "Gilbert Tuyambaze"
+  const structuredDataProjects = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: 'Featured Projects by Gilbert Tuyambaze',
+  creator: {
+    '@type': 'Person',
+    name: 'Gilbert Tuyambaze'
   },
-  "areaServed": "Worldwide",
-  "availableChannel": {
-    "@type": "ServiceChannel",
-    "serviceLocation": {
-      "@type": "Place",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Kigali",
-        "addressCountry": "RW"
-      }
-    }
-  }
+  url: 'https://tuyambaze-gilbert.vercel.app/#projects'
 };
+
 
   useEffect(() => {
     // Services section animations
