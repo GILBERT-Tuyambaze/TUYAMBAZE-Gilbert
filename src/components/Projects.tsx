@@ -6,6 +6,17 @@ import { ExternalLink, Github, Play } from 'lucide-react';
 import { revealElements } from '@/hooks/useScrollReveal';
 
 export default function Projects() {
+  {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Featured Projects by Gilbert Tuyambaze",
+  "creator": {
+    "@type": "Person",
+    "name": "Gilbert Tuyambaze"
+  },
+  "url": "https://tuyambaze-gilbert.vercel.app/#projects"
+}
+
   useEffect(() => {
     // Projects section animations
     revealElements('.projects-title', { 
