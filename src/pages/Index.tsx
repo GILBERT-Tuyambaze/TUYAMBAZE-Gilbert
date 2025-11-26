@@ -13,12 +13,7 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navigation />
-      <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      </Head>
+      
       {/* Main content with proper spacing for fixed nav */}
       <main className="relative">
         <Hero />
