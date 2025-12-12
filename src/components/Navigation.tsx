@@ -131,11 +131,11 @@ export default function Navigation() {
           </div>
 
           {/* CTA + Theme Toggle */}
-          <div className="nav-cta hidden md:flex items-center gap-4">
+          <div className="nav-cta md:flex items-center gap-10">
             <ThemeToggle />
             <Button
               onClick={() => scrollToSection('#contact')}
-              className="bg-gradient-to-r from-primary to-purple-500 hover:from-purple-500 hover:to-pink-500 transition-all duration-300 hover:scale-105"
+              className="bg-gradient-to-r  from-primary to-purple-500 hover:from-purple-500 hover:to-pink-500 transition-all duration-300 hover:scale-105"
             >
               Let's Talk
             </Button>
