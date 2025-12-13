@@ -135,7 +135,7 @@ export default function Navigation() {
             <ThemeToggle />
             <Button
               onClick={() => scrollToSection('#contact')}
-              className="bg-gradient-to-r  from-primary to-purple-500 hover:from-purple-500 hover:to-pink-500 transition-all duration-300 hover:scale-105"
+              className="hidden md:block bg-gradient-to-r  from-primary to-purple-500 hover:from-purple-500 hover:to-pink-500 transition-all duration-300 hover:scale-105"
             >
               Let's Talk
             </Button>
