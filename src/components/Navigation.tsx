@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Home, User, Briefcase, FolderOpen, Mail } from 'lucide-react';
-import { initializeScrollReveal, revealElements } from '@/hooks/useScrollReveal';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useTheme } from './ThemeProvider';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { theme } = useTheme(); // optional, to force update colors on theme change
+  const { theme } = useTheme();
 
   const navItems = [
     { name: 'Home', href: '#home', icon: Home },
@@ -25,54 +24,6 @@ export default function Navigation() {
       setIsOpen(false);
     }
   };
-
-  useEffect(() => {
-    try {
-      requestAnimationFrame(() => {
-        initializeScrollReveal();
-
-        revealElements('.nav-container', {
-          origin: 'top',
-          distance: '100px',
-          duration: 1000,
-          delay: 500,
-          reset: false,
-        });
-
-        revealElements('.nav-logo', {
-          origin: 'left',
-          distance: '50px',
-          duration: 800,
-          delay: 700,
-          reset: false,
-        });
-
-        revealElements('.nav-links', {
-          origin: 'top',
-          distance: '30px',
-          duration: 600,
-          delay: 800,
-          interval: 100,
-          reset: false,
-        });
-
-        revealElements('.nav-cta', {
-          origin: 'right',
-          distance: '50px',
-          duration: 800,
-          delay: 900,
-          reset: false,
-        });
-
-        const navLinks = document.querySelectorAll('.nav-links');
-        navLinks.forEach((el) => {
-          el.classList.add('text-foreground', 'hover:text-primary');
-        });
-      });
-    } catch (err) {
-      console.error('ScrollReveal error in Navigation:', err);
-    }
-  }, [theme]); 
 
   useEffect(() => {
     const handleScroll = () => {
