@@ -5,6 +5,7 @@ import Services from '@/components/Services';
 import Projects from '@/components/Projects';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
+import Gallery from '@/components/Gallery';
 import PWAInstallBanner from '@/components/PWAInstallBanner'
 
 
@@ -21,6 +22,7 @@ export default function Index() {
         <About />
         <Services />
         <Projects />
+        <Gallert />
         <Contact />
         <PWAInstallBanner />
       </main>
