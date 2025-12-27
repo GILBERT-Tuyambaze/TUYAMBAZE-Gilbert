@@ -111,19 +111,19 @@ export default function Gallery() {
   return (
     <section id="gallery" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom duration-700">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4">
+        <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom duration-700" >
+          <h2 className="text-4xl sm:text-5xl font-bold mb-4" className="title">
             <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Project Gallery
             </span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto" className="introduction">
             A visual showcase of my work as a web developer, from concept to
             production — including personal shots for branding.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" className="card">
           {galleryItems.map((item, index) => (
             <Dialog key={index}>
               <DialogTrigger asChild>
