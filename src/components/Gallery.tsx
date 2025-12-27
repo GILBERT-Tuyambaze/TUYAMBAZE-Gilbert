@@ -213,10 +213,12 @@ export default function Gallery() {
 
                       <div className="text-sm space-y-1">
                         <p>📧 {item.personal.email}</p>
+                                                🌐
                         <a href={item.personal.github} target="_blank" rel="noreferrer" className="underline" >
-                        🌐 {item.personal.website}</a><br></br>
+                         {item.personal.website}</a><br></br>
+                        💻
                         <a href={item.personal.github} target="_blank" rel="noreferrer" className="underline" >
-                        💻 {item.personal.github}</a>
+                         {item.personal.github}</a>
                       </div>
                     </div>
                   </div>
