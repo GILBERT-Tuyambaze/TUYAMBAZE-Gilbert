@@ -16,7 +16,7 @@ export default function Gallery() {
       delay: 200 
     });
     
-    revealElements('.introduction', { 
+    revealElements('#introduction', { 
       origin: 'bottom', 
       distance: '40px', 
       duration: 800,
@@ -24,13 +24,28 @@ export default function Gallery() {
       delay: 400 
     });
     
-    revealElements('.card', { 
+    revealElements('#card', { 
       origin: 'bottom', 
       distance: '80px', 
       duration: 1000,
       delay: 200,
       reset: true,
       interval: 200 
+    });
+    revealElements('#images', { 
+      origin: 'top', 
+      distance: '40px', 
+      duration: 800,
+      delay: 400,
+      scale: 0.9 
+    });
+    
+    revealElements('#tech', { 
+      origin: 'bottom',  
+      distance: '30px', 
+      duration: 600,
+      delay: 600,
+      interval: 50 
     });
   }, []);
 
@@ -141,12 +156,12 @@ export default function Gallery() {
     <section id="gallery" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom duration-700" >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4" className="title">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-4" id="title">
             <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Project Gallery
             </span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto" className="introduction">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto" id="introduction">
             A visual showcase of my work as a web developer, from concept to
             production — including personal shots for branding.
           </p>
@@ -198,6 +213,7 @@ export default function Gallery() {
                         src={item.image}
                         alt={item.title}
                         className="w-full rounded-lg object-cover"
+                        id="images"
                       />
                       <div>
                         <div className="flex items-center gap-3 mb-2">
@@ -255,14 +271,15 @@ export default function Gallery() {
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="w-full rounded-lg"
+                      className="w-full rounded-lg" 
+                      id="images"
                     />
                     <div>
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-2xl font-bold">{item.title}</h3>
+                        <h3 className="text-2xl font-bold" id="tech">{item.title}</h3>
                         <Badge>{item.category}</Badge>
                       </div>
-                      <p className="text-muted-foreground">{item.description}</p>
+                      <p className="text-muted-foreground" id="tech">{item.description}</p>
                     </div>
                   </div>
                 )}
