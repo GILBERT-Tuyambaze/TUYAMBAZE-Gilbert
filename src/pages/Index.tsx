@@ -22,7 +22,7 @@ export default function Index() {
         <About />
         <Services />
         <Projects />
-        <Gallert />
+        <Gallery />
         <Contact />
         <PWAInstallBanner />
       </main>
