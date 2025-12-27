@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Home, images, User, Briefcase, FolderOpen, Mail } from 'lucide-react';
+import { Menu, X, Home, Images, User, Briefcase, FolderOpen, Mail } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useTheme } from './ThemeProvider';
 
@@ -14,7 +14,7 @@ export default function Navigation() {
     { name: 'About', href: '#about', icon: User },
     { name: 'Services', href: '#services', icon: Briefcase },
     { name: 'Projects', href: '#projects', icon: FolderOpen },
-    { name: 'Gallery', href: '#gallery', icon: images},
+    { name: 'Gallery', href: '#gallery', icon: Images},
     { name: 'Contact', href: '#contact', icon: Mail },
   ];
 
