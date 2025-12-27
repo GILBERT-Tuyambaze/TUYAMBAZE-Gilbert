@@ -9,58 +9,75 @@ export default function Gallery() {
 
   const galleryItems = [
     {
-      title: 'Electrical Panel Installation',
-      category: 'Commercial',
-      description: 'Modern electrical panel configuration for hotel infrastructure',
-      image: '/assets/equipment.png',
+      title: 'Personal Portfolio Website',
+      category: 'Frontend',
+      description:
+        'Modern and responsive portfolio built with React, Tailwind CSS, and animations for smooth user experience.',
+      image: '/assets/portfolio.png',
     },
     {
-      title: 'Conduit System Design',
-      category: 'Residential',
-      description: 'Professional conduit installation for residential complex',
-      image: 'https://images.unsplash.com/photo-1513828583688-c52646db42da?w=800&q=80',
+      title: 'Business Landing Page',
+      category: 'UI/UX',
+      description:
+        'Clean and conversion-focused landing page designed for small businesses and startups.',
+      image:
+        'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80',
     },
     {
-      title: 'Circuit Wiring',
+      title: 'E-Commerce Web App',
+      category: 'Full Stack',
+      description:
+        'Full-featured e-commerce platform with product management, cart, and secure checkout.',
+      image:
+        'https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=80',
+    },
+    {
+      title: 'Admin Dashboard',
+      category: 'Web App',
+      description:
+        'Interactive dashboard with charts, analytics, and role-based access control.',
+      image:
+        'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
+    },
+    {
+      title: 'Blog Platform',
+      category: 'Frontend',
+      description:
+        'Responsive blog platform with markdown support and SEO-friendly structure.',
+      image:
+        'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80',
+    },
+    {
+      title: 'API Integration Project',
       category: 'Technical',
-      description: 'Precise electrical wiring and cable management',
-      image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80',
+      description:
+        'REST API integration with authentication, error handling, and optimized data fetching.',
+      image:
+        'https://images.unsplash.com/photo-1581091012184-7c54c1f3b3b9?w=800&q=80',
     },
     {
-      title: 'Safety Inspection',
-      category: 'Maintenance',
-      description: 'Routine safety inspection and compliance check',
-      image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80',
+      title: 'UI Component Library',
+      category: 'UI/UX',
+      description:
+        'Reusable UI components built with Tailwind and shadcn/ui for scalable projects.',
+      image:
+        'https://images.unsplash.com/photo-1545235617-9465d2a55698?w=800&q=80',
     },
     {
-      title: 'Hotel Infrastructure',
-      category: 'Commercial',
-      description: 'Electrical maintenance at Hotel des Mille Collines',
-      image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80',
+      title: 'Responsive Website Redesign',
+      category: 'Frontend',
+      description:
+        'Complete redesign focused on accessibility, responsiveness, and performance.',
+      image:
+        'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80',
     },
     {
-      title: 'Distribution System',
-      category: 'Technical',
-      description: 'Power distribution system configuration',
-      image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80',
-    },
-    {
-      title: 'Lighting Installation',
-      category: 'Commercial',
-      description: 'Modern lighting system installation and setup',
-      image: '/assets/light.jpg',
-    },
-    {
-      title: 'Equipment Testing',
-      category: 'Maintenance',
-      description: 'Professional equipment testing and diagnostics',
-      image: '/assets/about-image.jpg',
-    },
-    {
-      title: 'Blueprint Analysis',
+      title: 'Project Planning & Wireframing',
       category: 'Planning',
-      description: 'Reviewing electrical schematics and blueprints',
-      image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80',
+      description:
+        'Translating ideas into wireframes and technical plans before development.',
+      image:
+        'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80',
     },
   ];
 
@@ -69,10 +86,13 @@ export default function Gallery() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom duration-700">
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Project Gallery</span>
+            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Project Gallery
+            </span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A visual showcase of professional electrical engineering work and installations
+            A visual showcase of my work as a web developer, from concept to
+            production.
           </p>
         </div>
 
@@ -101,14 +121,18 @@ export default function Gallery() {
                       {item.category}
                     </Badge>
                   </div>
+
                   <CardContent className="p-4">
                     <h3 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors">
                       {item.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2">{item.description}</p>
+                    <p className="text-sm text-muted-foreground line-clamp-2">
+                      {item.description}
+                    </p>
                   </CardContent>
                 </Card>
               </DialogTrigger>
+
               <DialogContent className="max-w-4xl">
                 <div className="space-y-4">
                   <img
@@ -121,7 +145,9 @@ export default function Gallery() {
                       <h3 className="text-2xl font-bold">{item.title}</h3>
                       <Badge>{item.category}</Badge>
                     </div>
-                    <p className="text-muted-foreground">{item.description}</p>
+                    <p className="text-muted-foreground">
+                      {item.description}
+                    </p>
                   </div>
                 </div>
               </DialogContent>
@@ -131,7 +157,7 @@ export default function Gallery() {
 
         <div className="mt-12 text-center">
           <p className="text-sm text-muted-foreground italic">
-            * Images represent professional electrical engineering work and installations
+            * Images represent web development projects and design concepts
           </p>
         </div>
       </div>
