@@ -109,7 +109,7 @@ export default function Navigation() {
         {/* Mobile Navigation Menu */}
         <div
           className={`md:hidden transition-all duration-300 overflow-hidden ${
-            isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+            isOpen ? 'max-h-100 opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
           <div className="py-4 space-y-2 bg-background/95 backdrop-blur-md rounded-lg mt-2 border border-border">
