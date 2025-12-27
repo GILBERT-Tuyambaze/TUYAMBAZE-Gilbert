@@ -8,7 +8,7 @@ import { revealElements } from '@/hooks/useScrollReveal';
 export default function Gallery() {
   useEffect(() => {
     // Gallery section animations
-    revealElements('.title', { 
+    revealElements('#title', { 
       origin: 'top', 
       distance: '60px', 
       duration: 1000,
