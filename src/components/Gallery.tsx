@@ -1,4 +1,7 @@
-import { useState } from 'react';
+
+'use client';
+
+import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
@@ -7,56 +10,49 @@ import { revealElements } from '@/hooks/useScrollReveal';
 
 export default function Gallery() {
   useEffect(() => {
-    // Gallery section animations
-    revealElements('#title', { 
-      origin: 'top', 
-      distance: '60px', 
-      duration: 1000,
-      reset: true,
-      delay: 200 
-    });
-    
-    revealElements('#introduction', { 
-      origin: 'bottom', 
-      distance: '40px', 
-      duration: 800,
-      reset: true,
-      delay: 400 
-    });
-    
-    revealElements('#card', { 
-      origin: 'bottom', 
-      distance: '80px', 
+    revealElements('.gallery-title', {
+      origin: 'top',
+      distance: '60px',
       duration: 1000,
       delay: 200,
-      reset: true,
-      interval: 200 
     });
-    revealElements('#images', { 
-      origin: 'top', 
-      distance: '40px', 
+
+    revealElements('.gallery-intro', {
+      origin: 'bottom',
+      distance: '40px',
       duration: 800,
       delay: 400,
-      scale: 0.9 
     });
-    
-    revealElements('#tech', { 
-      origin: 'bottom',  
-      distance: '30px', 
+
+    revealElements('.gallery-card', {
+      origin: 'bottom',
+      distance: '80px',
+      duration: 1000,
+      interval: 200,
+    });
+
+    revealElements('.gallery-image', {
+      origin: 'top',
+      distance: '40px',
+      duration: 800,
+      scale: 0.9,
+    });
+
+    revealElements('.gallery-tech', {
+      origin: 'bottom',
+      distance: '30px',
       duration: 600,
-      delay: 600,
-      interval: 50 
+      interval: 80,
     });
   }, []);
 
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   const galleryItems = [
-    // PERSONAL IMAGES (add your own files into public/assets/)
     {
       title: 'Portrait — Gilbert',
       category: 'Personal',
-      description: 'Profile portrait of Tuyambaze Gilbert (web developer).',
+      description: 'Profile portrait of Tuyambaze Gilbert.',
       image: '/images/gilbert-tuyambaze-dark.jpeg',
       personal: {
         name: 'Tuyambaze Gilbert',
@@ -82,27 +78,20 @@ export default function Gallery() {
       },
     },
     {
-      title: 'Business card',
+      title: 'Business Card',
       category: 'Personal',
-      description: 'Business cardfor personal branding.',
+      description: 'Business card for personal branding.',
       image: '/images/Bussiness-card-TUYAMBAZE-Gilbert.png',
       personal: {
         name: 'Tuyambaze Gilbert',
         role: 'Frontend Web Developer',
-        bio: 'Passionate about clean UI and smooth interactions.',
+        bio: 'Clean, modern personal brand.',
         email: 'tuyambazegilbert05@gmail.com',
         website: 'https://tuyambaze-gilbert.vercel.app/',
         github: 'https://github.com/GILBERT-Tuyambaze',
       },
     },
-    {
-      title: 'Personal Portfolio Website',
-      category: 'Frontend',
-      description:
-        'Modern and responsive portfolio built with React, Tailwind CSS, and animations for smooth user experience.',
-      image: '/assets/portfolio.png',
-    },
-    {
+{
       title: 'Business Landing Page',
       category: 'UI/UX',
       description:
@@ -155,48 +144,45 @@ export default function Gallery() {
   return (
     <section id="gallery" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom duration-700" >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4" id="title">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="gallery-title text-4xl sm:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Project Gallery
             </span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto" id="introduction">
-            A visual showcase of my work as a web developer, from concept to
-            production — including personal shots for branding.
+          <p className="gallery-intro text-lg text-muted-foreground max-w-2xl mx-auto">
+            Projects and personal branding visuals.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" className="card">
+        {/* GRID — PRESERVED */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {galleryItems.map((item, index) => (
             <Dialog key={index}>
               <DialogTrigger asChild>
                 <Card
-                  className="group cursor-pointer overflow-hidden hover:shadow-2xl transition-all duration-500 animate-in fade-in slide-in-from-bottom duration-700"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="gallery-card group cursor-pointer overflow-hidden hover:shadow-2xl transition-all duration-500"
                   onClick={() => setSelectedImage(index)}
                 >
                   <div className="relative aspect-[4/3] overflow-hidden">
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="gallery-image w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <div className="text-white text-center p-4">
-                        <ZoomIn className="w-12 h-12 mx-auto mb-2" />
-                        <p className="font-semibold">View Details</p>
-                      </div>
+
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                      <ZoomIn className="w-10 h-10 text-white" />
                     </div>
-                    <Badge className="absolute top-3 right-3 bg-primary/90 backdrop-blur-sm">
+
+                    <Badge className="absolute top-3 right-3 bg-primary/90">
                       {item.category}
                     </Badge>
                   </div>
 
                   <CardContent className="p-4">
-                    <h3 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors">
-                      {item.title}
-                    </h3>
+                    <h3 className="font-bold text-lg">{item.title}</h3>
                     <p className="text-sm text-muted-foreground line-clamp-2">
                       {item.description}
                     </p>
@@ -204,98 +190,52 @@ export default function Gallery() {
                 </Card>
               </DialogTrigger>
 
-              <DialogContent className="max-w-4xl">
-                {/* If the item is a personal image, show contact + bio layout */}
+              {/* POPUP HEIGHT FIXED */}
+              <DialogContent className="max-w-4xl max-h-[85vh] overflow-y-auto">
                 {item.personal ? (
-                  <div className="space-y-4">
-                    <div className="grid md:grid-cols-2 gap-6 items-center">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full rounded-lg object-cover"
-                        id="images"
-                      />
-                      <div>
-                        <div className="flex items-center gap-3 mb-2">
-                          <h3 className="text-2xl font-bold">
-                            {item.personal.name}
-                          </h3>
-                          <Badge>{item.category}</Badge>
-                        </div>
+                  <div className="grid md:grid-cols-2 gap-6 items-start">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-64 md:h-72 object-cover rounded-lg"
+                    />
 
-                        <p className="text-muted-foreground mb-4">
-                          <span className="font-semibold">{item.personal.role}</span>
-                          <br />
-                          {item.personal.bio}
-                        </p>
+                    <div className="space-y-3">
+                      <h3 className="text-2xl font-bold">
+                        {item.personal.name}
+                      </h3>
 
-                        <div className="space-y-2">
-                          <div>
-                            <strong>Email:</strong>{' '}
-                            <a
-                              href={`mailto:${item.personal.email}`}
-                              className="underline"
-                            >
-                              {item.personal.email}
-                            </a>
-                          </div>
-                          <div>
-                            <strong>Website:</strong>{' '}
-                            <a
-                              href={item.personal.website}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="underline"
-                            >
-                              {item.personal.website}
-                            </a>
-                          </div>
-                          <div>
-                            <strong>GitHub:</strong>{' '}
-                            <a
-                              href={item.personal.github}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="underline"
-                            >
-                              {item.personal.github}
-                            </a>
-                          </div>
-                        </div>
+                      <p className="gallery-tech text-muted-foreground">
+                        <strong>{item.personal.role}</strong>
+                        <br />
+                        {item.personal.bio}
+                      </p>
+
+                      <div className="text-sm space-y-1">
+                        <p>📧 {item.personal.email}</p>
+                        <p>🌐 {item.personal.website}</p>
+                        <p>💻 {item.personal.github}</p>
                       </div>
                     </div>
                   </div>
                 ) : (
-                  // Default project dialog
                   <div className="space-y-4">
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="w-full rounded-lg" 
-                      id="images"
+                      className="w-full h-72 object-cover rounded-lg"
                     />
-                    <div>
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-2xl font-bold" id="tech">{item.title}</h3>
-                        <Badge>{item.category}</Badge>
-                      </div>
-                      <p className="text-muted-foreground" id="tech">{item.description}</p>
-                    </div>
+                    <h3 className="text-2xl font-bold">{item.title}</h3>
+                    <p className="text-muted-foreground">
+                      {item.description}
+                    </p>
                   </div>
                 )}
               </DialogContent>
             </Dialog>
           ))}
         </div>
-
-        <div className="mt-12 text-center">
-          <p className="text-sm text-muted-foreground italic">
-            * Images represent web development projects and personal branding
-            portraits.
-          </p>
-        </div>
       </div>
     </section>
   );
 }
-
