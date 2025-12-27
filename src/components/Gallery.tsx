@@ -8,6 +8,37 @@ export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   const galleryItems = [
+    // PERSONAL IMAGES (add your own files into public/assets/)
+    {
+      title: 'Portrait — Gilbert',
+      category: 'Personal',
+      description: 'Profile portrait of Tuyambaze Gilbert (web developer).',
+      image: '/assets/me1.jpg',
+      personal: {
+        name: 'Tuyambaze Gilbert',
+        role: 'Frontend Web Developer',
+        bio: 'I build modern, responsive web applications with React and Tailwind.',
+        email: 'tuyambazegilbert05@gmail.com',
+        website: 'https://tuyambaze-gilbert.vercel.app/',
+        github: 'https://github.com/GILBERT-Tuyambaze',
+      },
+    },
+    {
+      title: 'Casual Portrait',
+      category: 'Personal',
+      description: 'Another portrait shot for personal branding.',
+      image: '/assets/me2.jpg',
+      personal: {
+        name: 'Tuyambaze Gilbert',
+        role: 'Frontend Web Developer',
+        bio: 'Passionate about clean UI and smooth interactions.',
+        email: 'tuyambazegilbert05@gmail.com',
+        website: 'https://tuyambaze-gilbert.vercel.app/',
+        github: 'https://github.com/GILBERT-Tuyambaze',
+      },
+    },
+
+    // PROJECT / WORK ITEMS (unchanged except for content)
     {
       title: 'Personal Portfolio Website',
       category: 'Frontend',
@@ -53,7 +84,7 @@ export default function Gallery() {
       description:
         'REST API integration with authentication, error handling, and optimized data fetching.',
       image:
-        'public/assets/API-Integration-Diagram.png',
+        '/assets/API-Integration-Diagram.png',
     },
     {
       title: 'UI Component Library',
@@ -62,22 +93,6 @@ export default function Gallery() {
         'Reusable UI components built with Tailwind and shadcn/ui for scalable projects.',
       image:
         'https://images.unsplash.com/photo-1545235617-9465d2a55698?w=800&q=80',
-    },
-    {
-      title: 'Responsive Website Redesign',
-      category: 'Frontend',
-      description:
-        'Complete redesign focused on accessibility, responsiveness, and performance.',
-      image:
-        'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80',
-    },
-    {
-      title: 'Project Planning & Wireframing',
-      category: 'Planning',
-      description:
-        'Translating ideas into wireframes and technical plans before development.',
-      image:
-        'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80',
     },
   ];
 
@@ -92,7 +107,7 @@ export default function Gallery() {
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             A visual showcase of my work as a web developer, from concept to
-            production.
+            production — including personal shots for branding.
           </p>
         </div>
 
@@ -134,22 +149,82 @@ export default function Gallery() {
               </DialogTrigger>
 
               <DialogContent className="max-w-4xl">
-                <div className="space-y-4">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full rounded-lg"
-                  />
-                  <div>
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-2xl font-bold">{item.title}</h3>
-                      <Badge>{item.category}</Badge>
+                {/* If the item is a personal image, show contact + bio layout */}
+                {item.personal ? (
+                  <div className="space-y-4">
+                    <div className="grid md:grid-cols-2 gap-6 items-center">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full rounded-lg object-cover"
+                      />
+                      <div>
+                        <div className="flex items-center gap-3 mb-2">
+                          <h3 className="text-2xl font-bold">
+                            {item.personal.name}
+                          </h3>
+                          <Badge>{item.category}</Badge>
+                        </div>
+
+                        <p className="text-muted-foreground mb-4">
+                          <span className="font-semibold">{item.personal.role}</span>
+                          <br />
+                          {item.personal.bio}
+                        </p>
+
+                        <div className="space-y-2">
+                          <div>
+                            <strong>Email:</strong>{' '}
+                            <a
+                              href={`mailto:${item.personal.email}`}
+                              className="underline"
+                            >
+                              {item.personal.email}
+                            </a>
+                          </div>
+                          <div>
+                            <strong>Website:</strong>{' '}
+                            <a
+                              href={item.personal.website}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="underline"
+                            >
+                              {item.personal.website}
+                            </a>
+                          </div>
+                          <div>
+                            <strong>GitHub:</strong>{' '}
+                            <a
+                              href={item.personal.github}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="underline"
+                            >
+                              {item.personal.github}
+                            </a>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <p className="text-muted-foreground">
-                      {item.description}
-                    </p>
                   </div>
-                </div>
+                ) : (
+                  // Default project dialog
+                  <div className="space-y-4">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full rounded-lg"
+                    />
+                    <div>
+                      <div className="flex items-center gap-3 mb-2">
+                        <h3 className="text-2xl font-bold">{item.title}</h3>
+                        <Badge>{item.category}</Badge>
+                      </div>
+                      <p className="text-muted-foreground">{item.description}</p>
+                    </div>
+                  </div>
+                )}
               </DialogContent>
             </Dialog>
           ))}
@@ -157,10 +232,12 @@ export default function Gallery() {
 
         <div className="mt-12 text-center">
           <p className="text-sm text-muted-foreground italic">
-            * Images represent web development projects and design concepts
+            * Images represent web development projects and personal branding
+            portraits.
           </p>
         </div>
       </div>
     </section>
   );
 }
+
