@@ -53,7 +53,7 @@ export default function Gallery() {
       description:
         'REST API integration with authentication, error handling, and optimized data fetching.',
       image:
-        'https://images.unsplash.com/photo-1581091012184-7c54c1f3b3b9?w=800&q=80',
+        '/assets/api.png',
     },
     {
       title: 'UI Component Library',
