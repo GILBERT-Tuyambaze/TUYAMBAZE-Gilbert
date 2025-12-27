@@ -17,6 +17,7 @@ export default function Projects() {
         distance: '60px',
         duration: 1000,
         delay: 200,
+        reset: true,
       });
 
       revealElements('.projects-description', {
@@ -24,6 +25,7 @@ export default function Projects() {
         distance: '40px',
         duration: 800,
         delay: 400,
+        reset: true,
       });
 
       revealElements('.project-card', {
@@ -32,6 +34,7 @@ export default function Projects() {
         duration: 1000,
         delay: 200,
         interval: 200,
+        reset: true,
       });
 
       // NOTE: removed .project-image reveal to avoid clipping/overflow conflicts
@@ -41,6 +44,7 @@ export default function Projects() {
         duration: 600,
         delay: 600,
         interval: 50,
+        reset: true,
       });
     }, 80);
 
