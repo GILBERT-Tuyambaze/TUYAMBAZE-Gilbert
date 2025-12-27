@@ -3,8 +3,37 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { ZoomIn } from 'lucide-react';
+import { revealElements } from '@/hooks/useScrollReveal';
 
 export default function Gallery() {
+  useEffect(() => {
+    // Gallery section animations
+    revealElements('.title', { 
+      origin: 'top', 
+      distance: '60px', 
+      duration: 1000,
+      reset: true,
+      delay: 200 
+    });
+    
+    revealElements('.introduction', { 
+      origin: 'bottom', 
+      distance: '40px', 
+      duration: 800,
+      reset: true,
+      delay: 400 
+    });
+    
+    revealElements('.card', { 
+      origin: 'bottom', 
+      distance: '80px', 
+      duration: 1000,
+      delay: 200,
+      reset: true,
+      interval: 200 
+    });
+  }, []);
+
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   const galleryItems = [
