@@ -156,7 +156,7 @@ export default function Gallery() {
           </p>
         </div>
 
-        {/* GRID — PRESERVED */}
+        
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {galleryItems.map((item, index) => (
             <Dialog key={index}>
@@ -191,13 +191,13 @@ export default function Gallery() {
               </DialogTrigger>
 
               {/* POPUP HEIGHT FIXED */}
-              <DialogContent className="max-w-4xl max-h-[85vh] overflow-y-auto">
+              <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
                 {item.personal ? (
                   <div className="grid md:grid-cols-2 gap-6 items-start">
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="w-full h-64 md:h-72 object-cover rounded-lg"
+                      className="w-full h-70 md:h-76 object-cover rounded-lg"
                     />
 
                     <div className="space-y-3">
@@ -213,8 +213,10 @@ export default function Gallery() {
 
                       <div className="text-sm space-y-1">
                         <p>📧 {item.personal.email}</p>
-                        <p>🌐 {item.personal.website}</p>
-                        <p>💻 {item.personal.github}</p>
+                        <a href={item.personal.github} target="_blank" rel="noreferrer" className="underline" >
+                        🌐 {item.personal.website}</a>
+                        <a href={item.personal.github} target="_blank" rel="noreferrer" className="underline" >
+                        💻 {item.personal.github}</a>
                       </div>
                     </div>
                   </div>
