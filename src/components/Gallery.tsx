@@ -13,7 +13,7 @@ export default function Gallery() {
       title: 'Portrait — Gilbert',
       category: 'Personal',
       description: 'Profile portrait of Tuyambaze Gilbert (web developer).',
-      image: '/assets/me1.jpg',
+      image: '/public/images/gilbert-tuyambaze-dark.jpeg',
       personal: {
         name: 'Tuyambaze Gilbert',
         role: 'Frontend Web Developer',
@@ -27,7 +27,7 @@ export default function Gallery() {
       title: 'Casual Portrait',
       category: 'Personal',
       description: 'Another portrait shot for personal branding.',
-      image: '/assets/me2.jpg',
+      image: '/public/images/gilbert-tuyambaze-light.jpeg',
       personal: {
         name: 'Tuyambaze Gilbert',
         role: 'Frontend Web Developer',
@@ -37,8 +37,20 @@ export default function Gallery() {
         github: 'https://github.com/GILBERT-Tuyambaze',
       },
     },
-
-    // PROJECT / WORK ITEMS (unchanged except for content)
+    {
+      title: 'Business card',
+      category: 'Personal',
+      description: 'Business cardfor personal branding.',
+      image: '/public/images/Bussiness-card-TUYAMBAZE-Gilbert.png',
+      personal: {
+        name: 'Tuyambaze Gilbert',
+        role: 'Frontend Web Developer',
+        bio: 'Passionate about clean UI and smooth interactions.',
+        email: 'tuyambazegilbert05@gmail.com',
+        website: 'https://tuyambaze-gilbert.vercel.app/',
+        github: 'https://github.com/GILBERT-Tuyambaze',
+      },
+    },
     {
       title: 'Personal Portfolio Website',
       category: 'Frontend',
