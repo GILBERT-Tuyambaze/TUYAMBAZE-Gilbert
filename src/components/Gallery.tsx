@@ -13,7 +13,7 @@ export default function Gallery() {
       title: 'Portrait — Gilbert',
       category: 'Personal',
       description: 'Profile portrait of Tuyambaze Gilbert (web developer).',
-      image: '/public/images/gilbert-tuyambaze-dark.jpeg',
+      image: '/images/gilbert-tuyambaze-dark.jpeg',
       personal: {
         name: 'Tuyambaze Gilbert',
         role: 'Frontend Web Developer',
@@ -27,7 +27,7 @@ export default function Gallery() {
       title: 'Casual Portrait',
       category: 'Personal',
       description: 'Another portrait shot for personal branding.',
-      image: '/public/images/gilbert-tuyambaze-light.jpeg',
+      image: '/images/gilbert-tuyambaze-light.jpeg',
       personal: {
         name: 'Tuyambaze Gilbert',
         role: 'Frontend Web Developer',
@@ -41,7 +41,7 @@ export default function Gallery() {
       title: 'Business card',
       category: 'Personal',
       description: 'Business cardfor personal branding.',
-      image: '/public/images/Bussiness-card-TUYAMBAZE-Gilbert.png',
+      image: '/images/Bussiness-card-TUYAMBAZE-Gilbert.png',
       personal: {
         name: 'Tuyambaze Gilbert',
         role: 'Frontend Web Developer',
