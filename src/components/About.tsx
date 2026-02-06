@@ -82,6 +82,12 @@ export default function About() {
 
   const education = [
     {
+     degree: 'Software Engineering Fellowship',
+     institution: 'A2SV (Africa to Silicon Valley)',
+     year: '2026 – Present',
+     icon: Award
+    },
+    {
       degree: 'PLanning to take double Major in Bcs Computer Science & Bsc Applied Physics',
       institution: 'University ..',
       year: '2025-now',
@@ -94,10 +100,10 @@ export default function About() {
       icon: Award
     },
     {
-     degree: 'Software Engineering Fellowship',
-     institution: 'A2SV (Africa to Silicon Valley)',
-     year: '2026 – Present',
-     icon: Award
+     degree: 'Music Production Certificate',
+     institution: 'Audio Institute',
+     year: '2024',
+     icon: Music
     }
 ];
   return (
@@ -108,8 +114,10 @@ export default function About() {
             About <span className="text-primary">Me</span>
           </h2>
           <p className="about-description text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            I'm a passionate developer and creative professional with expertise in web development, 
-            design, and music production. I love turning ideas into reality through code and creativity.
+           I'm a passionate frontend and full-stack developer and creative professional with expertise in modern web development,
+            UI/UX design, and music production.I am currently a Software Engineering Fellow at A2SV (Africa to Silicon Valley), an
+            intensive program focused on data structures, algorithms, system design, and real-world problem solving—preparing high-potential 
+            African engineers for global tech careers. I love turning ideas into scalable, high-performance digital products through clean code and creative thinking.
           </p>
         </div>
 
