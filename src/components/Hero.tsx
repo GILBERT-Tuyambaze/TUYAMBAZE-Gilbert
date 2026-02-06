@@ -78,7 +78,8 @@ export default function Hero() {
     'a Full Stack Dev',
     'a UI/UX Designer',
     'a Music Producer',
-    'a Creative Prof'
+    'a Creative Prof',
+    ' A2SV Software Engineering Fellow'
   ];
 
   const heroImageSrc =
@@ -109,6 +110,8 @@ export default function Hero() {
             <p className="hero-description text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 leading-relaxed">
               Passionate about creating exceptional digital experiences through innovative web development,
               stunning design, and creative content creation. Let's build something amazing together.
+              Currently training as a Software Engineering Fellow at A2SV (Africa to Silicon Valley), building scalable, 
+              real-world web applications.
             </p>
 
             <div className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
