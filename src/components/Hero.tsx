@@ -109,8 +109,8 @@ export default function Hero() {
 
             <p className="hero-description text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 leading-relaxed">
               Passionate about creating exceptional digital experiences through innovative web development,
-              stunning design, and creative content creation. Let's build something amazing together.
-              Currently training as a Software Engineering Fellow at A2SV (Africa to Silicon Valley), building scalable, 
+              stunning design, and creative content creation. Let's build something amazing together. Additionaly,I'm
+              currently training as a Software Engineering Fellow at A2SV (Africa to Silicon Valley), building scalable, 
               real-world web applications.
             </p>
 
