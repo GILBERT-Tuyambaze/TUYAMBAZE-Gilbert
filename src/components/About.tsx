@@ -94,13 +94,12 @@ export default function About() {
       icon: Award
     },
     {
-      degree: 'Music Production Certificate',
-      institution: 'Audio Institute',
-      year: '2024',
-      icon: Music
+     degree: 'Software Engineering Fellowship',
+     institution: 'A2SV (Africa to Silicon Valley)',
+     year: '2026 – Present',
+     icon: Award
     }
-  ];
-
+];
   return (
     <section id="about" className="py-20 px-4 bg-muted/30">
       <div className="container mx-auto max-w-7xl">
