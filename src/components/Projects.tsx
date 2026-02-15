@@ -50,6 +50,15 @@ export default function Projects() {
   }, []);
 
   const projects = [
+     {
+      title: 'MarketPlace Pro',
+      description: 'A full-stack marketplace web app with multi-user support (buyers and sellers),role bases access control (buyer, seller, editor, content-manager, admin), claims support system, advanced chat system,announcement & ntificatio, payment getway, modern UI, and real-world e-commerce flows.',
+      image: '/assets/marketplacepro.png',
+      technologies: ['Next.js', 'TypeScript','Vite','shadcn-ui', 'Tailwind', 'firebase', 'react','Html','css3'],
+      liveUrl: 'https://marketplacepro.vercel.app/',
+      githubUrl: 'https://github.com/GILBERT-Tuyambaze/MarketPlace-Pro',
+      type: 'Web Development'
+    },
     {
       title: 'Nyagatare ss',
       description: 'A full-featured School platform with full Applying process, payment processing, and admin dashboard.',
