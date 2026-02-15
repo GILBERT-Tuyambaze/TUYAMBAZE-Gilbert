@@ -52,7 +52,7 @@ export default function Projects() {
   const projects = [
      {
       title: 'MarketPlace Pro',
-      description: 'A full-stack marketplace web app with multi-user support (buyers and sellers),role bases access control (buyer, seller, editor, content-manager, admin), claims support system, advanced chat system,announcement & ntificatio, payment getway, modern UI, and real-world e-commerce flows.',
+      description: 'A full-stack marketplace web app with support for multiple user roles including buyer, seller, editor, content manager, and admin. It features robust role-based access control, a claims support system, an advanced chat system for real-time communication, announcement & notification functionality, integrated payment gateway support, a modern UI, and complete real-world e-commerce workflows.',
       image: '/assets/marketplacepro.png',
       technologies: ['Next.js', 'TypeScript','Vite','shadcn-ui', 'Tailwind', 'firebase', 'react','Html','css3'],
       liveUrl: 'https://marketplacepro.vercel.app/',
