@@ -115,31 +115,11 @@ export default function Projects() {
     },
     {
       title: 'Tuyizere Tresor – Portfolio Website',
-      description: 'A professional portfolio platform designed to highlight skills, experience, and technical projects. The website provides a strong digital presence with modern design trends and interactive UI elements. Key Features
-
-💼 Project showcase with live links
-
-🧩 Skills & technology stack section
-
-📞 Contact integration
-
-📱 Mobile-friendly and responsive
-
-🎨 Modern UI design
-
-⚡ High performance optimization 🎯 My Role
-
-Complete frontend development
-
-UI/UX design implementation
-
-Responsive layout engineering
-
-Deployment & maintenance',
-      image: '/assets/akimana.png',
+      description: 'A professional portfolio platform designed to highlight skills, experience, and technical projects. The website provides a strong digital presence with modern design trends and interactive UI elements.',
+      image: '/assets/tresor.png',
       technologies: ['react', 'js','Html','Css3', 'Node.js', 'Next.js', 'vite'],
-      liveUrl: 'https://akimana.com/',
-      githubUrl: 'https://github.com/GILBERT-Tuyambaze/akimana-etienne',
+      liveUrl: 'https://tuyizere-tresor.vercel.app/',
+      githubUrl: 'https://github.com/GILBERT-Tuyambaze/Tresor-portfolio',
       type: 'Web Development'
     },
     {
