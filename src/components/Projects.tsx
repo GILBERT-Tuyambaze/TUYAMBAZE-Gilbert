@@ -114,6 +114,35 @@ export default function Projects() {
       type: 'Web Development'
     },
     {
+      title: 'Tuyizere Tresor – Portfolio Website',
+      description: 'A professional portfolio platform designed to highlight skills, experience, and technical projects. The website provides a strong digital presence with modern design trends and interactive UI elements. Key Features
+
+💼 Project showcase with live links
+
+🧩 Skills & technology stack section
+
+📞 Contact integration
+
+📱 Mobile-friendly and responsive
+
+🎨 Modern UI design
+
+⚡ High performance optimization 🎯 My Role
+
+Complete frontend development
+
+UI/UX design implementation
+
+Responsive layout engineering
+
+Deployment & maintenance',
+      image: '/assets/akimana.png',
+      technologies: ['react', 'js','Html','Css3', 'Node.js', 'Next.js', 'vite'],
+      liveUrl: 'https://akimana.com/',
+      githubUrl: 'https://github.com/GILBERT-Tuyambaze/akimana-etienne',
+      type: 'Web Development'
+    },
+    {
       title: 'Aimable Bizimungu – Personal Portfolio',
       description: 'A modern personal portfolio website built to showcase professional experience, skills, and completed projects. The site emphasizes simplicity, elegance, and performance.',
       image: '/assets/aimable.png',
