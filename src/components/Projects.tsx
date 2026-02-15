@@ -112,6 +112,24 @@ export default function Projects() {
       liveUrl: 'https://twigane-class.vercel.app',
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/',
       type: 'Web Development'
+    },
+    {
+      title: 'Aimable Bizimungu – Personal Portfolio',
+      description: 'A modern personal portfolio website built to showcase professional experience, skills, and completed projects. The site emphasizes simplicity, elegance, and performance.',
+      image: '/assets/aimable.png',
+      technologies: ['react', 'js','Html','Css3', 'Node.js', 'Next.js', 'vite'],
+      liveUrl: 'https://aimable-bizimungu.vercel.app/',
+      githubUrl: 'https://github.com/GILBERT-Tuyambaze/aimable-bizimungu',
+      type: 'Web Development'
+    },
+    {
+      title: 'AKIMANA Etienne - Portfolio/Website',
+      description: 'AkiMana is a modern, responsive business website designed to present services, brand identity, and company information in a professional and engaging way. The platform focuses on strong visual presentation, smooth navigation, and performance optimization.',
+      image: '/assets/akimana.png',
+      technologies: ['react', 'js','Html','Css3', 'Node.js', 'Next.js', 'vite'],
+      liveUrl: 'https://akimana.com/',
+      githubUrl: 'https://github.com/GILBERT-Tuyambaze/akimana-etienne',
+      type: 'Web Development'
     }
   ];
 
