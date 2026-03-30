@@ -60,10 +60,10 @@ export default function Projects() {
       type: 'Web Development'
     },
     {
-      title: 'Nyagatare ss',
+      title: 'Nyagatare Secondary School Website',
       description: 'A modern school website built with React, TypeScript, Vite, Tailwind CSS, and shadcn-ui. It includes pages for events, enrollment, donations, board members, and a public AI assistant, with Firebase used for auth and data integration.',
       image: '/assets/nss.png',
-      technologies: ['React', 'Next.js','TypeScript', 'Supabase', 'Stripe', 'Tailwind CSS','Html','css3'],
+      technologies: ['React','Vite','TypeScript', 'Supabase', 'Stripe', 'Tailwind CSS','Html','css3', 'React','shadcn-ui','Firebase','React Router','Zod','Recharts'],
       liveUrl: 'https://nyagatare-secondary-school.vercel.app/',
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/',
       type: 'Web Development'
