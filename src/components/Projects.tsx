@@ -61,7 +61,7 @@ export default function Projects() {
     },
     {
       title: 'Nyagatare ss',
-      description: 'A full-featured School platform with full Applying process, payment processing, and admin dashboard.',
+      description: 'A modern school website built with React, TypeScript, Vite, Tailwind CSS, and shadcn-ui. It includes pages for events, enrollment, donations, board members, and a public AI assistant, with Firebase used for auth and data integration.',
       image: '/assets/nss.png',
       technologies: ['React', 'Next.js','TypeScript', 'Supabase', 'Stripe', 'Tailwind CSS','Html','css3'],
       liveUrl: 'https://nyagatare-secondary-school.vercel.app/',
