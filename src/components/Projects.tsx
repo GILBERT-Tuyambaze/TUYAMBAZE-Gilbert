@@ -68,24 +68,24 @@ export default function Projects() {
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/',
       type: 'Web Development'
     },
-    {
-      title: 'Movie Streaming Site',
-      description: 'A collaborative, and A full-featured Movie Streaming platform with Best user-friendly UI, User Auth, and admin dashboard.',
-      image: '/assets/orangeflix.png',
-      technologies: ['Next.js', 'TypeScript', 'Tailwind', 'SupaBase', 'react','Html','css3'],
-      liveUrl: 'https://orangeflixx.vercel.app/',
-      githubUrl: 'https://github.com/GILBERT-Tuyambaze/',
+     {
+       title: 'UR Academic Resource Hub',
+       description: 'A full-stack academic resource platform for University of Rwanda students to find searchable past papers, solution notes, study tips, and verified revision materials. It includes Firebase-backed auth, user profiles, paper uploads, admin moderation, role-aware pages, and a modern Vite/React front end paired with a FastAPI + SQLAlchemy backend.',
+       image: '/assets/ur-academic-resource-hub.png',
+       technologies: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'React Router', 'React Query', 'FastAPI', 'SQLAlchemy', 'Firebase'],
+       liveUrl: 'https://paperhubur.vercel.app',
+       githubUrl: 'https://github.com/GILBERT-Tuyambaze/UR-PAST-PAPER-HUB',
       type: 'Web Development'
     },
-    {
-      title: 'Music Streaming Interface',
-      description: 'A modern music streaming interface design with intuitive navigation and beautiful visualizations.',
-      image: '/assets/archive.png',
-      technologies: ['Chtgpt','suno ai', 'leornord.ai','runway.ai' ,'After Effects'],
-      liveUrl: 'https://www.youtube.com/@ashola-1',
-      githubUrl: '#',
-      type: 'UI/UX Design'
-    },
+     {
+       title: 'Private Couple Chat',
+       description: 'A full-stack private couple chat app with web, desktop, and mobile clients. It features real-time messaging via Socket.IO, secure auth with JWT, file uploads, Express/MongoDB backend, and a responsive React/Vite frontend.',
+       image: '/assets/privatecouplechat.png',
+       technologies: ['React', 'Vite', 'Node.js', 'Express', 'Socket.IO', 'MongoDB', 'JWT', 'Electron', 'Expo', 'CSS'],
+       liveUrl: 'https://ournests.vercel.app/',
+       githubUrl: 'https://github.com/GILBERT-Tuyambaze/chatApp',
+       type: 'Web Development'
+     },
     {
       title: 'Tour booking & Exploring',
       description: 'A responsive Tour booking & Exploring website with full tour showcase, full function booking, smooth animations and modern design.',
@@ -123,6 +123,15 @@ export default function Projects() {
       type: 'Web Development'
     },
     {
+      title: 'Movie Streaming Site',
+      description: 'A collaborative, and A full-featured Movie Streaming platform with Best user-friendly UI, User Auth, and admin dashboard.',
+      image: '/assets/orangeflix.png',
+      technologies: ['Next.js', 'TypeScript', 'Tailwind', 'SupaBase', 'react','Html','css3'],
+      liveUrl: 'https://orangeflixx.vercel.app/',
+      githubUrl: 'https://github.com/GILBERT-Tuyambaze/',
+      type: 'Web Development'
+    },
+    {
       title: 'Aimable Bizimungu – Personal Portfolio',
       description: 'A modern personal portfolio website built to showcase professional experience, skills, and completed projects. The site emphasizes simplicity, elegance, and performance.',
       image: '/assets/aimable.png',
@@ -139,6 +148,15 @@ export default function Projects() {
       liveUrl: 'https://akimana.com/',
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/akimana-etienne',
       type: 'Web Development'
+    },
+   {
+      title: 'Music Streaming Interface',
+      description: 'A modern music streaming interface design with intuitive navigation and beautiful visualizations.',
+      image: '/assets/archive.png',
+      technologies: ['Chtgpt','suno ai', 'leornord.ai','runway.ai' ,'After Effects'],
+      liveUrl: 'https://www.youtube.com/@ashola-1',
+      githubUrl: '#',
+      type: 'UI/UX Design'
     }
   ];
 
