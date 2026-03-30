@@ -48,7 +48,7 @@ export default function Footer() {
 
   const socialLinks = [
     { icon: Github, href: 'https://github.com/GILBERT-Tuyambaze/', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://www.linkedin.com/in/gilbert-tuyambaze-6927ba336/', label: 'LinkedIn' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/gilbert-tuyambaze-02044a3bb', label: 'LinkedIn' },
     { icon: Mail, href: 'mailto:tuyambazegilbert05@gmail.com', label: 'Email' }
   ];
 
