@@ -139,7 +139,7 @@ export default function Hero() {
               <a href="https://github.com/GILBERT-Tuyambaze/" className="hero-social p-3 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110" target="_blank" rel="noopener noreferrer">
                 <Github className="w-6 h-6" />
               </a>
-              <a href="https://linkedin.com/in/gilbert-tuyambaze-6927ba336/" className="hero-social p-3 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/in/gilbert-tuyambaze-02044a3bb/" className="hero-social p-3 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110" target="_blank" rel="noopener noreferrer">
                 <Linkedin className="w-6 h-6" />
               </a>
               <a href="mailto:tuyambazegilbert05@gmail.com" className="hero-social p-3 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110" target="_blank" rel="noopener noreferrer">
