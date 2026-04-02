@@ -100,7 +100,7 @@ export default function Hero() {
               </h1>
 
               <div className="hero-subtitle text-2xl md:text-3xl lg:text-4xl font-semibold text-muted-foreground">
-                <span>and I'm </span>
+                <span>Kigali, Rwanda based </span>
                 <span className="hero-typing">
                   <TypingAnimation strings={typingStrings} />
                 </span>
@@ -108,10 +108,10 @@ export default function Hero() {
             </div>
 
             <p className="hero-description text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-              Passionate about creating exceptional digital experiences through innovative web development,
-              strong design, and creative content creation. Let's build something meaningful together. Additionally, I am
-              currently training as a Software Engineering Fellow at A2SV (Africa to Silicon Valley), building scalable,
-              real-world web applications.
+              Gilbert Tuyambaze is a Kigali, Rwanda web developer and web designer focused on building modern websites,
+              full-stack web applications, and clear digital experiences for startups, brands, and growing businesses.
+              I am currently training as a Software Engineering Fellow at A2SV (Africa to Silicon Valley), where I build
+              scalable, real-world web applications with strong UI and frontend quality.
             </p>
 
             <div className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">

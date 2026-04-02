@@ -29,6 +29,7 @@ type HistoryEntry = {
   project?: ProjectEntry;
   images?: ProfileImageEntry[];
   suggestions?: string[];
+  revealDelayMs?: number;
 };
 
 type ComposeStep = 'name' | 'email' | 'subject' | 'message' | 'confirm';
@@ -78,6 +79,30 @@ const PROFILE_IMAGES: ProfileImageEntry[] = [
     description: 'Personal brand card with contact and identity details.',
   },
 ];
+const singularize = (value: string) => value.replace(/(?:'s|s)$/i, '');
+const COMMAND_MATCHES = [
+  'help',
+  'clear',
+  'minimize',
+  'exit',
+  'sections',
+  'about',
+  'hero',
+  'gilbert',
+  'images',
+  'image',
+  'education',
+  'certifications',
+  'services',
+  'projects',
+  'project',
+  'gallery',
+  'contact',
+  'socials',
+  'resume',
+  'cv',
+  'message',
+];
 const listProfileImages = () => PROFILE_IMAGES.map((image, index) => `${index + 1}. ${image.title}`).join('\n');
 const findProfileImage = (query: string) => {
   const normalized = normalize(query);
@@ -91,6 +116,39 @@ const findProfileImage = (query: string) => {
     PROFILE_IMAGES.find((image) => squash(image.title).includes(squash(normalized))) ??
     null
   );
+};
+const scoreCommand = (query: string, command: string) => {
+  const queryText = normalize(query);
+  const querySquashed = squash(query);
+  const candidate = normalize(command);
+  const target = squash(candidate);
+  const querySingular = singularize(queryText);
+  const querySingularSquashed = squash(querySingular);
+  const candidateSingular = singularize(candidate);
+  const targetSingular = squash(candidateSingular);
+
+  if (!queryText) return 0;
+  if (queryText === candidate || querySquashed === target) return 1;
+  if (querySingular === candidate || querySingular === candidateSingular || querySingularSquashed === target || querySingularSquashed === targetSingular) return 0.97;
+  if (candidate.includes(queryText) || target.includes(querySquashed)) return 0.92;
+  if (candidate.includes(querySingular) || candidateSingular.includes(querySingular) || target.includes(querySingularSquashed) || targetSingular.includes(querySingularSquashed)) return 0.9;
+  if (chars(query) && chars(query) === chars(command)) return 0.88;
+  if (chars(querySingular) && chars(querySingular) === chars(command)) return 0.86;
+  if (subsequence(querySquashed, target)) return 0.74;
+  if (subsequence(querySingularSquashed, target) || subsequence(querySingularSquashed, targetSingular)) return 0.72;
+
+  const overlap = tokens(queryText).filter((token) => tokens(candidate).some((part) => part.includes(token))).length;
+  const tokenScore = overlap / Math.max(tokens(queryText).length, 1);
+  const editScore = 1 - levenshtein(querySquashed, target) / Math.max(querySquashed.length, target.length, 1);
+  const singularEditScore = 1 - levenshtein(querySingularSquashed, targetSingular) / Math.max(querySingularSquashed.length, targetSingular.length, 1);
+  return Math.max(tokenScore * 0.72, editScore * 0.68, singularEditScore * 0.72);
+};
+const findCommandMatch = (query: string) => {
+  const ranked = COMMAND_MATCHES
+    .map((command) => ({ command, score: scoreCommand(query, command) }))
+    .sort((a, b) => b.score - a.score);
+
+  return ranked[0] ?? null;
 };
 
 const DESIGNS: DesignEntry[] = [
@@ -344,6 +402,7 @@ function TypewriterText({
 }) {
   const [output, setOutput] = useState('');
   const timeoutRef = useRef<number | null>(null);
+  const stepDelay = typeof window !== 'undefined' && window.matchMedia('(max-width: 640px)').matches ? 24 : 14;
   useEffect(() => {
     if (!animate) {
       setOutput(text);
@@ -359,7 +418,7 @@ function TypewriterText({
         onProgress?.();
         if (index < text.length - 1) {
           index += 1;
-          timeoutRef.current = window.setTimeout(tick, 14);
+          timeoutRef.current = window.setTimeout(tick, stepDelay);
         }
       };
       tick();
@@ -368,7 +427,7 @@ function TypewriterText({
     return () => {
       if (timeoutRef.current !== null) window.clearTimeout(timeoutRef.current);
     };
-  }, [text, delay, animate, onProgress]);
+  }, [text, delay, animate, onProgress, stepDelay]);
   return <span>{linkifyText(output)}</span>;
 }
 
@@ -615,6 +674,7 @@ export default function CyberConsole() {
   };
 
   const showHero = () => {
+    setLookupMode(null);
     scrollToSection(SECTION_MAP.home);
     addHistory({
       type: 'output',
@@ -624,16 +684,35 @@ export default function CyberConsole() {
   };
 
   const showGilbertProfile = () => {
+    setLookupMode(null);
     scrollToSection(SECTION_MAP.about);
     addHistory({
       type: 'output',
       text:
-        "About Gilbert\nTuyambaze Gilbert is a Kigali-based frontend and full-stack developer, UI/UX designer, and creative technologist.\nHe builds modern interfaces, scalable web applications, and smooth user experiences with React, TypeScript, Next.js, Node.js, and Tailwind CSS.\nType images to view Gilbert's personal images and branding visuals.",
+        `Gilbert Hub
+Tuyambaze Gilbert is a Kigali-based frontend and full-stack developer, UI/UX designer, and creative technologist.
+He builds modern interfaces, scalable web applications, and smooth user experiences with React, TypeScript, Next.js, Node.js, and Tailwind CSS.
+
+What you can open next:
+- hero: achievements, strengths, and recent work
+- about: short professional summary
+- education: education and certifications
+- contact: email, phone, and guided terminal message
+- projects: project list
+
+Project shortcuts:
+${listProjects()}
+
+Next step:
+Type hero, about, education, contact, projects, or images.
+You can also type project followed by a project number or project name for more details.`,
       images: PROFILE_IMAGES,
+      revealDelayMs: 420,
     });
   };
 
   const showEducation = () => {
+    setLookupMode(null);
     scrollToSection(SECTION_MAP.about);
     addHistory({
       type: 'output',
@@ -649,6 +728,7 @@ export default function CyberConsole() {
       type: 'output',
       text: `Gilbert's Images\n${listProfileImages()}\n\nEnter an image number or image name to expand it.`,
       images: PROFILE_IMAGES,
+      revealDelayMs: 320,
     });
   };
 
@@ -669,10 +749,12 @@ export default function CyberConsole() {
       type: 'output',
       text: `${image.title}\n${image.description}`,
       images: [image],
+      revealDelayMs: 380,
     });
   };
 
   const openProject = (query: string, target: 'live' | 'github') => {
+    setLookupMode('projects');
     const { project, suggestions } = findProject(query);
     if (!project) {
       addHistory({
@@ -821,6 +903,7 @@ export default function CyberConsole() {
       return;
     }
     if (normalized === 'about') {
+      setLookupMode(null);
       scrollToSection(SECTION_MAP.about);
       addHistory({ type: 'output', text: "Gilbert Tuyambaze\nFrontend and full-stack developer, UI/UX designer, and creative technologist.\nCurrently training as a Software Engineering Fellow at A2SV.\nCore stack: React, TypeScript, Next.js, Node.js, Tailwind CSS." });
       setCommand('');
@@ -858,6 +941,7 @@ export default function CyberConsole() {
       return;
     }
     if (normalized === 'services') {
+      setLookupMode(null);
       scrollToSection(SECTION_MAP.services);
       addHistory({ type: 'output', text: `Services:\n${SERVICES.map((service) => `- ${service}`).join('\n')}` });
       setCommand('');
@@ -876,29 +960,34 @@ export default function CyberConsole() {
       return;
     }
     if (normalized === 'gallery') {
+      setLookupMode(null);
       scrollToSection(SECTION_MAP.gallery);
       addHistory({ type: 'output', text: 'Opening gallery section...\nExplore portraits, branding assets, UI ideas, and project visuals.\nFeatured personal images:\n- Hero Portrait - Gilbert\n- Casual Portrait - Tuyambaze Gilbert\n- Business Card - Tuyambaze Gilbert' });
       setCommand('');
       return;
     }
     if (normalized === 'contact') {
+      setLookupMode(null);
       scrollToSection(SECTION_MAP.contact);
       addHistory({ type: 'output', text: 'Contact channels:\n- Email: mailto:tuyambazegilbert05@gmail.com\n- Phone: +250 (79) 343-8873\n- Location: Kigali, Rwanda\n- Type `message` to send a guided terminal message.' });
       setCommand('');
       return;
     }
     if (normalized === 'socials') {
+      setLookupMode(null);
       addHistory({ type: 'output', text: 'Social links:\n- GitHub: https://github.com/GILBERT-Tuyambaze/\n- LinkedIn: https://www.linkedin.com/in/gilbert-tuyambaze-02044a3bb/\n- Email: mailto:tuyambazegilbert05@gmail.com' });
       setCommand('');
       return;
     }
     if (normalized === 'resume' || normalized === 'cv') {
+      setLookupMode(null);
       openExternal('/assets/Gilbert-TUYAMBAZE-CV1.pdf');
       addHistory({ type: 'output', text: 'Opening resume asset in a new tab...' });
       setCommand('');
       return;
     }
     if (normalized === 'message' || normalized === 'send message' || normalized === 'contact form') {
+      setLookupMode(null);
       startComposeFlow();
       setCommand('');
       return;
@@ -914,6 +1003,7 @@ export default function CyberConsole() {
       return;
     }
     if (normalized === 'minimize' || normalized === 'hide') {
+      setLookupMode(null);
       setIsMinimized(true);
       addHistory({ type: 'output', text: 'Terminal minimized. Use the re-open button to continue.' });
       setCommand('');
@@ -929,12 +1019,42 @@ export default function CyberConsole() {
       setCommand('');
       return;
     }
-    if (/^\d+$/.test(normalized) || normalized.split(' ').length <= 5 || normalized.includes('-')) {
+    if (/^\d+$/.test(normalized) && lookupMode === 'projects') {
       showProject(cleaned);
       setCommand('');
       return;
     }
-    addHistory({ type: 'output', text: `Command not found: ${cleaned}\nType help to inspect available commands.` });
+    const matchedCommand = findCommandMatch(cleaned);
+    const matchedProject = findProject(cleaned);
+    if (matchedCommand && matchedCommand.score >= 0.3 && matchedCommand.score >= (matchedProject.score ?? 0) + 0.08) {
+      addHistory({ type: 'output', text: `Closest supported command: ${matchedCommand.command}\nRunning it for you...` });
+      setCommand('');
+      await runCommand(matchedCommand.command);
+      return;
+    }
+    if (lookupMode === 'projects' && (normalized.split(' ').length <= 5 || normalized.includes('-'))) {
+      showProject(cleaned);
+      setCommand('');
+      return;
+    }
+    if (matchedCommand && matchedCommand.score >= 0.3) {
+      addHistory({ type: 'output', text: `Closest supported command: ${matchedCommand.command}\nRunning it for you...` });
+      setCommand('');
+      await runCommand(matchedCommand.command);
+      return;
+    }
+    if (lookupMode === 'projects') {
+      addHistory({ type: 'output', text: `Project not recognized in project mode: ${cleaned}\nType a project number or project name, or type help to see supported commands.` });
+      setCommand('');
+      return;
+    }
+    if (lookupMode === 'images') {
+      addHistory({ type: 'output', text: `Image not recognized in image mode: ${cleaned}\nType an image number or image name, or type help to see supported commands.` });
+      setCommand('');
+      return;
+    }
+
+    addHistory({ type: 'output', text: `Command not recognized: ${cleaned}\nType help to see supported commands.` });
     setCommand('');
   };
 
@@ -994,7 +1114,7 @@ export default function CyberConsole() {
                       ) : null}
                       {entry.images && entry.images.length > 0 ? (
                         entry.images.length === 1 ? (
-                          <button type="button" onClick={() => void runCommand(`image ${PROFILE_IMAGES.findIndex((item) => item.title === entry.images![0].title) + 1}`)} className="mt-3 w-full overflow-hidden rounded-2xl border border-[#00ff9f]/20 bg-black/30 text-left transition hover:bg-[#00ff9f]/5">
+                          <button type="button" onClick={() => void runCommand(`image ${PROFILE_IMAGES.findIndex((item) => item.title === entry.images![0].title) + 1}`)} className="cyber-console__image-card mt-3 w-full overflow-hidden rounded-2xl border border-[#00ff9f]/20 bg-black/30 text-left transition hover:bg-[#00ff9f]/5" style={{ animationDelay: `${entry.revealDelayMs ?? 0}ms` }}>
                             <div className="flex justify-center bg-black/50 p-3 sm:p-4">
                               <img src={entry.images[0].image} alt={entry.images[0].title} className="max-h-[70vh] w-full rounded-xl object-contain opacity-95" />
                             </div>
@@ -1006,7 +1126,7 @@ export default function CyberConsole() {
                         ) : (
                           <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                             {entry.images.map((image, imageIndex) => (
-                              <button key={image.title} type="button" onClick={() => void runCommand(`image ${PROFILE_IMAGES.findIndex((item) => item.title === image.title) + 1 || imageIndex + 1}`)} className="overflow-hidden rounded-2xl border border-[#00ff9f]/20 bg-black/30 text-left transition hover:bg-[#00ff9f]/5">
+                              <button key={image.title} type="button" onClick={() => void runCommand(`image ${PROFILE_IMAGES.findIndex((item) => item.title === image.title) + 1 || imageIndex + 1}`)} className="cyber-console__image-card overflow-hidden rounded-2xl border border-[#00ff9f]/20 bg-black/30 text-left transition hover:bg-[#00ff9f]/5" style={{ animationDelay: `${(entry.revealDelayMs ?? 0) + imageIndex * 140}ms` }}>
                                 <img src={image.image} alt={image.title} className="h-40 w-full object-cover opacity-95" />
                                 <div className="space-y-2 p-3">
                                   <h3 className="text-sm font-semibold text-[#e6ffe6]">{image.title}</h3>
@@ -1017,7 +1137,12 @@ export default function CyberConsole() {
                           </div>
                         )
                       ) : null}
-                      {!entry.project && !entry.images ? <p><span className="text-[#00ff9f]/70">{prefix}</span><TypewriterText text={entry.text} delay={index * 80} animate={!settledEntryIdsRef.current.has(entry.id)} onProgress={scrollHistoryToBottom} /></p> : null}
+                      {!entry.project ? (
+                        <p className={entry.images ? 'mt-3' : ''}>
+                          <span className="text-[#00ff9f]/70">{prefix}</span>
+                          <TypewriterText text={entry.text} delay={index * 80} animate={!settledEntryIdsRef.current.has(entry.id)} onProgress={scrollHistoryToBottom} />
+                        </p>
+                      ) : null}
                       {entry.suggestions && entry.suggestions.length > 0 ? (
                         <div className="mt-2 flex flex-wrap gap-2">
                           {entry.suggestions.map((suggestion) => <button key={suggestion} type="button" onClick={() => void runCommand(`project ${suggestion}`)} className="rounded-full border border-[#00ff9f]/18 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-[#8fffd1] transition hover:bg-[#00ff9f]/10">{suggestion}</button>)}

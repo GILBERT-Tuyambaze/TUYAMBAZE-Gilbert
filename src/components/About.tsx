@@ -122,11 +122,11 @@ export default function About() {
             About <span className="text-primary">Me</span>
           </h2>
           <p className="about-description text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            I'm a frontend and full-stack developer with a strong interest in modern web development,
-            UI/UX design, and music production. I am currently a Software Engineering Fellow at A2SV
+            I'm a Kigali, Rwanda-based frontend and full-stack developer with a strong interest in modern web development,
+            web design, UI/UX design, and music production. I am currently a Software Engineering Fellow at A2SV
             (Africa to Silicon Valley), where I train in data structures, algorithms, system design,
             and real-world problem solving. I enjoy turning ideas into scalable, high-performance
-            digital products through clean code and thoughtful design.
+            digital products through clean code, thoughtful design, and responsive website experiences.
           </p>
         </div>
 

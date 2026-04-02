@@ -225,6 +225,12 @@ body.custom-cursor-enabled * {
     animation: cyber-ready-blink 1.1s steps(2, end) infinite;
 }
 
+.cyber-console__image-card {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+    animation: cyber-image-reveal 0.7s ease forwards;
+}
+
 .cyber-console__beam {
     position: absolute;
     left: 0;
@@ -461,6 +467,17 @@ body.custom-cursor-enabled * {
     100% {
         transform: translate(1px, -1px);
         text-shadow: 1px 0 rgba(255, 80, 80, 0.45), -1px 0 rgba(80, 180, 255, 0.45);
+    }
+}
+
+@keyframes cyber-image-reveal {
+    0% {
+        opacity: 0;
+        transform: translateY(18px) scale(0.985);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
 }
 

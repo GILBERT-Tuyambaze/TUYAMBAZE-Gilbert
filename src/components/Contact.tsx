@@ -80,7 +80,8 @@ export default function Contact() {
             Get In <span className="text-primary">Touch</span>
           </h2>
           <p className="contact-description text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Ready to start your next project? I'd love to hear from you. Send me a message and I'll respond as soon as possible.
+            Looking for a web developer or web designer in Kigali, Rwanda? I'd love to hear about your website,
+            product, or redesign project. Send me a message and I'll respond as soon as possible.
           </p>
         </div>
 
@@ -90,7 +91,8 @@ export default function Contact() {
             <div>
               <h3 className="contact-title text-2xl font-bold mb-8">Let's Connect</h3>
               <p className="text-muted-foreground mb-8 leading-relaxed">
-                I'm always interested in new opportunities and exciting projects. Whether you have a question or just want to say hi, feel free to reach out!
+                I'm always open to new opportunities in frontend development, full-stack web apps, website design,
+                UI/UX work, and freelance collaborations in Kigali and beyond.
               </p>
             </div>
 
