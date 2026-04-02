@@ -3,6 +3,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import { CyberModeProvider } from '@/components/CyberModeProvider';
 import Index from './pages/Index';
 import NotFound from './pages/NotFound';
 
@@ -10,19 +11,19 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-   <body className="overflow-x-hidden">
     <ThemeProvider defaultTheme="dark" storageKey="gilbert-portfolio-theme">
-      <TooltipProvider>
-        <Toaster />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+      <CyberModeProvider>
+        <TooltipProvider>
+          <Toaster />
+          <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </CyberModeProvider>
     </ThemeProvider>
-   </body> 
   </QueryClientProvider>
 );
 

@@ -109,21 +109,19 @@ export default function Hero() {
 
             <p className="hero-description text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 leading-relaxed">
               Passionate about creating exceptional digital experiences through innovative web development,
-              stunning design, and creative content creation. Let's build something amazing together. Additionaly, I'm
-              currently training as a Software Engineering Fellow at A2SV (Africa to Silicon Valley), building scalable, 
+              strong design, and creative content creation. Let's build something meaningful together. Additionally, I am
+              currently training as a Software Engineering Fellow at A2SV (Africa to Silicon Valley), building scalable,
               real-world web applications.
             </p>
 
             <div className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button size="lg" className="group relative overflow-hidden">
-                <a href="/assets/Gilbert-TUYAMBAZE-RESUME.pdf" download="">
-                  <a href="/assets/Gilbert-TUYAMBAZE-CV.pdf" download="">
+              <Button asChild size="lg" className="group relative overflow-hidden">
+                <a href="/assets/Gilbert-TUYAMBAZE-CV1.pdf" download>
                   <span className="relative z-10 flex items-center gap-2">
                     <Download className="w-5 h-5" />
                     Download CV
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-purple-500/80 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
-                </a>
                 </a>
               </Button>
 

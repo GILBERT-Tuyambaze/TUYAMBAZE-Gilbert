@@ -2,162 +2,171 @@ import { useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ExternalLink, Github, Play } from 'lucide-react';
+import { ExternalLink, Github } from 'lucide-react';
 import { revealElements } from '@/hooks/useScrollReveal';
 
 export default function Projects() {
- 
-
   useEffect(() => {
-    // Projects section animations
-    revealElements('.projects-title', { 
-      origin: 'top', 
-      distance: '60px', 
-      duration: 1000,
-      delay: 200 
-    });
-    
-    revealElements('.projects-description', { 
-      origin: 'bottom', 
-      distance: '40px', 
-      duration: 800,
-      delay: 400 
-    });
-    
-    revealElements('.project-card', { 
-      origin: 'bottom', 
-      distance: '80px', 
+    revealElements('.projects-title', {
+      origin: 'top',
+      distance: '60px',
       duration: 1000,
       delay: 200,
-      interval: 200 
     });
-    
-    revealElements('.project-image', { 
-      origin: 'top', 
-      distance: '40px', 
+
+    revealElements('.projects-description', {
+      origin: 'bottom',
+      distance: '40px',
       duration: 800,
       delay: 400,
-      scale: 0.9 
     });
-    
-    revealElements('.project-tech', { 
-      origin: 'bottom',  
-      distance: '30px', 
+
+    revealElements('.project-card', {
+      origin: 'bottom',
+      distance: '80px',
+      duration: 1000,
+      delay: 200,
+      interval: 200,
+    });
+
+    revealElements('.project-image', {
+      origin: 'top',
+      distance: '40px',
+      duration: 800,
+      delay: 400,
+      scale: 0.9,
+    });
+
+    revealElements('.project-tech', {
+      origin: 'bottom',
+      distance: '30px',
       duration: 600,
       delay: 600,
-      interval: 50 
+      interval: 50,
     });
   }, []);
 
   const projects = [
-     {
+    {
       title: 'MarketPlace Pro',
-      description: 'A full-stack marketplace web app with support for multiple user roles including buyer, seller, editor, content manager, and admin. It features robust role-based access control, a claims support system, an advanced chat system for real-time communication, announcement & notification functionality, integrated payment gateway support, a modern UI, and complete real-world e-commerce workflows.',
+      description:
+        'A full-stack marketplace app with multi-role access, claims support, chat, announcements, payments, and real-world e-commerce workflows.',
       image: '/assets/marketplacepro.png',
-      technologies: ['Next.js', 'TypeScript','Vite','shadcn-ui', 'Tailwind', 'firebase', 'react','Html','css3'],
+      technologies: ['Next.js', 'TypeScript', 'Vite', 'shadcn-ui', 'Tailwind', 'Firebase', 'React', 'HTML', 'CSS3'],
       liveUrl: 'https://marketplacepro.vercel.app/',
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/MarketPlace-Pro',
-      type: 'Web Development'
+      type: 'Web Development',
     },
     {
       title: 'Nyagatare Secondary School Website',
-      description: 'A modern school website built with React, TypeScript, Vite, Tailwind CSS, and shadcn-ui. It includes pages for events, enrollment, donations, board members, and a public AI assistant, with Firebase used for auth and data integration.',
+      description:
+        'A modern school website with events, enrollment, donations, board pages, and a public AI assistant powered by Firebase integrations.',
       image: '/assets/nss.png',
-      technologies: ['React','Vite','TypeScript', 'Supabase', 'Stripe', 'Tailwind CSS','Html','css3', 'React','shadcn-ui','Firebase','React Router','Zod','Recharts'],
+      technologies: ['React', 'Vite', 'TypeScript', 'Supabase', 'Stripe', 'Tailwind CSS', 'shadcn-ui', 'Firebase', 'React Router', 'Zod', 'Recharts'],
       liveUrl: 'https://nyagatare-secondary-school.vercel.app/',
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/',
-      type: 'Web Development'
+      type: 'Web Development',
     },
-     {
-       title: 'UR Academic Resource Hub',
-       description: 'A full-stack academic resource platform for University of Rwanda students to find searchable past papers, solution notes, study tips, and verified revision materials. It includes Firebase-backed auth, user profiles, paper uploads, admin moderation, role-aware pages, and a modern Vite/React front end paired with a FastAPI + SQLAlchemy backend.',
-       image: '/assets/ur-academic-resource-hub.png',
-       technologies: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'React Router', 'React Query', 'FastAPI', 'SQLAlchemy', 'Firebase'],
-       liveUrl: 'https://paperhubur.vercel.app',
-       githubUrl: 'https://github.com/GILBERT-Tuyambaze/UR-PAST-PAPER-HUB',
-      type: 'Web Development'
-    },
-     {
-       title: 'Private Couple Chat',
-       description: 'A full-stack private couple chat app with web, desktop, and mobile clients. It features real-time messaging via Socket.IO, secure auth with JWT, file uploads, Express/MongoDB backend, and a responsive React/Vite frontend.',
-       image: '/assets/privatecouplechat.png',
-       technologies: ['React', 'Vite', 'Node.js', 'Express', 'Socket.IO', 'MongoDB', 'JWT', 'Electron', 'Expo', 'CSS'],
-       liveUrl: 'https://ournests.vercel.app/',
-       githubUrl: 'https://github.com/GILBERT-Tuyambaze/chatApp',
-       type: 'Web Development'
-     },
     {
-      title: 'Tour booking & Exploring',
-      description: 'A responsive Tour booking & Exploring website with full tour showcase, full function booking, smooth animations and modern design.',
+      title: 'UR Academic Resource Hub',
+      description:
+        'An academic resource platform for University of Rwanda students with searchable materials, uploads, moderation, and a FastAPI backend.',
+      image: '/assets/ur-academic-resource-hub.png',
+      technologies: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'React Router', 'React Query', 'FastAPI', 'SQLAlchemy', 'Firebase'],
+      liveUrl: 'https://paperhubur.vercel.app',
+      githubUrl: 'https://github.com/GILBERT-Tuyambaze/UR-PAST-PAPER-HUB',
+      type: 'Web Development',
+    },
+    {
+      title: 'Private Couple Chat',
+      description:
+        'A private chat app with web, desktop, and mobile clients, built with real-time messaging, secure auth, and file sharing support.',
+      image: '/assets/privatecouplechat.png',
+      technologies: ['React', 'Vite', 'Node.js', 'Express', 'Socket.IO', 'MongoDB', 'JWT', 'Electron', 'Expo', 'CSS'],
+      liveUrl: 'https://ournests.vercel.app/',
+      githubUrl: 'https://github.com/GILBERT-Tuyambaze/chatApp',
+      type: 'Web Development',
+    },
+    {
+      title: 'Tour Booking & Exploring',
+      description:
+        'A responsive tour booking website with a full tour showcase, smooth animation, and a working booking flow.',
       image: '/assets/tour.png',
-      technologies: ['React', 'Html','Css3','web3','Typescript','Nexr.js','Tailwind CSS', 'Vite'],
+      technologies: ['React', 'HTML', 'CSS3', 'Web3', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Vite'],
       liveUrl: 'https://winning4tours.com',
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/',
-      type: 'Web Development'
+      type: 'Web Development',
     },
     {
       title: 'Consulting Platform',
-      description: 'A responsive Consluring Platform, Showcasing all service offerd, Containing different fully working forms, and best animations',
+      description:
+        'A responsive consulting website that showcases services, includes working forms, and uses polished animation throughout.',
       image: '/assets/bright.png',
-      technologies: ['react', 'typscript', 'Next.js','js', 'Html','Css3'],
+      technologies: ['React', 'TypeScript', 'Next.js', 'JavaScript', 'HTML', 'CSS3'],
       liveUrl: 'https://bright-bridge.vercel.app',
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/',
-      type: 'Web Development'
+      type: 'Web Development',
     },
     {
-      title: 'Online learning Platform',
-      description: 'A responsive web site for online learning with user auth, user-friendly UI, and other more tech.',
+      title: 'Online Learning Platform',
+      description:
+        'A responsive online learning platform with authentication, a user-friendly UI, and a modern web stack.',
       image: '/assets/twigane-class.png',
-      technologies: ['SupaBase', 'react', 'js','Html','Css3', 'Node.js', 'Next.js', 'vite'],
+      technologies: ['Supabase', 'React', 'JavaScript', 'HTML', 'CSS3', 'Node.js', 'Next.js', 'Vite'],
       liveUrl: 'https://twigane-class.vercel.app',
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/',
-      type: 'Web Development'
+      type: 'Web Development',
     },
     {
-      title: 'Tuyizere Tresor – Portfolio Website',
-      description: 'A professional portfolio platform designed to highlight skills, experience, and technical projects. The website provides a strong digital presence with modern design trends and interactive UI elements.',
+      title: 'Tuyizere Tresor - Portfolio Website',
+      description:
+        'A professional portfolio platform designed to highlight skills, experience, and technical projects with a modern visual style.',
       image: '/assets/tresor.png',
-      technologies: ['react', 'js','Html','Css3', 'Node.js', 'Next.js', 'vite'],
+      technologies: ['React', 'JavaScript', 'HTML', 'CSS3', 'Node.js', 'Next.js', 'Vite'],
       liveUrl: 'https://tuyizere-tresor.vercel.app/',
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/Tresor-portfolio',
-      type: 'Web Development'
+      type: 'Web Development',
     },
     {
       title: 'Movie Streaming Site',
-      description: 'A collaborative, and A full-featured Movie Streaming platform with Best user-friendly UI, User Auth, and admin dashboard.',
+      description:
+        'A full-featured movie platform with authentication, an admin dashboard, and a strong user-friendly interface.',
       image: '/assets/orangeflix.png',
-      technologies: ['Next.js', 'TypeScript', 'Tailwind', 'SupaBase', 'react','Html','css3'],
+      technologies: ['Next.js', 'TypeScript', 'Tailwind', 'Supabase', 'React', 'HTML', 'CSS3'],
       liveUrl: 'https://orangeflixx.vercel.app/',
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/',
-      type: 'Web Development'
+      type: 'Web Development',
     },
     {
-      title: 'Aimable Bizimungu – Personal Portfolio',
-      description: 'A modern personal portfolio website built to showcase professional experience, skills, and completed projects. The site emphasizes simplicity, elegance, and performance.',
+      title: 'Aimable Bizimungu - Personal Portfolio',
+      description:
+        'A modern personal portfolio website built to showcase professional experience, skills, and completed projects with clarity and performance.',
       image: '/assets/aimable.png',
-      technologies: ['react', 'js','Html','Css3', 'Node.js', 'Next.js', 'vite'],
+      technologies: ['React', 'JavaScript', 'HTML', 'CSS3', 'Node.js', 'Next.js', 'Vite'],
       liveUrl: 'https://aimable-bizimungu.vercel.app/',
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/aimable-bizimungu',
-      type: 'Web Development'
+      type: 'Web Development',
     },
     {
-      title: 'AKIMANA Etienne - Portfolio/Website',
-      description: 'AkiMana is a modern, responsive business website designed to present services, brand identity, and company information in a professional and engaging way. The platform focuses on strong visual presentation, smooth navigation, and performance optimization.',
+      title: 'AKIMANA Etienne - Portfolio Website',
+      description:
+        'A modern responsive business website that presents services, brand identity, and company information in a polished way.',
       image: '/assets/akimana.png',
-      technologies: ['react', 'js','Html','Css3', 'Node.js', 'Next.js', 'vite'],
+      technologies: ['React', 'JavaScript', 'HTML', 'CSS3', 'Node.js', 'Next.js', 'Vite'],
       liveUrl: 'https://akimana.com/',
       githubUrl: 'https://github.com/GILBERT-Tuyambaze/akimana-etienne',
-      type: 'Web Development'
+      type: 'Web Development',
     },
-   {
+    {
       title: 'Music Streaming Interface',
-      description: 'A modern music streaming interface design with intuitive navigation and beautiful visualizations.',
+      description:
+        'A modern music streaming interface concept with intuitive navigation and visual storytelling.',
       image: '/assets/archive.png',
-      technologies: ['Chtgpt','suno ai', 'leornord.ai','runway.ai' ,'After Effects'],
+      technologies: ['ChatGPT', 'Suno AI', 'Leonardo AI', 'Runway AI', 'After Effects'],
       liveUrl: 'https://www.youtube.com/@ashola-1',
       githubUrl: '#',
-      type: 'UI/UX Design'
-    }
+      type: 'UI/UX Design',
+    },
   ];
 
   const getTypeColor = (type: string) => {
@@ -181,15 +190,15 @@ export default function Projects() {
             Featured <span className="text-primary">Projects</span>
           </h2>
           <p className="projects-description text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            A showcase of my recent work across web development, design, and audio production. 
-            Each project represents a unique challenge and creative solution.
+            A showcase of my recent work across web development, design, and audio production.
+            Each project reflects a different challenge and solution.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <Card 
-              key={index} 
+            <Card
+              key={index}
               className="project-card group overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-background border-2 hover:border-primary/20"
             >
               <div className="project-image relative overflow-hidden">
@@ -207,21 +216,21 @@ export default function Projects() {
                 </div>
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="flex gap-3">
-                   <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex-1">
-                    <Button size="sm" variant="secondary" className="backdrop-blur-sm">
-                      <ExternalLink className="w-4 h-4" />
-                    </Button>
+                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex-1">
+                      <Button size="sm" variant="secondary" className="backdrop-blur-sm">
+                        <ExternalLink className="w-4 h-4" />
+                      </Button>
                     </a>
 
-                   <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                    <Button size="sm" variant="secondary" className="backdrop-blur-sm">
-                      <Github className="w-4 h-4" />
-                    </Button>
+                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                      <Button size="sm" variant="secondary" className="backdrop-blur-sm">
+                        <Github className="w-4 h-4" />
+                      </Button>
                     </a>
                   </div>
                 </div>
               </div>
-              
+
               <CardContent className="p-6 space-y-4">
                 <div>
                   <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
@@ -231,31 +240,31 @@ export default function Projects() {
                     {project.description}
                   </p>
                 </div>
-                
+
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech, techIndex) => (
-                    <Badge 
-                      key={techIndex} 
-                      variant="outline" 
+                    <Badge
+                      key={techIndex}
+                      variant="outline"
                       className="project-tech text-xs hover:bg-primary hover:text-primary-foreground transition-colors"
                     >
                       {tech}
                     </Badge>
                   ))}
                 </div>
-                
+
                 <div className="flex gap-3 pt-2">
                   <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex-1">
-                  <Button size="sm" variant="outline" className="flex-1 group/btn">
-                    <ExternalLink className="w-4 h-4 mr-2 group-hover/btn:scale-110 transition-transform" />
-                    Live Demo
-                  </Button>
+                    <Button size="sm" variant="outline" className="flex-1 group/btn">
+                      <ExternalLink className="w-4 h-4 mr-2 group-hover/btn:scale-110 transition-transform" />
+                      Live Demo
+                    </Button>
                   </a>
 
                   <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                  <Button size="sm" variant="ghost" className="group/btn">
-                    <Github className="w-4 h-4 group-hover/btn:rotate-12 transition-transform" />
-                  </Button>
+                    <Button size="sm" variant="ghost" className="group/btn">
+                      <Github className="w-4 h-4 group-hover/btn:rotate-12 transition-transform" />
+                    </Button>
                   </a>
                 </div>
               </CardContent>
@@ -265,12 +274,12 @@ export default function Projects() {
 
         <div className="text-center mt-16">
           <a href="https://github.com/GILBERT-Tuyambaze?tab=repositories" target="_blank" rel="noopener noreferrer">
-          <Button size="lg" variant="outline" className="group">
-            <span className="flex items-center gap-2">
-              View All Projects
-              <ExternalLink className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-            </span>
-          </Button>
+            <Button size="lg" variant="outline" className="group">
+              <span className="flex items-center gap-2">
+                View All Projects
+                <ExternalLink className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              </span>
+            </Button>
           </a>
         </div>
       </div>

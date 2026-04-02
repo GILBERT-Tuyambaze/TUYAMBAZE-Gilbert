@@ -9,6 +9,10 @@ interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>
 }
 
+type NavigatorWithStandalone = Navigator & {
+  standalone?: boolean
+}
+
 export function usePWA() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
   const [isInstallable, setIsInstallable] = useState(false)
@@ -18,7 +22,7 @@ export function usePWA() {
     // Check if app is already installed
     const checkInstalled = () => {
       if (window.matchMedia('(display-mode: standalone)').matches || 
-          (window.navigator as any).standalone === true) {
+          (window.navigator as NavigatorWithStandalone).standalone === true) {
         setIsInstalled(true)
       }
     }

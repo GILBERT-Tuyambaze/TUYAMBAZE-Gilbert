@@ -4,12 +4,12 @@
   "description": "Portfolio of Gilbert Tuyambaze, a passionate Frontend Developer and Creative Technologist from Rwanda. Showcasing projects in web development, design, and music production.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#2563eb",
+  "background_color": "#050505",
+  "theme_color": "#050505",
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "en",
-  "categories": ["Gilbert Tuyambaze" , "Frontend Developer", "Web Developer", "Creative Technologist", "Rwanda", "React", "JavaScript", "Portfolio"],
+  "categories": ["portfolio", "developer", "web development", "creative technologist"],
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -39,12 +39,6 @@
       "src": "/favicon-32x32.png",
       "sizes": "32x32",
       "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "/site.webmanifest",
-      "sizes": "",
-      "type": "webmanifest",
       "purpose": "maskable any"
     }
   ],
@@ -88,18 +82,18 @@
   ],
   "screenshots": [
     {
-      "src": "/images/screenshot-dark.jpeg",
+      "src": "/images/Screenshot-dark.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
       "label": "Gilbert Tuyambaze - Frontend Developer Portfolio"
     },
     {
-      "src": "/images/mobile.png",
-      "sizes": "540x720",
+      "src": "/images/Screenshot-light.png",
+      "sizes": "1280x720",
       "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Mobile view of Gilbert Tuyambaze - Frontend Developer Portfolio"
+      "form_factor": "wide",
+      "label": "Light mode view of Gilbert Tuyambaze portfolio"
     }
   ]
 }

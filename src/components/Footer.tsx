@@ -6,39 +6,38 @@ import { revealElements } from '@/hooks/useScrollReveal';
 
 export default function Footer() {
   useEffect(() => {
-    // Footer animations
-    revealElements('.footer-content', { 
-      origin: 'bottom', 
-      distance: '60px', 
+    revealElements('.footer-content', {
+      origin: 'bottom',
+      distance: '60px',
       duration: 1000,
       reset: true,
-      delay: 200 
+      delay: 200,
     });
-    
-    revealElements('.footer-social', { 
-      origin: 'bottom', 
-      distance: '40px', 
+
+    revealElements('.footer-social', {
+      origin: 'bottom',
+      distance: '40px',
       duration: 800,
       delay: 400,
       reset: true,
-      interval: 100 
+      interval: 100,
     });
-    
-    revealElements('.footer-links', { 
-      origin: 'bottom', 
-      distance: '40px', 
+
+    revealElements('.footer-links', {
+      origin: 'bottom',
+      distance: '40px',
       duration: 800,
       delay: 600,
       reset: true,
-      interval: 50 
+      interval: 50,
     });
-    
-    revealElements('.footer-bottom', { 
-      origin: 'bottom', 
-      distance: '30px', 
+
+    revealElements('.footer-bottom', {
+      origin: 'bottom',
+      distance: '30px',
       duration: 600,
       reset: true,
-      delay: 800 
+      delay: 800,
     });
   }, []);
 
@@ -49,7 +48,7 @@ export default function Footer() {
   const socialLinks = [
     { icon: Github, href: 'https://github.com/GILBERT-Tuyambaze/', label: 'GitHub' },
     { icon: Linkedin, href: 'https://www.linkedin.com/in/gilbert-tuyambaze-02044a3bb', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:tuyambazegilbert05@gmail.com', label: 'Email' }
+    { icon: Mail, href: 'mailto:tuyambazegilbert05@gmail.com', label: 'Email' },
   ];
 
   const quickLinks = [
@@ -57,21 +56,20 @@ export default function Footer() {
     { name: 'About', href: '#about' },
     { name: 'Services', href: '#services' },
     { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Contact', href: '#contact' },
   ];
 
   return (
     <footer className="bg-muted/50 border-t">
       <div className="container mx-auto max-w-7xl px-4 py-12">
         <div className="footer-content grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-          {/* Brand Section */}
           <div className="lg:col-span-2 space-y-4">
             <h3 className="text-2xl font-bold">
               Gilbert <span className="text-primary">Tuyambaze</span>
             </h3>
             <p className="text-muted-foreground leading-relaxed max-w-md">
-              Passionate developer and creative professional dedicated to crafting exceptional 
-              digital experiences through innovative web development, stunning design, and creative content.
+              Passionate developer and creative professional dedicated to crafting exceptional
+              digital experiences through innovative web development, strong design, and creative content.
             </p>
             <div className="flex gap-4">
               {socialLinks.map((social, index) => (
@@ -80,7 +78,7 @@ export default function Footer() {
                   href={social.href}
                   className="footer-social p-3 rounded-full bg-background hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110 group"
                   aria-label={social.label}
-                  target="_blank" 
+                  target="_blank"
                   rel="noopener noreferrer"
                 >
                   <social.icon className="w-5 h-5 group-hover:rotate-12 transition-transform" />
@@ -89,7 +87,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Quick Links</h4>
             <nav className="flex flex-col space-y-2">
@@ -105,18 +102,17 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* Contact Info */}
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Get In Touch</h4>
             <div className="space-y-3 text-muted-foreground">
               <p className="footer-links hover:text-primary transition-colors cursor-pointer">
-                tuyambazegilbert@gmail.com
+                tuyambazegilbert05@gmail.com
               </p>
               <p className="footer-links hover:text-primary transition-colors cursor-pointer">
                 +250 (79) 343-8873
               </p>
               <p className="footer-links hover:text-primary transition-colors cursor-pointer">
-                Kigali, RWANDA
+                Kigali, Rwanda
               </p>
             </div>
           </div>
@@ -128,7 +124,7 @@ export default function Footer() {
           <p className="text-muted-foreground text-sm flex items-center gap-2">
             © 2025 Gilbert Tuyambaze. Made with <Heart className="w-4 h-4 text-red-500 animate-pulse" /> and lots of coffee.
           </p>
-          
+
           <Button
             variant="ghost"
             size="sm"

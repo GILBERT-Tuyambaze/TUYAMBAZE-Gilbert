@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Home, Images, User, Briefcase, FolderOpen, Mail } from 'lucide-react';
+import { Menu, X, Home, Images, User, Briefcase, FolderOpen, Mail, Cpu, MousePointer } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useTheme } from './ThemeProvider';
+import { useCyberMode } from '@/hooks/useCyberMode';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { theme } = useTheme();
+  const { isCyberMode, toggleCyberMode, cursorEnabled, toggleCursorEnabled } = useCyberMode();
 
   const navItems = [
     { name: 'Home', href: '#home', icon: Home },
@@ -83,11 +85,29 @@ export default function Navigation() {
           </div>
 
           {/* CTA + Theme Toggle */}
-          <div className="nav-cta md:flex items-center gap-10">
+          <div className="nav-cta md:flex items-center gap-4">
+            <Button
+              variant={isCyberMode ? 'secondary' : 'outline'}
+              size="sm"
+              onClick={toggleCyberMode}
+              className="hidden md:inline-flex items-center gap-2 rounded-full border border-[#00ff9f]/20 bg-black/10 text-[#00ff9f] hover:bg-[#00ff9f]/10"
+            >
+              <Cpu className="w-4 h-4" />
+              {isCyberMode ? 'Cyber On' : 'Cyber Mode'}
+            </Button>
+            <Button
+              variant={cursorEnabled ? 'secondary' : 'outline'}
+              size="sm"
+              onClick={toggleCursorEnabled}
+              className="hidden md:inline-flex items-center gap-2 rounded-full border border-[#00ff9f]/20 bg-black/10 text-[#00ff9f] hover:bg-[#00ff9f]/10"
+            >
+              <MousePointer className="w-4 h-4" />
+              {cursorEnabled ? 'Cursor On' : 'Cursor Off'}
+            </Button>
             <ThemeToggle />
             <Button
               onClick={() => scrollToSection('#contact')}
-              className="hidden md:block bg-gradient-to-r  from-primary to-purple-500 hover:from-purple-500 hover:to-pink-500 transition-all duration-300 hover:scale-105"
+              className="hidden md:block bg-gradient-to-r from-primary to-purple-500 hover:from-purple-500 hover:to-pink-500 transition-all duration-300 hover:scale-105"
             >
               Let's Talk
             </Button>
@@ -123,14 +143,36 @@ export default function Navigation() {
                 <span className="font-medium">{item.name}</span>
               </button>
             ))}
-            <div className="px-4 pt-3 flex items-center justify-between">
-              <ThemeToggle />
-              <Button
-                onClick={() => scrollToSection('#contact')}
-                className="bg-gradient-to-r from-primary to-purple-500 hover:from-purple-500 hover:to-pink-500 transition-all duration-300"
-              >
-                Let's Talk
-              </Button>
+            <div className="px-4 pt-3 flex flex-col gap-3">
+              <div className="flex flex-wrap items-center gap-3">
+                <Button
+                  variant={isCyberMode ? 'secondary' : 'outline'}
+                  size="sm"
+                  onClick={toggleCyberMode}
+                  className="items-center gap-2 rounded-full border border-[#00ff9f]/20 bg-black/10 text-[#00ff9f] hover:bg-[#00ff9f]/10"
+                >
+                  <Cpu className="w-4 h-4" />
+                  {isCyberMode ? 'Cyber On' : 'Cyber Mode'}
+                </Button>
+                <Button
+                  variant={cursorEnabled ? 'secondary' : 'outline'}
+                  size="sm"
+                  onClick={toggleCursorEnabled}
+                  className="items-center gap-2 rounded-full border border-[#00ff9f]/20 bg-black/10 text-[#00ff9f] hover:bg-[#00ff9f]/10"
+                >
+                  <MousePointer className="w-4 h-4" />
+                  {cursorEnabled ? 'Cursor On' : 'Cursor Off'}
+                </Button>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <ThemeToggle />
+                <Button
+                  onClick={() => scrollToSection('#contact')}
+                  className="bg-gradient-to-r from-primary to-purple-500 hover:from-purple-500 hover:to-pink-500 transition-all duration-300"
+                >
+                  Let's Talk
+                </Button>
+              </div>
             </div>
           </div>
         </div>

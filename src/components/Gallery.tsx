@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -50,7 +49,7 @@ export default function Gallery() {
 
   const galleryItems = [
     {
-      title: 'Portrait — Gilbert',
+      title: 'Portrait - Gilbert',
       category: 'Personal',
       description: 'Profile portrait of Tuyambaze Gilbert.',
       image: '/images/gilbert-tuyambaze-dark.jpeg',
@@ -91,60 +90,47 @@ export default function Gallery() {
         github: 'https://github.com/GILBERT-Tuyambaze',
       },
     },
-{
+    {
       title: 'Business Landing Page',
       category: 'UI/UX',
-      description:
-        'Clean and conversion-focused landing page designed for small businesses and startups.',
-      image:
-        'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80',
+      description: 'Clean and conversion-focused landing page designed for small businesses and startups.',
+      image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80',
     },
     {
       title: 'E-Commerce Web App',
       category: 'Full Stack',
-      description:
-        'Full-featured e-commerce platform with product management, cart, and secure checkout.',
-      image:
-        'https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=80',
+      description: 'Full-featured e-commerce platform with product management, cart, and secure checkout.',
+      image: 'https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=80',
     },
     {
       title: 'Admin Dashboard',
       category: 'Web App',
-      description:
-        'Interactive dashboard with charts, analytics, and role-based access control.',
-      image:
-        'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
+      description: 'Interactive dashboard with charts, analytics, and role-based access control.',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
     },
     {
       title: 'Blog Platform',
       category: 'Frontend',
-      description:
-        'Responsive blog platform with markdown support and SEO-friendly structure.',
-      image:
-        'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80',
+      description: 'Responsive blog platform with markdown support and an SEO-friendly structure.',
+      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80',
     },
     {
       title: 'API Integration Project',
       category: 'Technical',
-      description:
-        'REST API integration with authentication, error handling, and optimized data fetching.',
-      image:
-        '/assets/API-Integration-Diagram.png',
+      description: 'REST API integration with authentication, error handling, and optimized data fetching.',
+      image: '/assets/API-Integration-Diagram.png',
     },
     {
       title: 'UI Component Library',
       category: 'UI/UX',
-      description:
-        'Reusable UI components built with Tailwind and shadcn/ui for scalable projects.',
-      image:
-        'https://images.unsplash.com/photo-1545235617-9465d2a55698?w=800&q=80',
+      description: 'Reusable UI components built with Tailwind and shadcn/ui for scalable projects.',
+      image: 'https://images.unsplash.com/photo-1545235617-9465d2a55698?w=800&q=80',
     },
   ];
 
   return (
     <section id="gallery" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="text-center mb-16">
           <h2 className="gallery-title text-4xl sm:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
@@ -156,7 +142,6 @@ export default function Gallery() {
           </p>
         </div>
 
-        
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {galleryItems.map((item, index) => (
             <Dialog key={index}>
@@ -190,7 +175,6 @@ export default function Gallery() {
                 </Card>
               </DialogTrigger>
 
-              {/* POPUP HEIGHT FIXED */}
               <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
                 {item.personal ? (
                   <div className="grid md:grid-cols-2 gap-6 items-start">
@@ -201,9 +185,7 @@ export default function Gallery() {
                     />
 
                     <div className="space-y-3">
-                      <h3 className="text-2xl font-bold">
-                        {item.personal.name}
-                      </h3>
+                      <h3 className="text-2xl font-bold">{item.personal.name}</h3>
 
                       <p className="gallery-tech text-muted-foreground">
                         <strong>{item.personal.role}</strong>
@@ -211,14 +193,20 @@ export default function Gallery() {
                         {item.personal.bio}
                       </p>
 
-                      <div className="text-sm space-y-1">
-                        <p>📧 {item.personal.email}</p>
-                                                🌐
-                        <a href={item.personal.github} target="_blank" rel="noreferrer" className="underline" >
-                         {item.personal.website}</a><br></br>
-                        💻
-                        <a href={item.personal.github} target="_blank" rel="noreferrer" className="underline" >
-                         {item.personal.github}</a>
+                      <div className="text-sm space-y-2">
+                        <p>Email: {item.personal.email}</p>
+                        <p>
+                          Website:{' '}
+                          <a href={item.personal.website} target="_blank" rel="noreferrer" className="underline">
+                            {item.personal.website}
+                          </a>
+                        </p>
+                        <p>
+                          GitHub:{' '}
+                          <a href={item.personal.github} target="_blank" rel="noreferrer" className="underline">
+                            {item.personal.github}
+                          </a>
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -230,9 +218,7 @@ export default function Gallery() {
                       className="w-full h-72 object-cover rounded-lg"
                     />
                     <h3 className="text-2xl font-bold">{item.title}</h3>
-                    <p className="text-muted-foreground">
-                      {item.description}
-                    </p>
+                    <p className="text-muted-foreground">{item.description}</p>
                   </div>
                 )}
               </DialogContent>

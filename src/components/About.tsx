@@ -1,62 +1,69 @@
 import { useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Code, Palette, Music, GraduationCap, Award, Users } from 'lucide-react';
+import { Code, Palette, Music, GraduationCap, Award } from 'lucide-react';
 import { revealElements } from '@/hooks/useScrollReveal';
 
 export default function About() {
   useEffect(() => {
-    // About section animations
-    revealElements('.about-title', { 
-      origin: 'top', 
-      distance: '60px', 
+    revealElements('.about-title', {
+      origin: 'top',
+      distance: '60px',
       duration: 1000,
       reset: true,
-      delay: 200 
+      delay: 200,
     });
-    
-    revealElements('.about-description', { 
-      origin: 'bottom', 
-      distance: '40px', 
+
+    revealElements('.about-description', {
+      origin: 'bottom',
+      distance: '40px',
       duration: 800,
       reset: true,
-      delay: 400 
+      delay: 400,
     });
-    
-    revealElements('.about-card', { 
-      origin: 'bottom', 
-      distance: '80px', 
+
+    revealElements('.about-card', {
+      origin: 'bottom',
+      distance: '80px',
       duration: 1000,
       delay: 200,
       reset: true,
-      interval: 200 
+      interval: 200,
     });
-    
-    revealElements('.skill-badge', { 
-      origin: 'left', 
-      distance: '40px', 
+
+    revealElements('.skill-badge', {
+      origin: 'left',
+      distance: '40px',
       duration: 600,
       delay: 600,
       reset: true,
-      interval: 50 
+      interval: 50,
     });
-    
-    revealElements('.education-item', { 
-      origin: 'right', 
-      distance: '60px', 
+
+    revealElements('.education-item', {
+      origin: 'right',
+      distance: '60px',
       duration: 800,
       delay: 400,
       reset: true,
-      interval: 150, 
+      interval: 150,
     });
   }, []);
 
-  
-
   const skills = [
-    'React', 'TypeScript', 'Next.js', 'Node.js', 'Python', 'JavaScript',
-    'HTML5', 'CSS3', 'Tailwind CSS', 'Git','PHP','JAVA',
-    'Adobe Creative Suite'
+    'React',
+    'TypeScript',
+    'Next.js',
+    'Node.js',
+    'Python',
+    'JavaScript',
+    'HTML5',
+    'CSS3',
+    'Tailwind CSS',
+    'Git',
+    'PHP',
+    'Java',
+    'Adobe Creative Suite',
   ];
 
   const expertise = [
@@ -64,48 +71,49 @@ export default function About() {
       icon: Code,
       title: 'Frontend Development',
       description: 'Building responsive and interactive user interfaces with modern frameworks and libraries.',
-      color: 'text-blue-500'
+      color: 'text-blue-500',
     },
     {
       icon: Palette,
       title: 'UI/UX Design',
-      description: 'Creating beautiful and intuitive designs that enhance user experience and engagement.',
-      color: 'text-purple-500'
+      description: 'Creating beautiful and intuitive designs that improve user experience and engagement.',
+      color: 'text-purple-500',
     },
     {
       icon: Music,
       title: 'Music Production',
-      description: 'Producing high-quality music and audio content for various media and entertainment projects.',
-      color: 'text-pink-500'
-    }
+      description: 'Producing high-quality music and audio content for media and entertainment projects.',
+      color: 'text-pink-500',
+    },
   ];
 
   const education = [
     {
-     degree: 'Software Engineering Fellowship',
-     institution: 'A2SV (Africa to Silicon Valley)',
-     year: '2026 – Present',
-     icon: Award
+      degree: 'Software Engineering Fellowship',
+      institution: 'A2SV (Africa to Silicon Valley)',
+      year: '2026 - Present',
+      icon: Award,
     },
     {
-      degree: 'PLanning to take double Major in Bcs Computer Science & Bsc Applied Physics',
-      institution: 'University ..',
-      year: '2025-now',
-      icon: GraduationCap
+      degree: 'Planned Double Major in BSc Computer Science and BSc Applied Physics',
+      institution: 'University',
+      year: '2025 - Present',
+      icon: GraduationCap,
     },
     {
       degree: 'Full Stack Web Development',
       institution: 'Coding Bootcamp',
-      year: '2024-2025',
-      icon: Award
+      year: '2024 - 2025',
+      icon: Award,
     },
     {
-     degree: 'Music Production Certificate',
-     institution: 'Audio Institute',
-     year: '2024',
-     icon: Music
-    }
-];
+      degree: 'Music Production Certificate',
+      institution: 'Audio Institute',
+      year: '2024',
+      icon: Music,
+    },
+  ];
+
   return (
     <section id="about" className="py-20 px-4 bg-muted/30">
       <div className="container mx-auto max-w-7xl">
@@ -114,19 +122,19 @@ export default function About() {
             About <span className="text-primary">Me</span>
           </h2>
           <p className="about-description text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-           I'm a passionate frontend and full-stack developer and creative professional with expertise in modern web development,
-            UI/UX design, and music production.I am currently a Software Engineering Fellow at A2SV (Africa to Silicon Valley), an
-            intensive program focused on data structures, algorithms, system design, and real-world problem solving—preparing high-potential 
-            African engineers for global tech careers. I love turning ideas into scalable, high-performance digital products through clean code and creative thinking.
+            I'm a frontend and full-stack developer with a strong interest in modern web development,
+            UI/UX design, and music production. I am currently a Software Engineering Fellow at A2SV
+            (Africa to Silicon Valley), where I train in data structures, algorithms, system design,
+            and real-world problem solving. I enjoy turning ideas into scalable, high-performance
+            digital products through clean code and thoughtful design.
           </p>
         </div>
 
-        {/* Expertise Cards */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           {expertise.map((item, index) => (
             <Card key={index} className="about-card group hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
               <CardContent className="p-8 text-center">
-                <div className={`inline-flex p-4 rounded-full bg-muted mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                <div className="inline-flex p-4 rounded-full bg-muted mb-6 group-hover:scale-110 transition-transform duration-300">
                   <item.icon className={`w-8 h-8 ${item.color}`} />
                 </div>
                 <h3 className="text-xl font-semibold mb-4">{item.title}</h3>
@@ -137,7 +145,6 @@ export default function About() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Skills */}
           <div>
             <h3 className="about-title text-2xl font-bold mb-8 flex items-center gap-3">
               <Code className="w-6 h-6 text-primary" />
@@ -145,9 +152,9 @@ export default function About() {
             </h3>
             <div className="flex flex-wrap gap-3">
               {skills.map((skill, index) => (
-                <Badge 
-                  key={index} 
-                  variant="secondary" 
+                <Badge
+                  key={index}
+                  variant="secondary"
                   className="skill-badge px-4 py-2 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors cursor-default"
                 >
                   {skill}
@@ -156,7 +163,6 @@ export default function About() {
             </div>
           </div>
 
-          {/* Education */}
           <div>
             <h3 className="about-title text-2xl font-bold mb-8 flex items-center gap-3">
               <GraduationCap className="w-6 h-6 text-primary" />

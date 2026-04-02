@@ -71,3 +71,394 @@
         @apply bg-background text-foreground;
     }
 }
+
+html.cyber-mode {
+    color-scheme: dark;
+    font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --background: 163 100% 4.5%;
+    --foreground: 163 100% 83%;
+    --card: 163 100% 8%;
+    --card-foreground: 163 100% 88%;
+    --popover: 163 100% 8%;
+    --popover-foreground: 163 100% 88%;
+    --primary: 163 100% 51%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 163 100% 18%;
+    --secondary-foreground: 163 100% 88%;
+    --muted: 163 100% 8%;
+    --muted-foreground: 163 100% 72%;
+    --accent: 163 100% 18%;
+    --accent-foreground: 163 100% 88%;
+    --destructive: 348 100% 66%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 163 100% 30%;
+    --input: 163 100% 8%;
+    --ring: 163 100% 60%;
+    --sidebar-background: 163 100% 7%;
+    --sidebar-foreground: 163 100% 88%;
+    --sidebar-primary: 163 100% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 163 100% 10%;
+    --sidebar-accent-foreground: 163 100% 88%;
+    --sidebar-border: 163 100% 20%;
+    --sidebar-ring: 163 100% 60%;
+}
+
+body.custom-cursor-enabled,
+body.custom-cursor-enabled * {
+    cursor: none !important;
+}
+
+.custom-cursor-trail {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    transform: translate3d(-50%, -50%, 0);
+    border-radius: 9999px;
+    background: rgba(0, 255, 159, 0.2);
+    box-shadow: 0 0 16px rgba(0, 255, 159, 0.18);
+    pointer-events: none;
+    z-index: 9998;
+}
+
+.custom-cursor {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    transform: translate3d(-50%, -50%, 0);
+    border-radius: 9999px;
+    background: rgba(0, 255, 159, 0.95);
+    border: 1px solid rgba(0, 255, 159, 0.9);
+    box-shadow: 0 0 10px rgba(0, 255, 159, 0.35), inset 0 0 2px rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+    z-index: 9999;
+    transition: width 0.2s ease-out, height 0.2s ease-out, background 0.2s ease-out, border-color 0.2s ease-out, box-shadow 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.custom-cursor--active {
+    transform: translate3d(-50%, -50%, 0) scale(0.85);
+    background: rgba(0, 255, 159, 0.75);
+    box-shadow: 0 0 22px rgba(0, 255, 159, 0.45), inset 0 0 3px rgba(0, 255, 159, 0.2);
+}
+
+.custom-cursor--hover {
+    width: 24px;
+    height: 24px;
+    background: rgba(0, 255, 159, 0.14);
+    border-width: 1px;
+    border-color: rgba(0, 255, 159, 0.9);
+    box-shadow: 0 0 16px rgba(0, 255, 159, 0.28);
+}
+
+.custom-cursor--project {
+    width: 38px;
+    height: 38px;
+    background: rgba(0, 255, 159, 0.12);
+    border-width: 2px;
+    border-color: rgba(0, 255, 159, 0.95);
+    box-shadow: 0 0 20px rgba(0, 255, 159, 0.22);
+}
+
+.custom-cursor--cyber {
+    box-shadow: 0 0 18px rgba(0, 255, 159, 0.45), inset 0 0 4px rgba(0, 255, 159, 0.35);
+}
+
+.custom-cursor-label {
+    position: fixed;
+    left: 0;
+    top: 0;
+    transform: translate3d(-50%, -100%, 0);
+    pointer-events: none;
+    white-space: nowrap;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.cyber-console {
+    transition: opacity 0.3s ease;
+}
+
+.cyber-console__history {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 255, 159, 0.38) transparent;
+}
+
+.cyber-console__history::-webkit-scrollbar {
+    width: 8px;
+}
+
+.cyber-console__history::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 159, 0.28);
+    border-radius: 9999px;
+}
+
+.cyber-console__prompt {
+    position: relative;
+    overflow: hidden;
+}
+
+.cyber-console__prompt::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 159, 0.12), transparent);
+    transform: translateX(-100%);
+    animation: cyber-prompt-sweep 3.2s linear infinite;
+}
+
+.cyber-console__input {
+    caret-color: #00ff9f;
+    text-shadow: 0 0 8px rgba(0, 255, 159, 0.15);
+}
+
+.cyber-console__typing-indicator {
+    animation: cyber-ready-blink 1.1s steps(2, end) infinite;
+}
+
+.cyber-console__beam {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 159, 0.9), transparent);
+    box-shadow: 0 0 18px rgba(0, 255, 159, 0.45);
+    animation: cyber-scan-beam 5s linear infinite;
+    pointer-events: none;
+}
+
+.cyber-console__matrix {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0.16;
+}
+
+.cyber-console__matrix-column {
+    position: absolute;
+    top: -40%;
+    font-size: 10px;
+    line-height: 1.8;
+    letter-spacing: 0.28em;
+    color: rgba(143, 255, 209, 0.82);
+    text-shadow: 0 0 12px rgba(0, 255, 159, 0.25);
+    writing-mode: vertical-rl;
+    animation-name: cyber-matrix-fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.cyber-console__pipes {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0.18;
+}
+
+.cyber-console__pipe {
+    position: absolute;
+    left: -40%;
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    color: rgba(143, 255, 209, 0.62);
+    white-space: nowrap;
+    animation: cyber-pipe-flow 9s linear infinite;
+}
+
+.cyber-console__aquarium {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0.22;
+}
+
+.cyber-console__fish {
+    position: absolute;
+    font-size: 16px;
+    white-space: nowrap;
+    color: rgba(143, 255, 209, 0.8);
+    text-shadow: 0 0 10px rgba(0, 255, 159, 0.2);
+}
+
+.cyber-console__fish--one {
+    top: 26%;
+    animation: cyber-fish-swim 14s linear infinite;
+}
+
+.cyber-console__fish--two {
+    top: 62%;
+    animation: cyber-fish-swim-reverse 17s linear infinite;
+}
+
+.cyber-console--cmatrix .cyber-console__matrix {
+    opacity: 0.34;
+}
+
+.cyber-console--cmatrix .cyber-console__matrix-column {
+    color: rgba(166, 255, 210, 0.92);
+    text-shadow: 0 0 18px rgba(0, 255, 159, 0.38);
+}
+
+.cyber-console--rainbow .cyber-console__history,
+.cyber-console--rainbow .cyber-console__input,
+.cyber-console--rainbow .cyber-console__typing-indicator {
+    animation: cyber-rainbow 5s linear infinite;
+}
+
+.cyber-console--hollywood .cyber-console__beam,
+.cyber-console--boot-logs .cyber-console__beam {
+    animation-duration: 2.4s;
+}
+
+.cyber-console--hollywood .cyber-console__history,
+.cyber-console--boot-logs .cyber-console__history {
+    text-shadow: 0 0 14px rgba(0, 255, 159, 0.22);
+}
+
+.cyber-console--glitch-rgb .cyber-console__history,
+.cyber-console--glitch-rgb .cyber-console__prompt {
+    animation: cyber-rgb-shift 0.18s steps(2, end) infinite;
+}
+
+.cyber-console--neofetch .cyber-console__history,
+.cyber-console--htop .cyber-console__history {
+    font-variant-ligatures: none;
+}
+
+.cyber-console .cyber-scanlines {
+    background-image: linear-gradient(rgba(0, 255, 159, 0.06) 1px, transparent 1px);
+    background-size: 100% 3px;
+    mix-blend-mode: overlay;
+    opacity: 0.35;
+}
+
+.cyber-console .cyber-glitch {
+    animation: cyber-glitch 8s infinite;
+    background: radial-gradient(circle at 20% 20%, rgba(0, 255, 159, 0.10), transparent 12%),
+      radial-gradient(circle at 80% 80%, rgba(0, 255, 159, 0.08), transparent 16%);
+    opacity: 0.4;
+}
+
+@keyframes cyber-glitch {
+    0%, 100% {
+        opacity: 0.4;
+        transform: translate(0,0) skew(0deg);
+    }
+    10% {
+        opacity: 0.24;
+        transform: translate(-1px, 1px) skew(-0.2deg);
+    }
+    50% {
+        opacity: 0.45;
+        transform: translate(1px, -1px) skew(0.2deg);
+    }
+}
+
+@keyframes cyber-prompt-sweep {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes cyber-ready-blink {
+    0%, 49% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0.32;
+    }
+}
+
+@keyframes cyber-scan-beam {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(72vh);
+    }
+}
+
+@keyframes cyber-matrix-fall {
+    0% {
+        transform: translateY(-12%);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.88;
+    }
+    100% {
+        transform: translateY(140%);
+        opacity: 0;
+    }
+}
+
+@keyframes cyber-pipe-flow {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(180%);
+    }
+}
+
+@keyframes cyber-fish-swim {
+    0% {
+        transform: translateX(-10%);
+    }
+    100% {
+        transform: translateX(115vw);
+    }
+}
+
+@keyframes cyber-fish-swim-reverse {
+    0% {
+        transform: translateX(110vw) scaleX(-1);
+    }
+    100% {
+        transform: translateX(-20vw) scaleX(-1);
+    }
+}
+
+@keyframes cyber-rainbow {
+    0% {
+        color: #ff6262;
+    }
+    25% {
+        color: #ffd866;
+    }
+    50% {
+        color: #66ffb3;
+    }
+    75% {
+        color: #66c7ff;
+    }
+    100% {
+        color: #ff7af6;
+    }
+}
+
+@keyframes cyber-rgb-shift {
+    0% {
+        transform: translate(0, 0);
+        text-shadow: -1px 0 rgba(255, 80, 80, 0.45), 1px 0 rgba(80, 180, 255, 0.45);
+    }
+    100% {
+        transform: translate(1px, -1px);
+        text-shadow: 1px 0 rgba(255, 80, 80, 0.45), -1px 0 rgba(80, 180, 255, 0.45);
+    }
+}
+
+input::selection,
+textarea::selection {
+    background-color: rgba(0, 255, 159, 0.25);
+}

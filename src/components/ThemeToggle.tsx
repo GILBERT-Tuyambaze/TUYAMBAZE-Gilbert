@@ -9,7 +9,9 @@ export function ThemeToggle() {
     <div className="flex items-center space-x-2 p-1 bg-gray-100 dark:bg-gray-800 rounded-full">
       {/* Light */}
       <Button
-        onClick={() => setTheme("light")}
+        onClick={() => {
+          setTheme("light");
+        }}
         variant={theme === "light" ? "default" : "ghost"}
         size="sm"
         className="h-8 w-8 p-0 rounded-full"
@@ -19,7 +21,9 @@ export function ThemeToggle() {
 
       {/* Dark */}
       <Button
-        onClick={() => setTheme("dark")}
+        onClick={() => {
+          setTheme("dark");
+        }}
         variant={theme === "dark" ? "default" : "ghost"}
         size="sm"
         className="h-8 w-8 p-0 rounded-full"
@@ -29,7 +33,9 @@ export function ThemeToggle() {
 
       {/* System */}
       <Button
-        onClick={() => setTheme("system")}
+        onClick={() => {
+          setTheme("system");
+        }}
         variant={theme === "system" ? "default" : "ghost"}
         size="sm"
         className="h-8 w-8 p-0 rounded-full"
