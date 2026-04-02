@@ -66,6 +66,12 @@
 @layer base {
     * {
         @apply border-border;
+        box-sizing: border-box;
+    }
+    html,
+    body {
+        max-width: 100%;
+        overflow-x: hidden;
     }
     body {
         @apply bg-background text-foreground;

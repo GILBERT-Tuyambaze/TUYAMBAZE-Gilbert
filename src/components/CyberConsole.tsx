@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ExternalLink, Github, Maximize2, Minimize2 } from 'lucide-react';
 import { useCyberMode } from '@/hooks/useCyberMode';
 
@@ -27,6 +27,7 @@ type HistoryEntry = {
   type: 'log' | 'prompt' | 'output';
   text: string;
   project?: ProjectEntry;
+  images?: ProfileImageEntry[];
   suggestions?: string[];
 };
 
@@ -42,8 +43,13 @@ type ComposeState = {
   };
 };
 
-type LookupMode = 'projects' | 'designs' | null;
-type ActiveDesign = DesignEntry['slug'] | null;
+type LookupMode = 'projects' | 'images' | null;
+
+type ProfileImageEntry = {
+  title: string;
+  image: string;
+  description: string;
+};
 
 const SECTION_MAP = {
   home: '#home',
@@ -55,6 +61,37 @@ const SECTION_MAP = {
 } as const;
 
 const SERVICES = ['Web Development', 'UI/UX Design', 'Music Production', 'Full-Stack Development', 'Mobile-First Design', 'Audio Services'];
+const PROFILE_IMAGES: ProfileImageEntry[] = [
+  {
+    title: 'Hero Portrait - Gilbert',
+    image: '/images/gilbert-tuyambaze-dark.jpeg',
+    description: 'Primary portrait used in cyber mode and hero sections.',
+  },
+  {
+    title: 'Casual Portrait - Tuyambaze Gilbert',
+    image: '/images/gilbert-tuyambaze-light.jpeg',
+    description: 'Clean personal portrait for light mode and personal branding.',
+  },
+  {
+    title: 'Business Card - Tuyambaze Gilbert',
+    image: '/images/Bussiness-card-TUYAMBAZE-Gilbert.png',
+    description: 'Personal brand card with contact and identity details.',
+  },
+];
+const listProfileImages = () => PROFILE_IMAGES.map((image, index) => `${index + 1}. ${image.title}`).join('\n');
+const findProfileImage = (query: string) => {
+  const normalized = normalize(query);
+  const numeric = Number(normalized);
+  if (!Number.isNaN(numeric) && numeric >= 1 && numeric <= PROFILE_IMAGES.length) {
+    return PROFILE_IMAGES[numeric - 1];
+  }
+
+  return (
+    PROFILE_IMAGES.find((image) => normalize(image.title).includes(normalized)) ??
+    PROFILE_IMAGES.find((image) => squash(image.title).includes(squash(normalized))) ??
+    null
+  );
+};
 
 const DESIGNS: DesignEntry[] = [
   {
@@ -236,7 +273,7 @@ const PROJECTS: ProjectEntry[] = [
   { title: 'Music Streaming Interface', slug: 'music-streaming-interface', type: 'UI/UX Design', summary: 'Interface concept with visual storytelling and music-focused interaction design.', description: 'A modern music streaming interface design with intuitive navigation and visual treatment.', image: '/assets/archive.png', stack: ['ChatGPT', 'Suno AI', 'Leonardo AI', 'Runway AI', 'After Effects'], liveUrl: 'https://www.youtube.com/@ashola-1', githubUrl: '#' },
 ];
 
-const HINTS = ['help', 'project 1', 'market place', 'ur hub', 'design', 'cmatrix', 'design 3', 'design off', 'neofetch', 'resume', 'contact', 'minimize', 'exit'];
+const HINTS = ['help', 'education', 'projects', 'project 1', 'market place', 'ur hub', 'resume', 'contact', 'minimize', 'exit'];
 const LOGS = ['Initializing cyber terminal...', 'Loading portfolio modules...', 'Approximate project matcher online.', 'Type help to inspect available commands.'];
 const MATRIX_STREAMS = ['10100101', 'GILBERT', 'REACT', 'TSX', 'NODE', 'A2SV', 'CYBER', 'PORTFOLIO', 'VITE'];
 const CONTACT_ACCESS_KEY = 'e0331897-d912-4f1d-a5f1-2a8dcd09d928';
@@ -420,34 +457,38 @@ export default function CyberConsole() {
   const [composeState, setComposeState] = useState<ComposeState | null>(null);
   const [isSendingMessage, setIsSendingMessage] = useState(false);
   const [lookupMode, setLookupMode] = useState<LookupMode>(null);
-  const [activeDesign, setActiveDesign] = useState<ActiveDesign>('command-mode');
+  const [viewportInset, setViewportInset] = useState(0);
+  const [viewportHeight, setViewportHeight] = useState<number | null>(null);
+  const consoleRef = useRef<HTMLElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const historyRef = useRef<HTMLDivElement | null>(null);
   const historyEndRef = useRef<HTMLDivElement | null>(null);
   const startupTimerIds = useRef<number[]>([]);
   const settledEntryIdsRef = useRef<Set<string>>(new Set());
 
-  const scrollHistoryToBottom = () => {
+  const scrollHistoryToBottom = useCallback(() => {
     if (!historyRef.current) return;
     historyRef.current.scrollTop = historyRef.current.scrollHeight;
     historyEndRef.current?.scrollIntoView({ block: 'end' });
-  };
+  }, []);
 
   const addHistory = (item: Omit<HistoryEntry, 'id'>) => setHistory((previous) => [...previous, { ...item, id: createUniqueId(item.type) }]);
   const clearStartupTimers = () => {
     startupTimerIds.current.forEach(window.clearTimeout);
     startupTimerIds.current = [];
   };
-  const queueTimedLogs = (lines: string[], startDelay: number, stepDelay: number) => {
-    const timers = lines.map((line, index) =>
-      window.setTimeout(() => addHistory({ type: 'log', text: line }), startDelay + index * stepDelay),
-    );
-    startupTimerIds.current.push(...timers);
-  };
-
   useEffect(() => {
     if (!isCyberMode) setIsMinimized(false);
   }, [isCyberMode]);
+
+  useEffect(() => {
+    if (isCyberMode && !isMinimized) return;
+
+    const activeElement = document.activeElement;
+    if (activeElement instanceof HTMLElement && consoleRef.current?.contains(activeElement)) {
+      activeElement.blur();
+    }
+  }, [isCyberMode, isMinimized]);
 
   useEffect(() => {
     clearStartupTimers();
@@ -458,7 +499,6 @@ export default function CyberConsole() {
       setComposeState(null);
       setIsSendingMessage(false);
       setLookupMode(null);
-      setActiveDesign('command-mode');
       return;
     }
     setHistory([]);
@@ -467,7 +507,6 @@ export default function CyberConsole() {
     setComposeState(null);
     setIsSendingMessage(false);
     setLookupMode(null);
-    setActiveDesign('command-mode');
     const timers: number[] = [];
     LOGS.forEach((message, index) => {
       const timerId = window.setTimeout(() => addHistory({ type: 'log', text: message }), 280 + index * 260);
@@ -485,6 +524,36 @@ export default function CyberConsole() {
     const timerId = window.setTimeout(() => inputRef.current?.focus(), 120);
     return () => window.clearTimeout(timerId);
   }, [isCyberMode, isMinimized]);
+
+  useEffect(() => {
+    const viewport = window.visualViewport;
+
+    const updateViewport = () => {
+      if (!viewport) {
+        setViewportInset(0);
+        setViewportHeight(window.innerHeight);
+        return;
+      }
+
+      const inset = Math.max(0, window.innerHeight - viewport.height - viewport.offsetTop);
+      setViewportInset(inset);
+      setViewportHeight(viewport.height);
+    };
+
+    updateViewport();
+
+    if (!viewport) {
+      window.addEventListener('resize', updateViewport);
+      return () => window.removeEventListener('resize', updateViewport);
+    }
+
+    viewport.addEventListener('resize', updateViewport);
+    viewport.addEventListener('scroll', updateViewport);
+    return () => {
+      viewport.removeEventListener('resize', updateViewport);
+      viewport.removeEventListener('scroll', updateViewport);
+    };
+  }, []);
 
   useEffect(() => {
     scrollHistoryToBottom();
@@ -507,6 +576,23 @@ export default function CyberConsole() {
     history.slice(0, -1).forEach((entry) => settledEntryIdsRef.current.add(entry.id));
   }, [history]);
 
+  useEffect(() => {
+    if (!isCyberMode || isMinimized) return;
+
+    const input = inputRef.current;
+    if (!input) return;
+
+    const handleFocus = () => {
+      window.setTimeout(() => {
+        input.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        scrollHistoryToBottom();
+      }, 180);
+    };
+
+    input.addEventListener('focus', handleFocus);
+    return () => input.removeEventListener('focus', handleFocus);
+  }, [isCyberMode, isMinimized]);
+
   const showProject = (query: string) => {
     setLookupMode('projects');
     scrollToSection(SECTION_MAP.projects);
@@ -528,6 +614,64 @@ export default function CyberConsole() {
     });
   };
 
+  const showHero = () => {
+    scrollToSection(SECTION_MAP.home);
+    addHistory({
+      type: 'output',
+      text:
+        "Hero Overview\nGilbert Tuyambaze is a frontend and full-stack developer focused on modern, responsive, and polished web experiences.\nAchievements: A2SV Software Engineering Fellow, multiple shipped portfolio and client platforms, and strong work across web apps, branding, and creative technology.\nBest at: React, TypeScript, Tailwind CSS, UI polish, responsive interfaces, and turning ideas into clean product experiences.\nRecent work: marketplace systems, academic resource platforms, private chat apps, consulting websites, and personal portfolio builds.",
+    });
+  };
+
+  const showGilbertProfile = () => {
+    scrollToSection(SECTION_MAP.about);
+    addHistory({
+      type: 'output',
+      text:
+        "About Gilbert\nTuyambaze Gilbert is a Kigali-based frontend and full-stack developer, UI/UX designer, and creative technologist.\nHe builds modern interfaces, scalable web applications, and smooth user experiences with React, TypeScript, Next.js, Node.js, and Tailwind CSS.\nType images to view Gilbert's personal images and branding visuals.",
+      images: PROFILE_IMAGES,
+    });
+  };
+
+  const showEducation = () => {
+    scrollToSection(SECTION_MAP.about);
+    addHistory({
+      type: 'output',
+      text:
+        "Education & Certifications\n- Software Engineering Fellowship | A2SV (Africa to Silicon Valley) | 2026 - Present\n- Planned Double Major in BSc Computer Science and BSc Applied Physics | University | 2025 - Present\n- Full Stack Web Development | Coding Bootcamp | 2024 - 2025\n- Music Production Certificate | Audio Institute | 2024",
+    });
+  };
+
+  const showProfileImages = () => {
+    setLookupMode('images');
+    scrollToSection(SECTION_MAP.gallery);
+    addHistory({
+      type: 'output',
+      text: `Gilbert's Images\n${listProfileImages()}\n\nEnter an image number or image name to expand it.`,
+      images: PROFILE_IMAGES,
+    });
+  };
+
+  const showProfileImage = (query: string) => {
+    setLookupMode('images');
+    scrollToSection(SECTION_MAP.gallery);
+    const image = findProfileImage(query);
+
+    if (!image) {
+      addHistory({
+        type: 'output',
+        text: `Image not found for "${query}".\nType images to list available images, then enter an image number or image name.`,
+      });
+      return;
+    }
+
+    addHistory({
+      type: 'output',
+      text: `${image.title}\n${image.description}`,
+      images: [image],
+    });
+  };
+
   const openProject = (query: string, target: 'live' | 'github') => {
     const { project, suggestions } = findProject(query);
     if (!project) {
@@ -540,79 +684,6 @@ export default function CyberConsole() {
     }
     openExternal(target === 'live' ? project.liveUrl : project.githubUrl);
     addHistory({ type: 'output', text: target === 'live' ? `Opening live project: ${project.title}` : `Opening GitHub repository for ${project.title}`, project });
-  };
-
-  const activateDesign = (query: string) => {
-    setLookupMode('designs');
-    const normalizedQuery = normalize(query);
-
-    if (['off', 'reset', 'default', 'command', 'command mode'].includes(normalizedQuery)) {
-      setActiveDesign('command-mode');
-      addHistory({
-        type: 'output',
-        text: 'Terminal visuals reset to command mode.\nRun design to list available terminal modes.',
-      });
-      return;
-    }
-
-    const design = findDesign(query);
-    if (!design) {
-      addHistory({
-        type: 'output',
-        text: `Design not found for "${query}".\nRun design to list options, then type a design name or design number.`,
-      });
-      return;
-    }
-
-    setActiveDesign(design.slug);
-    addHistory({
-      type: 'output',
-      text: `${design.title} activated.\nType design off to return to the default command mode.`,
-    });
-
-    if (design.slug === 'neofetch') {
-      addHistory({ type: 'output', text: NEOFETCH_CARD });
-      return;
-    }
-
-    if (design.slug === 'htop') {
-      addHistory({ type: 'output', text: HTOP_SKILLS });
-      return;
-    }
-
-    if (design.slug === 'asciiquarium') {
-      addHistory({ type: 'output', text: AQUARIUM_SCENE });
-      return;
-    }
-
-    if (design.slug === 'boot-logs') {
-      queueTimedLogs(BOOT_SEQUENCE, 100, 180);
-      return;
-    }
-
-    if (design.slug === 'hollywood') {
-      queueTimedLogs(HOLLYWOOD_SEQUENCE, 100, 160);
-      return;
-    }
-
-    if (design.slug === 'command-mode') {
-      addHistory({
-        type: 'output',
-        text: 'Command mode active.\nUse help, projects, contact, or resume to navigate the portfolio.',
-      });
-    }
-  };
-
-  const showDesign = (query?: string) => {
-    setLookupMode('designs');
-    if (!query) {
-      addHistory({
-        type: 'output',
-        text: `Terminal design modes:\n${listDesigns()}\n\nType a design name or design number to activate it.\nType design off to return to command mode.`,
-      });
-      return;
-    }
-    activateDesign(query);
   };
 
   const startComposeFlow = () => {
@@ -733,7 +804,7 @@ export default function CyberConsole() {
       return;
     }
     if (normalized === 'help') {
-      addHistory({ type: 'output', text: `Available commands:\nhelp, clear, minimize, exit\nsections, goto <section>\nabout, services, projects, project <name|number>, gallery\ndesign, design <name|number>, design off\ncontact, socials, resume, cv\nopen <project>, github <project>\nmessage, send message\n\nProjects guide:\n- Run or click projects to list all project names\n- Then type a project name or project number for more details\n\nDesigns guide:\n- Run or click design to list all terminal modes\n- Then type a design name or design number to activate it\n- Type design off to return to command mode\n\nProject matching understands numbers, partial names, token swaps, loose typing, and approximate names.\nTerminal message mode prompts step by step: name > email > subject > message > confirm.\nType cancel anytime to stop.\n\nExamples:\n${HINTS.map((hint) => `- ${hint}`).join('\n')}` });
+      addHistory({ type: 'output', text: `Available commands:\nhelp, clear, minimize, exit\nsections, goto <section>\nhero, about, gilbert, images, image <name|number>, education, services\nprojects, project <name|number>, gallery\ncontact, socials, resume, cv\nopen <project>, github <project>\nmessage, send message\n\nProfile guide:\n- Type hero to see the hero summary, achievements, strengths, and recent work\n- Type gilbert to see about me and personal images\n- Type images to list Gilbert's portraits and branding visuals\n- Then enter an image number or image name to expand it\n- Type education to see education and certifications\n\nProjects guide:\n- Run or click projects to list all project names\n- Then type a project name or project number for more details\n\nProject matching understands numbers, partial names, token swaps, loose typing, and approximate names.\nTerminal message mode prompts step by step: name > email > subject > message > confirm.\nType cancel anytime to stop.\n\nExamples:\n${HINTS.map((hint) => `- ${hint}`).join('\n')}\n- hero\n- gilbert\n- images\n- image 1` });
       setCommand('');
       return;
     }
@@ -755,6 +826,37 @@ export default function CyberConsole() {
       setCommand('');
       return;
     }
+    if (normalized === 'education' || normalized === 'education & certifications' || normalized === 'certifications') {
+      showEducation();
+      setCommand('');
+      return;
+    }
+    if (normalized === 'hero') {
+      showHero();
+      setCommand('');
+      return;
+    }
+    if (normalized === 'gilbert' || normalized === 'tuyambaze gilbert' || normalized === 'about gilbert') {
+      showGilbertProfile();
+      setCommand('');
+      return;
+    }
+    if (
+      normalized === 'images' ||
+      normalized === "gilbert's images" ||
+      normalized === 'gilbert images' ||
+      normalized === 'my images' ||
+      normalized.includes('image')
+    ) {
+      showProfileImages();
+      setCommand('');
+      return;
+    }
+    if (normalized.startsWith('image ')) {
+      showProfileImage(cleaned.replace(/^image\s+/i, '').trim());
+      setCommand('');
+      return;
+    }
     if (normalized === 'services') {
       scrollToSection(SECTION_MAP.services);
       addHistory({ type: 'output', text: `Services:\n${SERVICES.map((service) => `- ${service}`).join('\n')}` });
@@ -764,13 +866,7 @@ export default function CyberConsole() {
     if (normalized === 'projects') {
       setLookupMode('projects');
       scrollToSection(SECTION_MAP.projects);
-      addHistory({ type: 'output', text: `Featured projects:\n${listProjects()}\n\nUse project <name|number> to inspect a project in detail.` });
-      setCommand('');
-      return;
-    }
-    if (normalized === 'design' || normalized === 'designs') {
-      setLookupMode('designs');
-      showDesign();
+      addHistory({ type: 'output', text: `Featured projects:\n${listProjects()}\n\nEnter a project number or a project name to get more info.` });
       setCommand('');
       return;
     }
@@ -779,14 +875,9 @@ export default function CyberConsole() {
       setCommand('');
       return;
     }
-    if (normalized.startsWith('design ')) {
-      showDesign(cleaned.replace(/^design\s+/i, '').trim());
-      setCommand('');
-      return;
-    }
     if (normalized === 'gallery') {
       scrollToSection(SECTION_MAP.gallery);
-      addHistory({ type: 'output', text: 'Opening gallery section...\nExplore portraits, branding assets, UI ideas, and project visuals.' });
+      addHistory({ type: 'output', text: 'Opening gallery section...\nExplore portraits, branding assets, UI ideas, and project visuals.\nFeatured personal images:\n- Hero Portrait - Gilbert\n- Casual Portrait - Tuyambaze Gilbert\n- Business Card - Tuyambaze Gilbert' });
       setCommand('');
       return;
     }
@@ -833,13 +924,8 @@ export default function CyberConsole() {
       setCommand('');
       return;
     }
-    if (/^\d+$/.test(normalized) && lookupMode === 'designs') {
-      showDesign(cleaned);
-      setCommand('');
-      return;
-    }
-    if (findDesign(cleaned)) {
-      activateDesign(cleaned);
+    if (/^\d+$/.test(normalized) && lookupMode === 'images') {
+      showProfileImage(cleaned);
       setCommand('');
       return;
     }
@@ -854,22 +940,15 @@ export default function CyberConsole() {
 
   const visibleHistory = useMemo(() => history.slice(-18), [history]);
 
+  const terminalMaxHeight = viewportHeight ? Math.max(320, viewportHeight - 16) : undefined;
+
   return (
-    <section aria-hidden={!isCyberMode} className={`cyber-console fixed inset-0 pointer-events-none transition-opacity duration-300 ${activeDesign ? `cyber-console--${activeDesign}` : ''} ${isCyberMode ? 'z-50 opacity-100' : '-z-10 hidden opacity-0'}`}>
+    <section ref={consoleRef} className={`cyber-console fixed inset-0 pointer-events-none transition-opacity duration-300 ${isCyberMode ? 'z-50 opacity-100' : '-z-10 hidden opacity-0'}`}>
       {!isMinimized && <div className="absolute inset-0 bg-[#050505]/20 backdrop-blur-sm" />}
-      <div className="relative h-full w-full overflow-hidden px-6 py-8 pointer-events-none">
+      <div className="relative h-full w-full overflow-hidden px-2 py-2 pointer-events-none sm:px-6 sm:py-8" style={{ paddingBottom: `${Math.max(8, viewportInset + 8)}px` }}>
         {!isMinimized ? (
-          <div className="pointer-events-auto mx-auto flex min-h-[420px] max-h-[85vh] max-w-6xl flex-col overflow-hidden rounded-3xl border border-[#00ff9f]/20 bg-[#050505]/90 p-6 shadow-[0_0_120px_rgba(0,255,159,0.08)] backdrop-blur-xl">
+          <div className="pointer-events-auto mx-auto flex h-[calc(100dvh-1rem)] w-full max-w-6xl min-h-[320px] flex-col overflow-hidden rounded-2xl border border-[#00ff9f]/20 bg-[#050505]/90 p-3 shadow-[0_0_120px_rgba(0,255,159,0.08)] backdrop-blur-xl sm:min-h-[420px] sm:max-h-[85vh] sm:rounded-3xl sm:p-6" style={{ maxHeight: terminalMaxHeight }}>
             <div className="cyber-console__beam" />
-            {activeDesign === 'pipes' ? (
-              <div className="cyber-console__pipes" aria-hidden="true">
-                {Array.from({ length: 7 }).map((_, index) => (
-                  <span key={`pipe-${index}`} className="cyber-console__pipe" style={{ top: `${12 + index * 11}%`, animationDelay: `${index * 0.6}s` }}>
-                    ||===||==|====||===|====||==|
-                  </span>
-                ))}
-              </div>
-            ) : null}
             <div className="cyber-console__matrix" aria-hidden="true">
               {MATRIX_STREAMS.map((stream, index) => (
                 <span key={`${stream}-${index}`} className="cyber-console__matrix-column" style={{ left: `${(index + 1) * 9}%`, animationDelay: `${index * 0.9}s`, animationDuration: `${8 + (index % 4)}s` }}>
@@ -877,33 +956,29 @@ export default function CyberConsole() {
                 </span>
               ))}
             </div>
-            {activeDesign === 'asciiquarium' ? (
-              <div className="cyber-console__aquarium" aria-hidden="true">
-                <span className="cyber-console__fish cyber-console__fish--one">{'><(((*>'}</span>
-                <span className="cyber-console__fish cyber-console__fish--two">{'<*)))><'}</span>
+            <div ref={historyRef} className="cyber-console__history min-h-0 flex-1 overflow-y-auto pr-1 pb-4 text-sm leading-6 text-[#b8ffcc] sm:pr-2">
+              <div className="mb-5 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-3 text-[10px] uppercase tracking-[0.24em] text-[#00ff9f]/70 sm:text-xs sm:tracking-[0.3em]">
+                  <div className="flex flex-wrap gap-2 sm:gap-3"><span>Cyber Mode</span><span>Ctrl + Shift + C</span><span>Portfolio Navigator</span></div>
+                  <button type="button" onClick={() => setIsMinimized(true)} className="inline-flex items-center gap-2 rounded-full border border-[#00ff9f]/30 bg-[#000000b3] px-3 py-2 text-[10px] uppercase tracking-[0.24em] text-[#00ff9f] transition hover:bg-[#00ff9f]/10"><Minimize2 className="h-3.5 w-3.5" />minimize</button>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {['help', 'projects', 'contact', 'minimize', 'exit'].map((quickCommand) => (
+                    <button key={quickCommand} type="button" onClick={() => void runCommand(quickCommand)} className="rounded-full border border-[#00ff9f]/20 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-[#8fffd1] transition hover:bg-[#00ff9f]/10">{quickCommand}</button>
+                  ))}
+                </div>
               </div>
-            ) : null}
-            <div className="mb-6 flex flex-wrap items-center justify-between gap-3 text-xs uppercase tracking-[0.3em] text-[#00ff9f]/70">
-              <div className="flex flex-wrap gap-3"><span>Cyber Mode</span><span>Ctrl + Shift + C</span><span>Portfolio Navigator</span><span>{activeDesign ?? 'command-mode'}</span></div>
-              <button type="button" onClick={() => setIsMinimized(true)} className="inline-flex items-center gap-2 rounded-full border border-[#00ff9f]/30 bg-[#000000b3] px-3 py-2 text-[10px] uppercase tracking-[0.3em] text-[#00ff9f] transition hover:bg-[#00ff9f]/10"><Minimize2 className="h-3.5 w-3.5" />minimize</button>
-            </div>
-            <div className="mb-4 flex flex-wrap gap-2">
-              {['help', 'projects', 'design', 'design off', 'contact', 'minimize', 'exit'].map((quickCommand) => (
-                <button key={quickCommand} type="button" onClick={() => void runCommand(quickCommand)} className="rounded-full border border-[#00ff9f]/20 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-[#8fffd1] transition hover:bg-[#00ff9f]/10">{quickCommand}</button>
-              ))}
-            </div>
-            <div ref={historyRef} className="cyber-console__history flex-1 overflow-y-auto pr-2 pb-4 text-sm leading-6 text-[#b8ffcc]">
               {visibleHistory.length === 0 && <p className="mb-4 text-[#00ff9f]/75">System ready. Type <span className="font-medium text-[#00ff9f]">help</span> to begin.</p>}
               <div className="space-y-4">
                 {visibleHistory.map((entry, index) => {
                   const prefix = entry.type === 'prompt' ? '> ' : entry.type === 'log' ? '[sys] ' : '';
                   return (
                     <div key={entry.id} className="overflow-hidden whitespace-pre-wrap">
-                      <p><span className="text-[#00ff9f]/70">{prefix}</span><TypewriterText text={entry.text} delay={index * 80} animate={!settledEntryIdsRef.current.has(entry.id)} onProgress={scrollHistoryToBottom} /></p>
                       {entry.project ? (
                         <div className="mt-3 overflow-hidden rounded-2xl border border-[#00ff9f]/20 bg-black/30">
-                          <img src={entry.project.image} alt={entry.project.title} className="h-44 w-full object-cover opacity-90" />
+                          <img src={entry.project.image} alt={entry.project.title} className="h-40 w-full object-cover opacity-90 sm:h-44" />
                           <div className="space-y-3 p-4">
+                            <p><span className="text-[#00ff9f]/70">{prefix}</span><TypewriterText text={entry.text} delay={index * 80} animate={!settledEntryIdsRef.current.has(entry.id)} onProgress={scrollHistoryToBottom} /></p>
                             <div className="flex flex-wrap items-center justify-between gap-3">
                               <div><h3 className="text-base font-semibold text-[#e6ffe6]">{entry.project.title}</h3><p className="text-xs uppercase tracking-[0.2em] text-[#00ff9f]/70">{entry.project.type}</p></div>
                               <div className="flex flex-wrap gap-2">
@@ -917,6 +992,32 @@ export default function CyberConsole() {
                           </div>
                         </div>
                       ) : null}
+                      {entry.images && entry.images.length > 0 ? (
+                        entry.images.length === 1 ? (
+                          <button type="button" onClick={() => void runCommand(`image ${PROFILE_IMAGES.findIndex((item) => item.title === entry.images![0].title) + 1}`)} className="mt-3 w-full overflow-hidden rounded-2xl border border-[#00ff9f]/20 bg-black/30 text-left transition hover:bg-[#00ff9f]/5">
+                            <div className="flex justify-center bg-black/50 p-3 sm:p-4">
+                              <img src={entry.images[0].image} alt={entry.images[0].title} className="max-h-[70vh] w-full rounded-xl object-contain opacity-95" />
+                            </div>
+                            <div className="space-y-2 p-4">
+                              <h3 className="text-base font-semibold text-[#e6ffe6]">{entry.images[0].title}</h3>
+                              <p className="text-sm text-[#b8ffcc]/80">{entry.images[0].description}</p>
+                            </div>
+                          </button>
+                        ) : (
+                          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                            {entry.images.map((image, imageIndex) => (
+                              <button key={image.title} type="button" onClick={() => void runCommand(`image ${PROFILE_IMAGES.findIndex((item) => item.title === image.title) + 1 || imageIndex + 1}`)} className="overflow-hidden rounded-2xl border border-[#00ff9f]/20 bg-black/30 text-left transition hover:bg-[#00ff9f]/5">
+                                <img src={image.image} alt={image.title} className="h-40 w-full object-cover opacity-95" />
+                                <div className="space-y-2 p-3">
+                                  <h3 className="text-sm font-semibold text-[#e6ffe6]">{image.title}</h3>
+                                  <p className="text-xs text-[#b8ffcc]/80">{image.description}</p>
+                                </div>
+                              </button>
+                            ))}
+                          </div>
+                        )
+                      ) : null}
+                      {!entry.project && !entry.images ? <p><span className="text-[#00ff9f]/70">{prefix}</span><TypewriterText text={entry.text} delay={index * 80} animate={!settledEntryIdsRef.current.has(entry.id)} onProgress={scrollHistoryToBottom} /></p> : null}
                       {entry.suggestions && entry.suggestions.length > 0 ? (
                         <div className="mt-2 flex flex-wrap gap-2">
                           {entry.suggestions.map((suggestion) => <button key={suggestion} type="button" onClick={() => void runCommand(`project ${suggestion}`)} className="rounded-full border border-[#00ff9f]/18 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-[#8fffd1] transition hover:bg-[#00ff9f]/10">{suggestion}</button>)}
@@ -928,13 +1029,13 @@ export default function CyberConsole() {
                 <div ref={historyEndRef} />
               </div>
             </div>
-            <form onSubmit={(event) => { event.preventDefault(); void runCommand(command); }} className="pointer-events-auto">
+            <form onSubmit={(event) => { event.preventDefault(); void runCommand(command); }} className="pointer-events-auto shrink-0 pt-3">
               <label htmlFor="cyber-input" className="sr-only">Cyber command input</label>
-              <div className="cyber-console__prompt flex items-center gap-3 rounded-2xl border border-[#00ff9f]/30 bg-black/30 px-4 py-3 shadow-inner shadow-[#00ff9f]/5">
+              <div className="cyber-console__prompt flex items-center gap-2 rounded-2xl border border-[#00ff9f]/30 bg-black/30 px-3 py-3 shadow-inner shadow-[#00ff9f]/5 sm:gap-3 sm:px-4">
                 <span className="text-[#00ff9f]">&gt;</span>
-                <input ref={inputRef} id="cyber-input" type="text" value={command} onChange={(event) => setCommand(event.target.value)} placeholder={composeState ? `${composeState.step} > reply here or type cancel` : 'Type a command or just enter a project name like: market place, ur hub, 3'} autoComplete="off" spellCheck={false} className="cyber-console__input min-w-0 flex-1 bg-transparent text-sm text-[#e6ffe6] outline-none placeholder:text-[#00ff9f]/30" />
-                <span className="cyber-console__typing-indicator text-[10px] uppercase tracking-[0.24em] text-[#00ff9f]/55">{isSendingMessage ? 'sending' : command ? 'typing' : composeState ? composeState.step : 'ready'}</span>
-                <button type="submit" disabled={isSendingMessage} className="rounded-full border border-[#00ff9f]/40 px-4 py-2 text-xs uppercase tracking-[0.2em] text-[#00ff9f] transition hover:bg-[#00ff9f]/10 disabled:opacity-50">run</button>
+                <input ref={inputRef} id="cyber-input" type="text" value={command} onChange={(event) => setCommand(event.target.value)} placeholder={composeState ? `${composeState.step} > reply here or type cancel` : 'Type a project name or number like: market place, ur hub, 3'} autoComplete="off" spellCheck={false} className="cyber-console__input min-w-0 flex-1 bg-transparent text-sm text-[#e6ffe6] outline-none placeholder:text-[#00ff9f]/30" />
+                <span className="cyber-console__typing-indicator hidden text-[10px] uppercase tracking-[0.24em] text-[#00ff9f]/55 sm:inline">{isSendingMessage ? 'sending' : command ? 'typing' : composeState ? composeState.step : 'ready'}</span>
+                <button type="submit" disabled={isSendingMessage} className="rounded-full border border-[#00ff9f]/40 px-3 py-2 text-[11px] uppercase tracking-[0.16em] text-[#00ff9f] transition hover:bg-[#00ff9f]/10 disabled:opacity-50 sm:px-4 sm:text-xs sm:tracking-[0.2em]">run</button>
               </div>
             </form>
           </div>

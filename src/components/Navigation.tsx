@@ -48,13 +48,13 @@ export default function Navigation() {
           : 'bg-transparent'
       }`}
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 md:h-20">
+      <div className="container mx-auto max-w-7xl px-4">
+        <div className="flex h-16 items-center justify-between gap-3 md:h-20">
           {/* Logo */}
-          <div className="nav-logo">
+          <div className="nav-logo shrink-0">
             <button
               onClick={() => scrollToSection('#home')}
-              className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent hover:scale-105 transition-transform"
+              className="block transition-transform hover:scale-105"
             >
               <div className="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-border shadow-lg transition-transform duration-300 hover:scale-105">
                 <img
@@ -85,7 +85,7 @@ export default function Navigation() {
           </div>
 
           {/* CTA + Theme Toggle */}
-          <div className="nav-cta md:flex items-center gap-4">
+          <div className="nav-cta hidden items-center gap-4 md:flex">
             <Button
               variant={isCyberMode ? 'secondary' : 'outline'}
               size="sm"
@@ -114,7 +114,7 @@ export default function Navigation() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="shrink-0 md:hidden">
             <Button
               variant="ghost"
               size="sm"
@@ -129,15 +129,15 @@ export default function Navigation() {
         {/* Mobile Navigation Menu */}
         <div
           className={`md:hidden transition-all duration-300 overflow-hidden ${
-            isOpen ? 'max-h-100 opacity-100' : 'max-h-0 opacity-0'
+            isOpen ? 'max-h-[75vh] opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
-          <div className="py-4 space-y-2 bg-background/95 backdrop-blur-md rounded-lg mt-2 border border-border">
+          <div className="mt-2 space-y-2 rounded-lg border border-border bg-background/95 py-4 backdrop-blur-md">
             {navItems.map((item) => (
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className="flex items-center gap-3 w-full px-4 py-3 text-left hover:bg-muted transition-colors rounded-md mx-2"
+                className="flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-muted"
               >
                 <item.icon className="w-5 h-5 text-primary" />
                 <span className="font-medium">{item.name}</span>
@@ -168,7 +168,7 @@ export default function Navigation() {
                 <ThemeToggle />
                 <Button
                   onClick={() => scrollToSection('#contact')}
-                  className="bg-gradient-to-r from-primary to-purple-500 hover:from-purple-500 hover:to-pink-500 transition-all duration-300"
+                  className="shrink-0 bg-gradient-to-r from-primary to-purple-500 transition-all duration-300 hover:from-purple-500 hover:to-pink-500"
                 >
                   Let's Talk
                 </Button>
