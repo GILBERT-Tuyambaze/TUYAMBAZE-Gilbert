@@ -4,9 +4,13 @@ import { ArrowDown, Download, Github, Linkedin, Mail } from 'lucide-react';
 import TypingAnimation from './TypingAnimation';
 import { initializeScrollReveal, revealElements } from '@/hooks/useScrollReveal';
 import { useTheme } from './ThemeProvider';
+import { useTranslation } from 'react-i18next';
+import { VisitorCounter } from './VisitorCounter';
 
 export default function Hero() {
+  const { t } = useTranslation();
   const { theme } = useTheme();
+  const priorityImageProps = { fetchpriority: 'high' } as Record<string, string>;
 
   useEffect(() => {
     initializeScrollReveal();
@@ -74,33 +78,27 @@ export default function Hero() {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const typingStrings = [
-    'a Full Stack Dev',
-    'a UI/UX Designer',
-    'a Music Producer',
-    'a Creative Prof',
-    ' A2SV Software Engineering Fellow'
-  ];
+  const typingStrings = t('hero.roles', { returnObjects: true }) as string[];
 
   const heroImageSrc =
     theme === 'dark' ? '/images/gilbert-tuyambaze-dark.jpeg' : '/images/gilbert-tuyambaze-light.jpeg';
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center px-4 py-20 bg-gradient-to-br from-background via-background to-muted/20">
+    <section id="home" className="relative flex min-h-screen items-center justify-center bg-gradient-to-br from-background via-background to-muted/20 px-4 py-20">
       <div className="container mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-8 text-center lg:text-left">
             <div className="space-y-4">
-              <h1 className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                Hi, I'm{' '}
+              <h1 className="hero-title text-4xl font-bold leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
+                {t('hero.greeting')}{' '}
                 <span className="bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
-                  Gilbert
+                  {t('hero.name')}
                 </span>
               </h1>
 
-              <div className="hero-subtitle text-2xl md:text-3xl lg:text-4xl font-semibold text-muted-foreground">
-                <span>Kigali, Rwanda based </span>
+              <div className="hero-subtitle flex flex-col gap-2 text-2xl font-semibold text-muted-foreground sm:text-3xl lg:text-4xl">
+                <span className="break-words">{t('hero.location')}</span>
                 <span className="hero-typing">
                   <TypingAnimation strings={typingStrings} />
                 </span>
@@ -108,10 +106,7 @@ export default function Hero() {
             </div>
 
             <p className="hero-description text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-              Gilbert Tuyambaze is a Kigali, Rwanda web developer and web designer focused on building modern websites,
-              full-stack web applications, and clear digital experiences for startups, brands, and growing businesses.
-              I am currently training as a Software Engineering Fellow at A2SV (Africa to Silicon Valley), where I build
-              scalable, real-world web applications with strong UI and frontend quality.
+              {t('hero.description')}
             </p>
 
             <div className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -119,7 +114,7 @@ export default function Hero() {
                 <a href="/assets/Gilbert-TUYAMBAZE-CV1.pdf" download>
                   <span className="relative z-10 flex items-center gap-2">
                     <Download className="w-5 h-5" />
-                    Download CV
+                    {t('hero.downloadCV')}
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-purple-500/80 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
                 </a>
@@ -127,10 +122,14 @@ export default function Hero() {
 
               <Button variant="outline" size="lg" onClick={scrollToAbout} className="group">
                 <span className="flex items-center gap-2">
-                  View My Work
+                  {t('hero.viewWork')}
                   <ArrowDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
                 </span>
               </Button>
+            </div>
+
+            <div className="mt-6 flex justify-center lg:justify-start">
+              <VisitorCounter className="rounded border border-border bg-background/90 px-4 py-2 text-sm font-medium text-foreground shadow-sm" />
             </div>
 
             <div className="flex gap-6 justify-center lg:justify-start">
@@ -149,12 +148,15 @@ export default function Hero() {
           {/* Right Content - Profile Image */}
           <div className="flex justify-center lg:justify-end">
             <div className="hero-image relative">
-              <div className="relative w-80 h-80 md:w-96 md:h-96 lg:w-[450px] lg:h-[450px]">
+              <div className="relative h-[min(78vw,20rem)] w-[min(78vw,20rem)] sm:h-[22rem] sm:w-[22rem] md:h-[24rem] md:w-[24rem] lg:h-[28rem] lg:w-[28rem]">
                 <div className="absolute inset-0 bg-gradient-to-tr from-primary via-purple-500 to-pink-500 rounded-full blur-3xl opacity-20 animate-pulse" />
                 <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-background shadow-2xl">
                   <img
+                    {...priorityImageProps}
                     src={heroImageSrc}
                     alt="Gilbert Tuyambaze"
+                    decoding="async"
+                    sizes="(max-width: 640px) 78vw, (max-width: 1024px) 24rem, 28rem"
                     className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
                   />
                 </div>
@@ -165,7 +167,7 @@ export default function Hero() {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="hero-scroll absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="hero-scroll absolute bottom-8 left-1/2 hidden -translate-x-1/2 animate-bounce md:block">
           <button onClick={scrollToAbout} className="p-2 rounded-full bg-muted/50 hover:bg-muted transition-colors">
             <ArrowDown className="w-6 h-6" />
           </button>

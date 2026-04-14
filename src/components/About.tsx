@@ -3,8 +3,10 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Code, Palette, Music, GraduationCap, Award } from 'lucide-react';
 import { revealElements } from '@/hooks/useScrollReveal';
+import { useTranslation } from 'react-i18next';
 
 export default function About() {
+  const { t } = useTranslation();
   useEffect(() => {
     revealElements('.about-title', {
       origin: 'top',
@@ -50,83 +52,49 @@ export default function About() {
     });
   }, []);
 
-  const skills = [
-    'React',
-    'TypeScript',
-    'Next.js',
-    'Node.js',
-    'Python',
-    'JavaScript',
-    'HTML5',
-    'CSS3',
-    'Tailwind CSS',
-    'Git',
-    'PHP',
-    'Java',
-    'Adobe Creative Suite',
-  ];
+  const skills = t('about.skills', { returnObjects: true }) as string[];
 
   const expertise = [
     {
       icon: Code,
-      title: 'Frontend Development',
-      description: 'Building responsive and interactive user interfaces with modern frameworks and libraries.',
+      title: t('about.expertise.frontend'),
+      description: t('about.expertiseDescription.frontend'),
       color: 'text-blue-500',
     },
     {
       icon: Palette,
-      title: 'UI/UX Design',
-      description: 'Creating beautiful and intuitive designs that improve user experience and engagement.',
+      title: t('about.expertise.uiux'),
+      description: t('about.expertiseDescription.uiux'),
       color: 'text-purple-500',
     },
     {
       icon: Music,
-      title: 'Music Production',
-      description: 'Producing high-quality music and audio content for media and entertainment projects.',
+      title: t('about.expertise.music'),
+      description: t('about.expertiseDescription.music'),
       color: 'text-pink-500',
     },
   ];
 
-  const education = [
-    {
-      degree: 'Software Engineering Fellowship',
-      institution: 'A2SV (Africa to Silicon Valley)',
-      year: '2026 - Present',
-      icon: Award,
-    },
-    {
-      degree: 'Planned Double Major in BSc Computer Science and BSc Applied Physics',
-      institution: 'University',
-      year: '2025 - Present',
-      icon: GraduationCap,
-    },
-    {
-      degree: 'Full Stack Web Development',
-      institution: 'Coding Bootcamp',
-      year: '2024 - 2025',
-      icon: Award,
-    },
-    {
-      degree: 'Music Production Certificate',
-      institution: 'Audio Institute',
-      year: '2024',
-      icon: Music,
-    },
-  ];
+  const educationData = t('about.education', { returnObjects: true }) as Array<{
+    degree: string;
+    institution: string;
+    year: string;
+  }>;
+
+  const education = educationData.map((item, index) => ({
+    ...item,
+    icon: [Award, GraduationCap, Award, Music][index] as typeof Award | typeof GraduationCap | typeof Music,
+  }));
 
   return (
-    <section id="about" className="py-20 px-4 bg-muted/30">
+    <section id="about" className="py-20 px-4 bg-muted">
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-16">
           <h2 className="about-title text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-            About <span className="text-primary">Me</span>
+            {t('about.title')} <span className="text-primary">{t('about.me')}</span>
           </h2>
           <p className="about-description text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            I'm a Kigali, Rwanda-based frontend and full-stack developer with a strong interest in modern web development,
-            web design, UI/UX design, and music production. I am currently a Software Engineering Fellow at A2SV
-            (Africa to Silicon Valley), where I train in data structures, algorithms, system design,
-            and real-world problem solving. I enjoy turning ideas into scalable, high-performance
-            digital products through clean code, thoughtful design, and responsive website experiences.
+            {t('about.description')}
           </p>
         </div>
 
@@ -148,7 +116,7 @@ export default function About() {
           <div>
             <h3 className="about-title text-2xl font-bold mb-8 flex items-center gap-3">
               <Code className="w-6 h-6 text-primary" />
-              Technical Skills
+              {t('about.skillsTitle')}
             </h3>
             <div className="flex flex-wrap gap-3">
               {skills.map((skill, index) => (
@@ -166,7 +134,7 @@ export default function About() {
           <div>
             <h3 className="about-title text-2xl font-bold mb-8 flex items-center gap-3">
               <GraduationCap className="w-6 h-6 text-primary" />
-              Education & Certifications
+              {t('about.educationTitle')}
             </h3>
             <div className="space-y-6">
               {education.map((item, index) => (

@@ -1,6 +1,10 @@
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ExternalLink, Github, Maximize2, Minimize2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useCyberMode } from '@/hooks/useCyberMode';
+import { useVisitorCount } from '@/hooks/useVisitorCount';
+import { loginAdmin } from '@/lib/portfolioData';
 
 type ProjectEntry = {
   title: string;
@@ -42,6 +46,13 @@ type ComposeState = {
     subject: string;
     message: string;
   };
+};
+
+type AdminLoginStep = 'email' | 'password';
+
+type AdminLoginState = {
+  step: AdminLoginStep;
+  email: string;
 };
 
 type LookupMode = 'projects' | 'images' | null;
@@ -102,6 +113,9 @@ const COMMAND_MATCHES = [
   'resume',
   'cv',
   'message',
+  'login',
+  'dashboard',
+  'admin',
 ];
 const listProfileImages = () => PROFILE_IMAGES.map((image, index) => `${index + 1}. ${image.title}`).join('\n');
 const findProfileImage = (query: string) => {
@@ -509,21 +523,37 @@ const findDesign = (query: string) => {
   );
 };
 export default function CyberConsole() {
+  const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const { isCyberMode, toggleCyberMode } = useCyberMode();
+  const { count: visitorCount, loading: visitorCountLoading, error: visitorCountError } = useVisitorCount();
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [command, setCommand] = useState('');
   const [isMinimized, setIsMinimized] = useState(false);
   const [composeState, setComposeState] = useState<ComposeState | null>(null);
+  const [adminLoginState, setAdminLoginState] = useState<AdminLoginState | null>(null);
   const [isSendingMessage, setIsSendingMessage] = useState(false);
   const [lookupMode, setLookupMode] = useState<LookupMode>(null);
   const [viewportInset, setViewportInset] = useState(0);
   const [viewportHeight, setViewportHeight] = useState<number | null>(null);
+  const [visitorLogAdded, setVisitorLogAdded] = useState(false);
   const consoleRef = useRef<HTMLElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const historyRef = useRef<HTMLDivElement | null>(null);
   const historyEndRef = useRef<HTMLDivElement | null>(null);
   const startupTimerIds = useRef<number[]>([]);
   const settledEntryIdsRef = useRef<Set<string>>(new Set());
+
+  const startupMessages = useMemo(
+    () => [
+      t('console.initializingTracking'),
+      t('console.fetchingVisitorData'),
+      t('console.loadingModules'),
+      t('console.matcherOnline'),
+      t('console.helpHint'),
+    ],
+    [t]
+  );
 
   const scrollHistoryToBottom = useCallback(() => {
     if (!historyRef.current) return;
@@ -556,6 +586,7 @@ export default function CyberConsole() {
       setCommand('');
       setIsMinimized(false);
       setComposeState(null);
+      setAdminLoginState(null);
       setIsSendingMessage(false);
       setLookupMode(null);
       return;
@@ -564,10 +595,11 @@ export default function CyberConsole() {
     setCommand('');
     setIsMinimized(false);
     setComposeState(null);
+    setAdminLoginState(null);
     setIsSendingMessage(false);
     setLookupMode(null);
     const timers: number[] = [];
-    LOGS.forEach((message, index) => {
+    startupMessages.forEach((message, index) => {
       const timerId = window.setTimeout(() => addHistory({ type: 'log', text: message }), 280 + index * 260);
       timers.push(timerId);
     });
@@ -617,6 +649,22 @@ export default function CyberConsole() {
   useEffect(() => {
     scrollHistoryToBottom();
   }, [history, command]);
+
+  useEffect(() => {
+    if (visitorCountLoading || visitorLogAdded) return;
+    if (!isCyberMode || isMinimized) return;
+
+    if (visitorCount !== null) {
+      addHistory({ type: 'log', text: t('console.totalVisitors', { count: new Intl.NumberFormat(i18n.language).format(visitorCount) }) });
+      setVisitorLogAdded(true);
+      return;
+    }
+
+    if (visitorCountError) {
+      addHistory({ type: 'log', text: t('console.visitorError') });
+      setVisitorLogAdded(true);
+    }
+  }, [visitorCount, visitorCountError, visitorCountLoading, visitorLogAdded, isCyberMode, isMinimized, t, i18n.language]);
 
   useEffect(() => {
     if (!historyRef.current || isMinimized) return;
@@ -769,11 +817,21 @@ You can also type project followed by a project number or project name for more 
   };
 
   const startComposeFlow = () => {
+    setAdminLoginState(null);
     setComposeState({
       step: 'name',
       data: { name: '', email: '', subject: '', message: '' },
     });
     addHistory({ type: 'output', text: 'Terminal message mode started.\nname > Enter your full name' });
+  };
+
+  const startAdminLoginFlow = () => {
+    setComposeState(null);
+    setAdminLoginState({ step: 'email', email: '' });
+    addHistory({
+      type: 'output',
+      text: 'Admin login started.\nemail > Enter your admin email address',
+    });
   };
 
   const submitComposeMessage = async (state: ComposeState) => {
@@ -865,15 +923,70 @@ You can also type project followed by a project number or project name for more 
     return false;
   };
 
+  const continueAdminLoginFlow = async (rawCommand: string) => {
+    if (!adminLoginState) return false;
+
+    const value = rawCommand.trim();
+    if (!value) {
+      addHistory({ type: 'output', text: `${adminLoginState.step} > Please enter a value.` });
+      return true;
+    }
+
+    if (value.toLowerCase() === 'cancel') {
+      setAdminLoginState(null);
+      addHistory({ type: 'output', text: 'Admin login cancelled.' });
+      return true;
+    }
+
+    if (adminLoginState.step === 'email') {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        addHistory({ type: 'output', text: 'email > Please enter a valid email address' });
+        return true;
+      }
+
+      setAdminLoginState({ step: 'password', email: value });
+      addHistory({ type: 'output', text: 'password > Enter your password' });
+      return true;
+    }
+
+    if (adminLoginState.step === 'password') {
+      try {
+        await loginAdmin(adminLoginState.email, value);
+        setAdminLoginState(null);
+        addHistory({ type: 'output', text: 'Access granted. Redirecting to dashboard...' });
+        navigate('/dashboard');
+      } catch {
+        setAdminLoginState(null);
+        addHistory({ type: 'output', text: 'Access denied. Invalid admin credentials.' });
+      }
+      return true;
+    }
+
+    return false;
+  };
+
   const runCommand = async (rawCommand: string) => {
     const cleaned = rawCommand.trim();
     const normalized = cleaned.toLowerCase();
     if (!normalized) return;
-    addHistory({ type: 'prompt', text: cleaned });
+
+    if (adminLoginState?.step === 'password') {
+      addHistory({ type: 'prompt', text: '********' });
+    } else {
+      addHistory({ type: 'prompt', text: cleaned });
+    }
 
     if (composeState) {
       const handledCompose = await continueComposeFlow(cleaned);
       if (handledCompose) {
+        setCommand('');
+        return;
+      }
+    }
+
+    if (adminLoginState) {
+      const handledAdminLogin = await continueAdminLoginFlow(cleaned);
+      if (handledAdminLogin) {
         setCommand('');
         return;
       }
@@ -886,7 +999,7 @@ You can also type project followed by a project number or project name for more 
       return;
     }
     if (normalized === 'help') {
-      addHistory({ type: 'output', text: `Available commands:\nhelp, clear, minimize, exit\nsections, goto <section>\nhero, about, gilbert, images, image <name|number>, education, services\nprojects, project <name|number>, gallery\ncontact, socials, resume, cv\nopen <project>, github <project>\nmessage, send message\n\nProfile guide:\n- Type hero to see the hero summary, achievements, strengths, and recent work\n- Type gilbert to see about me and personal images\n- Type images to list Gilbert's portraits and branding visuals\n- Then enter an image number or image name to expand it\n- Type education to see education and certifications\n\nProjects guide:\n- Run or click projects to list all project names\n- Then type a project name or project number for more details\n\nProject matching understands numbers, partial names, token swaps, loose typing, and approximate names.\nTerminal message mode prompts step by step: name > email > subject > message > confirm.\nType cancel anytime to stop.\n\nExamples:\n${HINTS.map((hint) => `- ${hint}`).join('\n')}\n- hero\n- gilbert\n- images\n- image 1` });
+      addHistory({ type: 'output', text: `Available commands:\nhelp, clear, minimize, exit\nsections, goto <section>\nhero, about, gilbert, images, image <name|number>, education, services\nprojects, project <name|number>, gallery\ncontact, socials, resume, cv\nopen <project>, github <project>\nmessage, send message\nlogin, dashboard, admin\n\nProfile guide:\n- Type hero to see the hero summary, achievements, strengths, and recent work\n- Type gilbert to see about me and personal images\n- Type images to list Gilbert's portraits and branding visuals\n- Then enter an image number or image name to expand it\n- Type education to see education and certifications\n\nProjects guide:\n- Run or click projects to list all project names\n- Then type a project name or project number for more details\n\nProject matching understands numbers, partial names, token swaps, loose typing, and approximate names.\nTerminal message mode prompts step by step: name > email > subject > message > confirm.\nAdmin login prompts step by step: email > password.\nType cancel anytime to stop.\n\nExamples:\n${HINTS.map((hint) => `- ${hint}`).join('\n')}\n- login\n- dashboard\n- hero\n- images\n- image 1` });
       setCommand('');
       return;
     }
@@ -992,6 +1105,12 @@ You can also type project followed by a project number or project name for more 
       setCommand('');
       return;
     }
+    if (normalized === 'login' || normalized === 'dashboard' || normalized === 'admin') {
+      setLookupMode(null);
+      startAdminLoginFlow();
+      setCommand('');
+      return;
+    }
     if (normalized.startsWith('open ')) {
       openProject(cleaned.replace(/^open\s+/i, '').trim(), 'live');
       setCommand('');
@@ -1005,7 +1124,7 @@ You can also type project followed by a project number or project name for more 
     if (normalized === 'minimize' || normalized === 'hide') {
       setLookupMode(null);
       setIsMinimized(true);
-      addHistory({ type: 'output', text: 'Terminal minimized. Use the re-open button to continue.' });
+      addHistory({ type: 'output', text: t('console.minimized') });
       setCommand('');
       return;
     }
@@ -1027,7 +1146,7 @@ You can also type project followed by a project number or project name for more 
     const matchedCommand = findCommandMatch(cleaned);
     const matchedProject = findProject(cleaned);
     if (matchedCommand && matchedCommand.score >= 0.3 && matchedCommand.score >= (matchedProject.score ?? 0) + 0.08) {
-      addHistory({ type: 'output', text: `Closest supported command: ${matchedCommand.command}\nRunning it for you...` });
+      addHistory({ type: 'output', text: t('console.commandRunning', { command: matchedCommand.command }) });
       setCommand('');
       await runCommand(matchedCommand.command);
       return;
@@ -1038,23 +1157,23 @@ You can also type project followed by a project number or project name for more 
       return;
     }
     if (matchedCommand && matchedCommand.score >= 0.3) {
-      addHistory({ type: 'output', text: `Closest supported command: ${matchedCommand.command}\nRunning it for you...` });
+      addHistory({ type: 'output', text: t('console.commandRunning', { command: matchedCommand.command }) });
       setCommand('');
       await runCommand(matchedCommand.command);
       return;
     }
     if (lookupMode === 'projects') {
-      addHistory({ type: 'output', text: `Project not recognized in project mode: ${cleaned}\nType a project number or project name, or type help to see supported commands.` });
+      addHistory({ type: 'output', text: t('console.projectNotRecognized', { query: cleaned }) });
       setCommand('');
       return;
     }
     if (lookupMode === 'images') {
-      addHistory({ type: 'output', text: `Image not recognized in image mode: ${cleaned}\nType an image number or image name, or type help to see supported commands.` });
+      addHistory({ type: 'output', text: t('console.imageNotRecognized', { query: cleaned }) });
       setCommand('');
       return;
     }
 
-    addHistory({ type: 'output', text: `Command not recognized: ${cleaned}\nType help to see supported commands.` });
+    addHistory({ type: 'output', text: t('console.commandUnknown', { command: cleaned }) });
     setCommand('');
   };
 
@@ -1079,8 +1198,8 @@ You can also type project followed by a project number or project name for more 
             <div ref={historyRef} className="cyber-console__history min-h-0 flex-1 overflow-y-auto pr-1 pb-4 text-sm leading-6 text-[#b8ffcc] sm:pr-2">
               <div className="mb-5 space-y-4">
                 <div className="flex flex-wrap items-center justify-between gap-3 text-[10px] uppercase tracking-[0.24em] text-[#00ff9f]/70 sm:text-xs sm:tracking-[0.3em]">
-                  <div className="flex flex-wrap gap-2 sm:gap-3"><span>Cyber Mode</span><span>Ctrl + Shift + C</span><span>Portfolio Navigator</span></div>
-                  <button type="button" onClick={() => setIsMinimized(true)} className="inline-flex items-center gap-2 rounded-full border border-[#00ff9f]/30 bg-[#000000b3] px-3 py-2 text-[10px] uppercase tracking-[0.24em] text-[#00ff9f] transition hover:bg-[#00ff9f]/10"><Minimize2 className="h-3.5 w-3.5" />minimize</button>
+                  <div className="flex flex-wrap gap-2 sm:gap-3"><span>{t('console.modeLabel')}</span><span>{t('console.shortcut')}</span><span>{t('console.navigatorLabel')}</span></div>
+                  <button type="button" onClick={() => setIsMinimized(true)} className="inline-flex items-center gap-2 rounded-full border border-[#00ff9f]/30 bg-[#000000b3] px-3 py-2 text-[10px] uppercase tracking-[0.24em] text-[#00ff9f] transition hover:bg-[#00ff9f]/10"><Minimize2 className="h-3.5 w-3.5" />{t('console.commands.minimize')}</button>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {['help', 'projects', 'contact', 'minimize', 'exit'].map((quickCommand) => (
@@ -1088,7 +1207,7 @@ You can also type project followed by a project number or project name for more 
                   ))}
                 </div>
               </div>
-              {visibleHistory.length === 0 && <p className="mb-4 text-[#00ff9f]/75">System ready. Type <span className="font-medium text-[#00ff9f]">help</span> to begin.</p>}
+              {visibleHistory.length === 0 && <p className="mb-4 text-[#00ff9f]/75">{t('console.readyPrefix')} <span className="font-medium text-[#00ff9f]">{t('console.commands.help')}</span> {t('console.readySuffix')}</p>}
               <div className="space-y-4">
                 {visibleHistory.map((entry, index) => {
                   const prefix = entry.type === 'prompt' ? '> ' : entry.type === 'log' ? '[sys] ' : '';
@@ -1102,8 +1221,8 @@ You can also type project followed by a project number or project name for more 
                             <div className="flex flex-wrap items-center justify-between gap-3">
                               <div><h3 className="text-base font-semibold text-[#e6ffe6]">{entry.project.title}</h3><p className="text-xs uppercase tracking-[0.2em] text-[#00ff9f]/70">{entry.project.type}</p></div>
                               <div className="flex flex-wrap gap-2">
-                                <button type="button" onClick={() => openExternal(entry.project!.liveUrl)} className="inline-flex items-center gap-2 rounded-full border border-[#00ff9f]/25 px-3 py-1.5 text-xs text-[#b8ffcc] transition hover:bg-[#00ff9f]/10"><ExternalLink className="h-3.5 w-3.5" />live</button>
-                                <button type="button" onClick={() => openExternal(entry.project!.githubUrl)} className="inline-flex items-center gap-2 rounded-full border border-[#00ff9f]/25 px-3 py-1.5 text-xs text-[#b8ffcc] transition hover:bg-[#00ff9f]/10"><Github className="h-3.5 w-3.5" />github</button>
+                                <button type="button" onClick={() => openExternal(entry.project!.liveUrl)} className="inline-flex items-center gap-2 rounded-full border border-[#00ff9f]/25 px-3 py-1.5 text-xs text-[#b8ffcc] transition hover:bg-[#00ff9f]/10"><ExternalLink className="h-3.5 w-3.5" />{t('projects.liveDemo')}</button>
+                                <button type="button" onClick={() => openExternal(entry.project!.githubUrl)} className="inline-flex items-center gap-2 rounded-full border border-[#00ff9f]/25 px-3 py-1.5 text-xs text-[#b8ffcc] transition hover:bg-[#00ff9f]/10"><Github className="h-3.5 w-3.5" />{t('console.githubButton')}</button>
                               </div>
                             </div>
                             <div className="flex flex-wrap gap-2">
@@ -1155,19 +1274,27 @@ You can also type project followed by a project number or project name for more 
               </div>
             </div>
             <form onSubmit={(event) => { event.preventDefault(); void runCommand(command); }} className="pointer-events-auto shrink-0 pt-3">
-              <label htmlFor="cyber-input" className="sr-only">Cyber command input</label>
+              <label htmlFor="cyber-input" className="sr-only">{t('console.inputLabel')}</label>
               <div className="cyber-console__prompt flex items-center gap-2 rounded-2xl border border-[#00ff9f]/30 bg-black/30 px-3 py-3 shadow-inner shadow-[#00ff9f]/5 sm:gap-3 sm:px-4">
                 <span className="text-[#00ff9f]">&gt;</span>
-                <input ref={inputRef} id="cyber-input" type="text" value={command} onChange={(event) => setCommand(event.target.value)} placeholder={composeState ? `${composeState.step} > reply here or type cancel` : 'Type a project name or number like: market place, ur hub, 3'} autoComplete="off" spellCheck={false} className="cyber-console__input min-w-0 flex-1 bg-transparent text-sm text-[#e6ffe6] outline-none placeholder:text-[#00ff9f]/30" />
-                <span className="cyber-console__typing-indicator hidden text-[10px] uppercase tracking-[0.24em] text-[#00ff9f]/55 sm:inline">{isSendingMessage ? 'sending' : command ? 'typing' : composeState ? composeState.step : 'ready'}</span>
-                <button type="submit" disabled={isSendingMessage} className="rounded-full border border-[#00ff9f]/40 px-3 py-2 text-[11px] uppercase tracking-[0.16em] text-[#00ff9f] transition hover:bg-[#00ff9f]/10 disabled:opacity-50 sm:px-4 sm:text-xs sm:tracking-[0.2em]">run</button>
+                <input ref={inputRef} id="cyber-input" type="text" value={command} onChange={(event) => setCommand(event.target.value)} placeholder={composeState ? t('console.composePlaceholder', { step: composeState.step }) : t('console.promptPlaceholder')} autoComplete="off" spellCheck={false} className="cyber-console__input min-w-0 flex-1 bg-transparent text-sm text-[#e6ffe6] outline-none placeholder:text-[#00ff9f]/30" />
+                <span className="cyber-console__typing-indicator hidden text-[10px] uppercase tracking-[0.24em] text-[#00ff9f]/55 sm:inline">
+                  {isSendingMessage
+                    ? t('console.typingStatus.sending')
+                    : command
+                    ? t('console.typingStatus.typing')
+                    : composeState
+                    ? composeState.step
+                    : t('console.typingStatus.ready')}
+                </span>
+                <button type="submit" disabled={isSendingMessage} className="rounded-full border border-[#00ff9f]/40 px-3 py-2 text-[11px] uppercase tracking-[0.16em] text-[#00ff9f] transition hover:bg-[#00ff9f]/10 disabled:opacity-50 sm:px-4 sm:text-xs sm:tracking-[0.2em]">{t('console.run')}</button>
               </div>
             </form>
           </div>
         ) : null}
         <div className="absolute inset-0 pointer-events-none"><div className="cyber-scanlines absolute inset-0" /><div className="cyber-glitch absolute inset-0" /></div>
       </div>
-      {isCyberMode && isMinimized && <div className="absolute bottom-5 right-5 z-[10000] pointer-events-auto"><button type="button" onClick={() => setIsMinimized(false)} className="inline-flex items-center gap-2 rounded-full border border-[#00ff9f]/30 bg-[#050505]/95 px-4 py-3 text-sm font-medium uppercase tracking-[0.25em] text-[#00ff9f] shadow-[0_0_24px_rgba(0,255,159,0.16)] transition hover:bg-[#00ff9f]/10"><Maximize2 className="h-4 w-4" />Re-open terminal</button></div>}
+      {isCyberMode && isMinimized && <div className="absolute bottom-5 right-5 z-[10000] pointer-events-auto"><button type="button" onClick={() => setIsMinimized(false)} className="inline-flex items-center gap-2 rounded-full border border-[#00ff9f]/30 bg-[#050505]/95 px-4 py-3 text-sm font-medium uppercase tracking-[0.25em] text-[#00ff9f] shadow-[0_0_24px_rgba(0,255,159,0.16)] transition hover:bg-[#00ff9f]/10"><Maximize2 className="h-4 w-4" />{t('console.reopen')}</button></div>}
     </section>
   );
 }

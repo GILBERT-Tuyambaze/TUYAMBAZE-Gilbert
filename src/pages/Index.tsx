@@ -9,6 +9,7 @@ import Gallery from '@/components/Gallery';
 import PWAInstallBanner from '@/components/PWAInstallBanner';
 import CyberConsole from '@/components/CyberConsole';
 import CustomCursor from '@/components/CustomCursor';
+import Testimonials from '@/components/Testimonials';
 
 
 
@@ -27,6 +28,7 @@ export default function Index() {
         <Services />
         <Projects />
         <Gallery />
+        <Testimonials />
         <Contact />
         <PWAInstallBanner />
       </main>

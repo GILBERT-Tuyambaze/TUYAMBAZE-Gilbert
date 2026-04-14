@@ -1,0 +1,577 @@
+{
+  "nav": {
+    "home": "Ahabanza",
+    "about": "Ibyerekeye",
+    "services": "Serivisi",
+    "projects": "Imishinga",
+    "gallery": "Amafoto",
+    "contact": "Twandikire",
+    "cyberOn": "Cyber on",
+    "cyberMode": "Cyber",
+    "cursorOn": "Cursor on",
+    "cursorOff": "Cursor off",
+    "talk": "Reka tuganire"
+  },
+  "hero": {
+    "greeting": "Muraho, ndi",
+    "name": "Gilbert",
+    "location": "Nkorera i Kigali, mu Rwanda ",
+    "roles": [
+      "Umukora porogaramu za full-stack",
+      "Umushushanyi wa UI/UX",
+      "Producer w'umuziki",
+      "Umunyamwuga mu guhanga",
+      "Umwiga wa software engineering muri A2SV"
+    ],
+    "description": "Ndi web developer na designer ukorera i Kigali mu Rwanda. Nibanda ku kubaka imbuga zigezweho, porogaramu za web zuzuye, n'ubunararibonye bwa digitale busobanutse kandi bworoshye ku masitatarapu, ibirango n'ubucuruzi buri gukura. Kuri ubu ndi mu mahugurwa ya software engineering muri A2SV (Africa to Silicon Valley), aho nkomeza kubaka porogaramu zikoreshwa mu buzima busanzwe, zishobora kwaguka kandi zifite ubuziranenge ku ruhande rw'isura n'imikoreshereze.",
+    "downloadCV": "Manura CV",
+    "viewWork": "Reba ibyo nakoze",
+    "scrollHint": "Manuka urebe byinshi"
+  },
+  "about": {
+    "title": "Ibyerekeye",
+    "me": "Njyewe",
+    "description": "Ndi frontend na full-stack developer ukorera i Kigali mu Rwanda, nkunda cyane web development igezweho, web design, UI/UX ndetse no gutunganya umuziki. Mu mahugurwa ya A2SV ndushaho kwimenyereza data structures, algorithms, system design no gukemura ibibazo byo mu buzima busanzwe. Nishimira guhindura ibitekerezo bikavamo ibicuruzwa bya digitale bikora neza, binyuze muri code isukuye, design itekerejweho n'uburambe bwiza bw'abakoresha.",
+    "expertise": {
+      "frontend": "Gukora Frontend",
+      "uiux": "Igishushanyo cya UI/UX",
+      "music": "Gutunganya umuziki"
+    },
+    "expertiseDescription": {
+      "frontend": "Kubaka interfaces z'abakoresha zikorana neza, zigezweho kandi zisubiza neza ku bikoresho byose.",
+      "uiux": "Gukora design nziza, isobanutse kandi yorohereza abakoresha kuyikoresha neza.",
+      "music": "Gutunganya umuziki n'amajwi ku rwego rwiza ku mishinga y'itangazamakuru n'imyidagaduro."
+    },
+    "skillsTitle": "Ubumenyi mu Ikoranabuhanga",
+    "educationTitle": "Amashuri n'impamyabushobozi",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Next.js",
+      "Node.js",
+      "Python",
+      "JavaScript",
+      "HTML5",
+      "CSS3",
+      "Tailwind CSS",
+      "Git",
+      "PHP",
+      "Java",
+      "Adobe Creative Suite"
+    ],
+    "education": [
+      {
+        "degree": "Software Engineering Fellowship",
+        "institution": "A2SV (Africa to Silicon Valley)",
+        "year": "2026 - Ubu"
+      },
+      {
+        "degree": "Kwiga Computer Science na Applied Physics",
+        "institution": "Kaminuza",
+        "year": "2025 - Ubu"
+      },
+      {
+        "degree": "Full Stack Web Development",
+        "institution": "Coding Bootcamp",
+        "year": "2024 - 2025"
+      },
+      {
+        "degree": "Icyemezo mu gutunganya umuziki",
+        "institution": "Audio Institute",
+        "year": "2024"
+      }
+    ]
+  },
+  "services": {
+    "title": "Serivisi Ntanga",
+    "description": "Ntanga serivisi zitandukanye za digitale zigufasha guhindura igitekerezo cyawe kikaba umushinga ufatika, uhereye ku gukora imbuga za web kugeza kuri design no gutunganya amajwi.",
+    "serviceList": [
+      {
+        "title": "Gukora imbuga za web",
+        "description": "Kubaka imbuga na porogaramu za web zigezweho, zikozwe mu buryo bw'umwuga kandi zita ku mikorere myiza.",
+        "features": [
+          "Design ihuza ibikoresho byose",
+          "Kunoza imikorere",
+          "Kubahiriza SEO",
+          "Gukorana na browser zose"
+        ]
+      },
+      {
+        "title": "Igishushanyo cya UI/UX",
+        "description": "Gukora interfaces nziza kandi zorohereza abakoresha kugira uburambe bwiza.",
+        "features": [
+          "Gusesengura abakoresha",
+          "Gukora wireframes",
+          "Gutegura prototypes",
+          "Igishushanyo kigaragara neza"
+        ]
+      },
+      {
+        "title": "Gutunganya umuziki",
+        "description": "Serivisi z'umwuga mu gutunganya umuziki n'amajwi ku mishinga itandukanye.",
+        "features": [
+          "Guhuza amajwi",
+          "Gukora sound design",
+          "Gutunganya podcasts",
+          "Guhanga indirimbo nshya"
+        ]
+      },
+      {
+        "title": "Gukora porogaramu za full-stack",
+        "description": "Ibisubizo byuzuye bya web, birimo frontend, backend n'ububiko bw'amakuru.",
+        "features": [
+          "Kubaka APIs",
+          "Gutegura database",
+          "Gutunganya server",
+          "Kohereza ku cloud"
+        ]
+      },
+      {
+        "title": "Design ihera kuri mobile",
+        "description": "Gukora design ibanza kwita kuri telefone n'ibindi bikoresho bito mbere yo kwaguka ku binini.",
+        "features": [
+          "Kunoza mobile",
+          "Imikoreshereze ya touch",
+          "Uburambe busa na app",
+          "Gukora no mu gihe nta internet"
+        ]
+      },
+      {
+        "title": "Serivisi z'amajwi",
+        "description": "Gutunganya, gusukura no kunoza amajwi ku buryo bw'umwuga ku podcasts n'ibindi birimo bya multimedia.",
+        "features": [
+          "Gutunganya podcasts",
+          "Gusukura amajwi",
+          "Kunoza ijwi",
+          "Kongeramo umuziki wo inyuma"
+        ]
+      }
+    ],
+    "reachOut": "Nyandikira"
+  },
+  "projects": {
+    "title": "Imishinga Yatoranyijwe",
+    "description": "Dore zimwe mu mishinga yanjye iheruka mu bijyanye na web development, design n'amajwi. Buri mushinga ugaragaza ikibazo cyari gihari n'uburyo cyakemuwe.",
+    "viewAll": "Reba imishinga yose",
+    "liveDemo": "Reba uko ikora",
+    "projectType": "Ubwoko",
+    "projectListIntro": "Imishinga:",
+    "listHeading": "Andika nimero cyangwa izina ry'umushinga kugira ngo ubone ibisobanuro birambuye.",
+    "types": {
+      "webDevelopment": "Iterambere rya Web",
+      "uiuxDesign": "Igishushanyo UI/UX",
+      "audioProduction": "Gutanga Umuziki"
+    },
+    "items": {
+      "marketplacePro": {
+        "title": "MarketPlace Pro",
+        "description": "Porogaramu y’isoko yuzuye ifite imikorere y’abakoresha benshi, ubutumwa, kwishyura n’ubucuruzi bw’imodoka."
+      },
+      "nyagatareSchool": {
+        "title": "Urubuga rw’Ishuri rya Nyagatare",
+        "description": "Urubuga rw’ishuri rwa none rwerekana ibikorwa, kwiyandikisha, inkunga, n’akaguru ka AI."
+      },
+      "urAcademicHub": {
+        "title": "UR Academic Resource Hub",
+        "description": "Urubuga rw’amashuri rw’abanyeshuri ba Kaminuza y’u Rwanda rufite ubushakashatsi, kohereza no kuyobora."
+      },
+      "privateCoupleChat": {
+        "title": "Private Couple Chat",
+        "description": "Porogaramu y’ubutumwa bwite ifite ubutumwa bw’ako kanya, umutekano n’ubufatanye mu kohereza amafoto."
+      },
+      "tourBooking": {
+        "title": "Tour Booking & Exploring",
+        "description": "Urubuga rwo gusura ahantu rutuma abakiriya bashobora kubika ingendo no kureba ibyiza mu buryo burambuye."
+      },
+      "consultingPlatform": {
+        "title": "Consulting Platform",
+        "description": "Urubuga rwerekana serivisi za konsitanti hamwe n’amafishi akora neza n’imyambarire ikurura."
+      },
+      "onlineLearning": {
+        "title": "Online Learning Platform",
+        "description": "Urubuga rw’amashuri kuri internet rufite kwiyandikisha, uburambe bworoshye n’ikoranabuhanga rigezweho."
+      },
+      "tresor": {
+        "title": "Tuyizere Tresor - Portfolio",
+        "description": "Urubuga rwa portfolio rukwerekana ubuhanga, ubunararibonye n’imishinga mu buryo bugezweho."
+      },
+      "orangeflix": {
+        "title": "Orangeflix",
+        "description": "Urubuga rwo kureba filime kuri internet rufite imikorere yo kwiyandikisha n’uruhande rw’umuyobozi."
+      },
+      "aimablePortfolio": {
+        "title": "Aimable Bizimungu - Portfolio",
+        "description": "Urubuga bwa portfolio bw’umwuga burimo ubunararibonye n’imishinga mu buryo busobanutse."
+      },
+      "akimana": {
+        "title": "AKIMANA Etienne - Portfolio",
+        "description": "Urubuga rw’ishyirahamwe ryerekana serivisi n’amakuru y’ikigo mu buryo bugezweho."
+      },
+      "musicStreaming": {
+        "title": "Music Streaming Interface",
+        "description": "Igishushanyo cyerekana uburyo bwo kumva umuziki mu buryo bworoshye kandi bwiza."
+      }
+    }
+  },
+  "gallery": {
+    "title": "Galerie y'imishinga",
+    "intro": "Imishinga n'ibishushanyo bifitanye isano n'ikirango cyanjye bwite.",
+    "personal": "Ibyanjye",
+    "categories": {
+      "personal": "By’umwihariko",
+      "uiux": "UI/UX",
+      "fullStack": "Full Stack",
+      "webApp": "Web App",
+      "frontend": "Frontend",
+      "technical": "Tekiniki"
+    },
+    "items": {
+      "gilbertPortrait": {
+        "title": "Portrait - Gilbert",
+        "description": "Ifoto y’umwimerere ya Gilbert ikwerekana umwuga n’icyerekezo."
+      },
+      "casualPortrait": {
+        "title": "Casual Portrait",
+        "description": "Ifoto y’imyambarire yoroheje ijyanye n’ikirango cy’umwuga."
+      },
+      "businessCard": {
+        "title": "Business Card",
+        "description": "Ikarita y’akazi yerekana ikirango cyawe mu buryo bugezweho."
+      },
+      "businessLanding": {
+        "title": "Business Landing Page",
+        "description": "Urupapuro rwo kwakira abakiriya rwubatswe ku buryo bujyanye no guhindura abayobozi."
+      },
+      "ecommerceApp": {
+        "title": "E-Commerce Web App",
+        "description": "Urubuga rw’ubucuruzi kuri internet rwuzuyemo imyanya yo kugura, kwishyura no gushakira ibintu."
+      },
+      "adminDashboard": {
+        "title": "Admin Dashboard",
+        "description": "Icyegeranyo cyerekana ibipimo n’isesengura mu buryo buboneye."
+      },
+      "blogPlatform": {
+        "title": "Blog Platform",
+        "description": "Urubuga rwa blog rufite inkuru, markdown na SEO byubahirizwa."
+      },
+      "apiIntegration": {
+        "title": "API Integration Project",
+        "description": "Umushinga wihuza APIs ufite umutekano na kureba neza ibimenyetso."
+      },
+      "uiLibrary": {
+        "title": "UI Component Library",
+        "description": "Inzu y’ibikoresho bya UI ikozwe na Tailwind na shadcn/ui."
+      }
+    },
+    "personalInfo": {
+      "name": "Tuyambaze Gilbert",
+      "role": "Umuhanga mu Mbuga za Web",
+      "bio": "Nubaka porogaramu za web zigezweho kandi zihamye hamwe na React na Tailwind."
+    }
+  },
+  "footer": {
+    "description": "Ndi developer ufite ishyaka n'ubuhanga bwo guhanga, kandi nkunda kubaka uburambe bwa digitale bufite ireme binyuze muri web development igezweho, design iteguye neza n'ibirimo bifite intego.",
+    "quickLinks": "Amahuza yihuse",
+    "getInTouch": "Twandikire",
+    "faqButton": "Ibibazo & Amategeko",
+    "faqTitle": "Ibibazo bikunze kubazwa kuri Gilbert Tuyambaze",
+    "faqDescription": "Amakuru y'inyongera afasha abantu bashaka web developer cyangwa web designer i Kigali, mu Rwanda.",
+    "backToTop": "Subira hejuru",
+    "keywordCloudTitle": "Amagambo akunze gushakishwa",
+    "legalTitle": "Uburenganzira, amabwiriza n'umutekano",
+    "copyright": "© 2025 Gilbert Tuyambaze. Byakozwe hakoreshejwe",
+    "coffee": "ikawa nyinshi.",
+    "socialEmail": "Imeyili",
+    "socialGithub": "GitHub",
+    "socialLinkedIn": "LinkedIn",
+    "socialPhone": "Telefone",
+    "socialLocation": "Aho ndi",
+    "faq": [
+      {
+        "question": "Gilbert Tuyambaze ni nde?",
+        "answer": "Ndi web developer na designer ukorera i Kigali mu Rwanda, kandi nubaka imbuga zigezweho, portfolio zifite ireme n'interfaces zorohereza abakoresha."
+      },
+      {
+        "question": "Ni izihe serivisi zigaragara kuri uru rubuga?",
+        "answer": "Uru rubuga rugaragaza akazi kanjye muri web design i Kigali, frontend development, landing pages, portfolio websites, business websites, kunoza UI ndetse n'ubufasha bwa full-stack."
+      },
+      {
+        "question": "Abantu bansanga bakoresheje ayahe magambo?",
+        "answer": "Abantu bashobora kumbona banyuze mu gushakisha nka Gilbert Tuyambaze, Tuyambaze Gilbert, Kigali web developer, Kigali Rwanda web design, Rwanda frontend developer na web designer in Kigali."
+      },
+      {
+        "question": "Kuki aya makuru ari muri popup?",
+        "answer": "Mbika aya makuru muri popup kugira ngo footer igume isukuye kandi yoroshye gusoma, ariko amakuru y'ingenzi ku kazi kanjye, aho nkorera na serivisi ntanga abe ahari igihe akenewe."
+      }
+    ],
+    "legal": [
+      {
+        "title": "Uburenganzira bw'umwanditsi",
+        "content": "Ibiri kuri uru rubuga byose byanditswe cyangwa byakozwe na Gilbert Tuyambaze, harimo inyandiko, ibisobanuro by'imishinga, ibitekerezo bya design, amashusho yabugenewe n'imiterere y'urubuga, ni umutungo we bwite keretse aho byagaragajwe ukundi. Nta wemerewe kubikoporora, kubigurisha cyangwa kubisakaza atabiherewe uburenganzira."
+      },
+      {
+        "title": "Amategeko yo gukoresha uru rubuga",
+        "content": "Uru rubuga rugenewe kwerekana umwuga, kwakira abashaka gukorana na Gilbert Tuyambaze no gutanga amakuru y'imishinga ye. Abarusura bemerewe kurureba, gusangira link yarwo no kumwandikira ku bijyanye n'akazi cyangwa ubufatanye. Birabujijwe kwiyitirira, gukoresha scraping mbi cyangwa gusubiramo ibirimo birinzwe nta ruhushya."
+      },
+      {
+        "title": "Amakuru bwite n'itumanaho",
+        "content": "Iyo utanze amakuru yawe binyuze kuri uru rubuga, urugero nk'izina, email, umutwe n'ubutumwa, akoreshwa gusa mu itumanaho, kuganira ku mushinga no gukurikirana abakiliya. Ayo makuru ntacuruzwa kandi ntakoreshwa ku kwamamaza kutajyanye n'icyo wayatanzeho."
+      },
+      {
+        "title": "Umutekano n'imikoreshereze iboneye",
+        "content": "Hakoreshwa uburyo bushoboka kugira ngo uru rubuga rugume rufite umutekano, rukore neza kandi rworohereze abarukoresha ku bikoresho bigezweho. Abarusura bagomba kwirinda kugerageza kurwinjiramo mu buryo butemewe, gukora spam cyangwa ibikorwa bihungabanya imikorere yarwo. Serivisi n'amahuza by'abandi bikurikiza amategeko n'imigenzereze yabyo bwite."
+      }
+    ],
+    "popupSeoSummary": "Nubaka imbuga za web zihuza ibikoresho byose, portfolio zigezweho n'interfaces z'ubucuruzi ku bantu bashaka web developer i Kigali, mu Rwanda. Iyi popup itanga ibisobanuro by'ingenzi ku hantu nkorera na serivisi ntanga, ariko idafata umwanya uhoraho muri footer.",
+    "popupSearchHint": "Iyo umuntu ashakisha Tuyambaze, Gilbert, Kigali design, Kigali Rwanda web design, Rwanda frontend developer, portfolio website developer Kigali, website designer in Rwanda cyangwa frontend engineer in Kigali, iki gice gifasha guhuza ayo magambo n'akazi kanjye, ubumenyi bwanjye n'uburyo bwo kunyandikira bugaragara ku rubuga.",
+    "keywordGroups": {
+      "nameSearches": "Amagambo y'izina",
+      "kigaliSearches": "Ibishakishwa bya Kigali n'u Rwanda",
+      "serviceSearches": "Ibishakishwa bya serivisi",
+      "intentSearches": "Ibishakishwa bigamije gufata umwanzuro"
+    },
+    "tabs": {
+      "faq": "Ibibazo",
+      "legal": "Amategeko"
+    }
+  },
+  "notFound": {
+    "title": "Ipaji ntiyabonetse",
+    "description": "Iyi paji ntibaho.",
+    "returnHome": "Subira ahabanza",
+    "goBack": "Subira inyuma"
+  },
+  "pwa": {
+    "installTitle": "Shyira App kuri telefone",
+    "installDescription": "Iyibike ku gikoresho cyawe kugirango uyigereho vuba.",
+    "installButton": "Shyiraho"
+  },
+  "language": {
+    "selectLabel": "Hitamo ururimi",
+    "english": "Icyongereza",
+    "french": "Igifaransa",
+    "kinyarwanda": "Ikinyarwanda",
+    "spanish": "Icyesipanyoli",
+    "chinese": "Igishinwa"
+  },
+  "visitor": {
+    "label": "Abasuye",
+    "loading": "Birimo kubarwa...",
+    "error": "Umubare w'abasuye ntubashije kuboneka.",
+    "message": "Abasuye bose: {{count}}"
+  },
+  "console": {
+    "ready": "Sisiteme yiteguye. Andika help utangire.",
+    "quickCommands": [
+      "help",
+      "projects",
+      "contact",
+      "minimize",
+      "exit"
+    ],
+    "commands": {
+      "help": "help",
+      "clear": "clear",
+      "minimize": "minimize",
+      "exit": "exit"
+    },
+    "help": "Amabwiriza aboneka:\nhelp, clear, minimize, exit\nsections, goto <section>\nhero, about, gilbert, images, image <name|number>, education, services\nprojects, project <name|number>, gallery\ncontact, socials, resume, cv\nopen <project>, github <project>\nmessage, send message\n\nUburyo bwo kureba umwirondoro:\n- Andika hero urebe incamake, ibyo nagezeho, imbaraga n'akazi nakoze vuba aha\n- Andika gilbert urebe ibisobanuro byanjye n'amafoto yanjye bwite\n- Andika images ubone urutonde rw'amafoto ya Gilbert n'ibijyanye na branding\n- Hanyuma andika nimero cyangwa izina ry'ifoto kugira ngo uyifungure\n- Andika education urebe amashuri n'impamyabushobozi\n\nUburyo bwo kureba imishinga:\n- Andika cyangwa ukande projects ubone urutonde rw'imishinga yose\n- Hanyuma andika nimero cyangwa izina ry'umushinga kugira ngo ubone ibisobanuro birambuye\n\nSisiteme ishobora kumenya umushinga ikoresheje nimero, igice cy'izina, inyuguti zahinduwe, kwandika kutuzuye cyangwa amazina asa.\nUburyo bwo kohereza ubutumwa muri terminal bugendera ku ntambwe zikurikirana: name > email > subject > message > confirm.\nAndika cancel igihe icyo ari cyo cyose ushaka guhagarika.\n\nIngero:\n- help\n- education\n- projects\n- project 1",
+    "sections": "Ibice:\n- home\n- about\n- services\n- projects\n- gallery\n- contact",
+    "gotoSuccess": "Ugiye kujya kuri {{section}}...",
+    "gotoFailure": "Agace \"{{section}}\" ntikamenyekanye. Koresha sections urebe ahaboneka.",
+    "about": "Ndi Gilbert Tuyambaze.\nNdi frontend na full-stack developer, umushushanyi wa UI/UX ndetse n'umunyabugeni mu ikoranabuhanga.\nKuri ubu ndi mu mahugurwa ya software engineering muri A2SV.\nIkoranabuhanga nkoresha cyane harimo React, TypeScript, Next.js, Node.js na Tailwind CSS.",
+    "education": "Amashuri n'impamyabushobozi\n- Software Engineering Fellowship | A2SV (Africa to Silicon Valley) | 2026 - Ubu\n- Yitegura kwiga BSc Computer Science na BSc Applied Physics | Kaminuza | 2025 - Ubu\n- Full Stack Web Development | Coding Bootcamp | 2024 - 2025\n- Icyemezo mu gutunganya umuziki | Audio Institute | 2024",
+    "hero": "Incamake\nNibanda ku gukora imbuga za web zigezweho, zikorera neza kandi zifite isura nziza.\nIby'ingenzi byangaragariza: ndi mu mahugurwa ya software engineering muri A2SV, maze gukora imishinga myinshi ya portfolio n'iy'abakiliya, kandi mfite ubunararibonye mu web apps, branding na creative tech.\nAho mfite imbaraga cyane harimo React, TypeScript, Tailwind CSS, kunoza UI, gukora interfaces zihindagurika neza no guhindura ibitekerezo bikavamo ibicuruzwa bifatika.\nMu mishinga aheruka gukora harimo marketplace systems, urubuga rw'amasomo, apps z'ubutumwa bwihariye, imbuga z'ubujyanama na portfolio z'abantu ku giti cyabo.",
+    "gilbert": "Gilbert Hub\nNdi frontend na full-stack developer ukorera i Kigali, umushushanyi wa UI/UX ndetse n'umunyabugeni mu ikoranabuhanga.\nNubaka interfaces zigezweho, porogaramu za web zishobora kwaguka n'uburambe bwiza bw'abakoresha nkoresheje React, TypeScript, Next.js, Node.js na Tailwind CSS.\n\nIbyo ushobora gukurikizaho:\n- hero: ibyo nagezeho, imbaraga n'akazi nakoze vuba aha\n- about: incamake y'umwuga\n- education: amashuri n'impamyabushobozi\n- contact: email, telefoni n'uburyo bwo kohereza ubutumwa\n\nImishinga ihari:\n{{projects}}\n\nIntambwe ikurikira:\nAndika hero, about, education, contact, projects cyangwa images.\nUshobora kandi kwandika project ukongeraho nimero cyangwa izina ry'umushinga kugira ngo ubone ibisobanuro birambuye.",
+    "profileImages": "Amafoto ya Gilbert\n{{images}}\n\nShyiramo nimero cyangwa izina ry’ifoto kugirango uyifungure.",
+    "imageNotFound": "Ifoto \"{{query}}\" ntibonetse.\nAndika images urebe amafoto yose aboneka, hanyuma uhitamo nimero cyangwa izina ryayo.",
+    "projectNotFound": "Umushinga \"{{query}}\" ntubonetse.{{suggestionText}}",
+    "noProjectMatch": "Nta mushinga uhuye neza na \"{{query}}\" wabonetse.{{suggestionText}}",
+    "openingLive": "Gufungura umushinga uri online: {{title}}",
+    "openingGithub": "Gufungura ububiko bwa GitHub bwa {{title}}",
+    "messageModeStart": "Uburyo bwo kohereza ubutumwa bwatangiye.\nname > Andika amazina yawe yuzuye",
+    "sendingMessage": "Ubutumwa burimo koherezwa...",
+    "messageSent": "Ubutumwa bwoherejwe neza.",
+    "messageFailed": "Kohereza ubutumwa byanze. Andika message wongere ugerageze.",
+    "networkError": "Habaye ikibazo cya internet. Andika message wongere ugerageze.",
+    "cancelled": "Uburyo bwo kohereza ubutumwa bwahagaritswe.",
+    "minimized": "Terminal yagabanyijwe. Koresha buto yo kuyifungura ukomeze.",
+    "promptValue": "{{step}} > Nyamuneka andika agaciro.",
+    "promptEmailInvalid": "email > Andika email yemewe",
+    "promptEmail": "email > Andika email yawe",
+    "promptSubject": "subject > Andika umutwe w'ubutumwa",
+    "promptMessage": "message > Andika ubutumwa bwawe",
+    "promptConfirm": "confirm > Andika yes wohereze cyangwa cancel uhagarike",
+    "projectModeInfo": "Imishinga yatoranyijwe:\n{{projects}}\n\nAndika nimero cyangwa izina ry'umushinga kugira ngo ubone ibisobanuro birambuye.",
+    "gallery": "Gufungura igice cya gallery...\nReba amafoto, branding, ibitekerezo bya UI n'amashusho y'imishinga.\nAmafoto y'ingenzi:\n- Ifoto nyamukuru - Gilbert\n- Ifoto isanzwe - Tuyambaze Gilbert\n- Ikarita y'akazi - Tuyambaze Gilbert",
+    "contactInfo": "Uburyo bwo kuvugana:\n- Email: mailto:tuyambazegilbert05@gmail.com\n- Telefoni: +250 (79) 343-8873\n- Aho ndi: Kigali, Rwanda\n- Andika message wohereze ubutumwa ukoresheje terminal.",
+    "socials": "Imiyoboro:\n- GitHub: https://github.com/GILBERT-Tuyambaze/\n- LinkedIn: https://www.linkedin.com/in/gilbert-tuyambaze-02044a3bb/\n- Email: mailto:tuyambazegilbert05@gmail.com",
+    "resume": "Gufungura CV mu tab nshya...",
+    "projectSuggestions": "Gerageza kimwe muri ibi: {{suggestions}}",
+    "projectNotRecognized": "Umushinga ntiwamenyekanye: {{query}}\nAndika nimero cyangwa izina ry’umushinga, cyangwa andika help urebe amabwiriza.",
+    "imageNotRecognized": "Ifoto ntiyamenyekanye: {{query}}\nAndika nimero cyangwa izina ry’ifoto, cyangwa andika help urebe amabwiriza.",
+    "commandUnknown": "Itegeko ntirizwi: {{command}}\nAndika help urebe amabwiriza.",
+    "commandRunning": "Itegeko riri hafi: {{command}}\nRiri gukorwa...",
+    "initializingTracking": "Gutangira gukurikirana...",
+    "fetchingVisitorData": "Gukurura amakuru y’abasura...",
+    "loadingModules": "Gutegura ibice by’urubuga...",
+    "matcherOnline": "Sisiteme yo kumenya imishinga iri gukora.",
+    "helpHint": "Andika help urebe amabwiriza aboneka.",
+    "totalVisitors": "Abasuye bose: {{count}}",
+    "visitorError": "Amakuru y’abasuye ntabashije kuboneka.",
+    "run": "kora",
+    "typingStatus": {
+      "ready": "iteguye",
+      "typing": "kwandika",
+      "sending": "kohereza"
+    },
+    "promptPlaceholder": "Andika izina cyangwa nimero y'umushinga nka: marketplace, ur hub, 3",
+    "modeLabel": "Uburyo bwa Cyber",
+    "shortcut": "Ctrl + Shift + C",
+    "navigatorLabel": "Uyobora portfolio",
+    "readyPrefix": "Sisiteme yiteguye. Andika",
+    "readySuffix": "utangire.",
+    "githubButton": "GitHub",
+    "inputLabel": "Aho wandikira command",
+    "composePlaceholder": "{{step}} > subiza hano cyangwa andika cancel",
+    "reopen": "Ongera ufungure terminal"
+  },
+  "contact": {
+    "title": "Twandikire",
+    "description": "Urashaka web developer cyangwa web designer i Kigali, mu Rwanda? Nishimira kumva ibijyanye n'urubuga rwawe, igicuruzwa cyawe cyangwa umushinga wawe wo kuvugurura urubuga. Nyandikira, nzagusubiza vuba bishoboka.",
+    "connectTitle": "Reka duhuze",
+    "connectDescription": "Mpora niteguye kwakira amahirwe mashya muri frontend development, full-stack web apps, web design, UI/UX n'imikoranire ya freelance i Kigali no hanze yayo.",
+    "contactInfo": {
+      "email": {
+        "title": "Imeyili",
+        "description": "Unyoherereze imeyili igihe icyo ari cyo cyose!"
+      },
+      "phone": {
+        "title": "Telefone",
+        "description": "Hamagara niba ari ikibazo cyihutirwa"
+      },
+      "location": {
+        "title": "Aho ndi",
+        "description": "Nshobora guhura n'abakiliya baho"
+      }
+    },
+    "formTitle": "Ohereza ubutumwa",
+    "sentTitle": "Ubutumwa bwoherejwe!",
+    "sentDescription": "Murakoze kunyandikira. Nzagusubiza vuba.",
+    "fields": {
+      "name": "Amazina",
+      "email": "Imeyili",
+      "subject": "Umutwe",
+      "message": "Ubutumwa"
+    },
+    "placeholders": {
+      "name": "Amazina yawe",
+      "email": "imeyili@example.com",
+      "subject": "Ni iki ushaka kuganiraho?",
+      "message": "Mbwira ibijyanye n'umushinga wawe..."
+    },
+    "sendMessage": "Ohereza ubutumwa",
+    "sending": "Birimo koherezwa...",
+    "errorSubmit": "Habaye ikibazo mu kohereza ifishi, ongera ugerageze.",
+    "promptCancel": "Andika cancel igihe icyo ari cyo cyose ushaka guhagarika."
+  },
+  "socialProof": {
+    "badge": "Ibitekerezo by'abakiliya",
+    "title": "Ubutumwa bw'abamaze gukorana nanjye",
+    "description": "Aha hagaragara testimonials na feedback zivuye ku bakiliya, abafatanyabikorwa n'andi matsinda nakoranye na yo, kugira ngo umuntu usuye urubuga ahite yumva uko gukorana nanjye bimeze.",
+    "emptyTitle": "Nta testimonial cyangwa feedback biraboneka",
+    "emptyDescription": "Ifishi iri hasi irakora, bityo ubutumwa bwa mbere bwoherejwe buzahita bugaragara hano.",
+    "kinds": {
+      "testimonial": "Testimonial",
+      "feedback": "Feedback"
+    },
+    "stats": {
+      "total": "Byose",
+      "rating": "Impuzandengo"
+    },
+    "form": {
+      "badge": "Sangiza ijambo ryawe",
+      "title": "Ohereza testimonial cyangwa feedback",
+      "kind": "Ni iki ushaka gusangiza?",
+      "name": "Amazina",
+      "role": "Uruhare",
+      "company": "Ikigo",
+      "rating": "Amanota kuri 5",
+      "message": "Ubutumwa",
+      "placeholder": "Vuga uko byari bimeze gukorana nanjye cyangwa utange igitekerezo cyawe mu bwisanzure.",
+      "submit": "Ohereza",
+      "submitting": "Birimo koherezwa...",
+      "success": "Murakoze. Ubutumwa bwawe bwongewe muri uru rutonde.",
+      "error": "Ntibyashobotse kubika ubutumwa bwawe. Ongera ugerageze."
+    }
+  },
+  "dashboard": {
+    "badge": "Ikibaho cy'ubugenzuzi",
+    "title": "Dashboard igenzura portfolio",
+    "description": "Winjiyemo nka {{email}}. Hano ushobora guhindura umubare w'abasuye, kureba ubutumwa bwoherejwe no gucunga testimonials na feedback zigaragara ku rubuga.",
+    "back": "Subira kuri portfolio",
+    "refresh": "Ongera usubize",
+    "logout": "Sohoka",
+    "loading": "Dashboard irimo gutegurwa...",
+    "checking": "Harimo kugenzurwa uburenganzira...",
+    "setupTitle": "Dashboard ntiruzura neza",
+    "setupDescription": "Shyira amakuru ya Firebase muri environment, ufungure Firestore na Firebase Authentication, hanyuma ukore document y'uburenganzira bwa admin.",
+    "signInTitle": "Kwinjira muri dashboard",
+    "signIn": "Injira",
+    "roleTitle": "Uburenganzira bwa admin burakenewe",
+    "roleDescription": "Iyi konti yarinjiye ariko ntirafite role ya admin. Kora document ya roles/{uid} muri Firestore kugira ngo ufungure dashboard.",
+    "fields": {
+      "email": "Email",
+      "password": "Ijambo banga"
+    },
+    "tabs": {
+      "overview": "Incamake",
+      "messages": "Ubutumwa",
+      "social": "Testimonials na feedback"
+    },
+    "stats": {
+      "messages": "Ubutumwa",
+      "totalSocial": "Ibyinjijwe byose",
+      "visible": "Biri live",
+      "hidden": "Byahishwe",
+      "visitors": "Abasuye"
+    },
+    "counterTitle": "Kugenzura umubare w'abasuye",
+    "counterLabel": "Shyiraho umubare ugaragara",
+    "save": "Bika",
+    "saving": "Birimo kubikwa...",
+    "socialSummary": "Incamake y'ibitekerezo",
+    "summaryText": "Koresha iyi dashboard kugira ngo uhindure social proof igaragazwa ku rubuga, uhishire ibyo udashaka kwerekana kandi unanonosore amagambo igihe bikenewe.",
+    "messagesTitle": "Ubutumwa bwabitswe",
+    "socialTitle": "Ubuyobozi bwa testimonials na feedback",
+    "editorTitle": "Hindura ubutumwa",
+    "table": {
+      "sender": "Uwohereje",
+      "subject": "Umutwe",
+      "message": "Ubutumwa",
+      "received": "Byakiriwe",
+      "type": "Ubwoko",
+      "author": "Nyiri ubutumwa",
+      "visibility": "Igaragara",
+      "actions": "Ibikorwa"
+    },
+    "kinds": {
+      "testimonial": "Testimonial",
+      "feedback": "Feedback"
+    },
+    "visible": "Biriho",
+    "hidden": "Byahishwe",
+    "edit": "Hindura",
+    "hide": "Hisha",
+    "show": "Erekana",
+    "delete": "Siba",
+    "saveChanges": "Bika impinduka",
+    "cancel": "Hagarika",
+    "emptyMessages": "Nta butumwa burabikwa.",
+    "emptySocial": "Nta testimonial cyangwa feedback birabikwa.",
+    "errors": {
+      "login": "Kwinjira byanze. Reba admin credentials na Firebase Auth.",
+      "load": "Ntibyashobotse gupakurura dashboard. Reba admin role, Firestore rules na Functions deployment."
+    }
+  }
+}

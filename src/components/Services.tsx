@@ -3,8 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Code, Palette, Music, Globe, Smartphone, Headphones, ArrowRight } from 'lucide-react';
 import { revealElements } from '@/hooks/useScrollReveal';
+import { useTranslation } from 'react-i18next';
 
 export default function Services() {
+  const { t } = useTranslation();
   const structuredDataProjects = {
   '@context': 'https://schema.org',
   '@type': 'CreativeWork',
@@ -61,73 +63,37 @@ export default function Services() {
     }
   };
 
-  const services = [
-    {
-      icon: Code,
-      title: 'Web Development',
-      description: 'Custom websites and web applications built with modern technologies and best practices.',
-      features: ['Responsive Design', 'Performance Optimization', 'SEO Friendly', 'Cross-browser Compatibility'],
-      color: 'text-blue-500',
-      bgColor: 'bg-blue-500/10',
-      borderColor: 'border-blue-500/20'
-    },
-    {
-      icon: Palette,
-      title: 'UI/UX Design',
-      description: 'Beautiful and intuitive user interfaces that provide exceptional user experiences.',
-      features: ['User Research', 'Wireframing', 'Prototyping', 'Visual Design'],
-      color: 'text-purple-500',
-      bgColor: 'bg-purple-500/10',
-      borderColor: 'border-purple-500/20'
-    },
-    {
-      icon: Music,
-      title: 'Music Production',
-      description: 'Professional music production services for various media and entertainment projects.',
-      features: ['Audio Mixing', 'Sound Design', 'Podcast Editing', 'Original Compositions'],
-      color: 'text-pink-500',
-      bgColor: 'bg-pink-500/10',
-      borderColor: 'border-pink-500/20'
-    },
-    {
-      icon: Globe,
-      title: 'Full-Stack Development',
-      description: 'End-to-end web solutions including frontend, backend, and database development.',
-      features: ['API Development', 'Database Design', 'Server Configuration', 'Cloud Deployment'],
-      color: 'text-green-500',
-      bgColor: 'bg-green-500/10',
-      borderColor: 'border-green-500/20'
-    },
-    {
-      icon: Smartphone,
-      title: 'Mobile-First Design',
-      description: 'Responsive designs optimized for mobile devices and progressive web applications.',
-      features: ['Mobile Optimization', 'Touch Interactions', 'App-like Experience', 'Offline Functionality'],
-      color: 'text-orange-500',
-      bgColor: 'bg-orange-500/10',
-      borderColor: 'border-orange-500/20'
-    },
-    {
-      icon: Headphones,
-      title: 'Audio Services',
-      description: 'Professional audio editing, mixing, and mastering for podcasts and multimedia content.',
-      features: ['Podcast Production', 'Audio Restoration', 'Voice Processing', 'Background Music'],
-      color: 'text-cyan-500',
-      bgColor: 'bg-cyan-500/10',
-      borderColor: 'border-cyan-500/20'
-    }
+  const rawServicesData = t('services.serviceList', { returnObjects: true });
+  const servicesData = (Array.isArray(rawServicesData) ? rawServicesData : []) as Array<{
+    title: string;
+    description: string;
+    features?: string[];
+  }>;
+
+  const serviceDecorations = [
+    { icon: Code, color: 'text-blue-500', bgColor: 'bg-blue-500/10', borderColor: 'border-blue-500/20' },
+    { icon: Palette, color: 'text-purple-500', bgColor: 'bg-purple-500/10', borderColor: 'border-purple-500/20' },
+    { icon: Music, color: 'text-pink-500', bgColor: 'bg-pink-500/10', borderColor: 'border-pink-500/20' },
+    { icon: Globe, color: 'text-green-500', bgColor: 'bg-green-500/10', borderColor: 'border-green-500/20' },
+    { icon: Smartphone, color: 'text-orange-500', bgColor: 'bg-orange-500/10', borderColor: 'border-orange-500/20' },
+    { icon: Headphones, color: 'text-cyan-500', bgColor: 'bg-cyan-500/10', borderColor: 'border-cyan-500/20' },
   ];
+
+  const services = servicesData.map((service, index) => ({
+    ...service,
+    features: Array.isArray(service.features) ? service.features : [],
+    ...serviceDecorations[index],
+  }));
 
   return (
     <section id="services" className="py-20 px-4 bg-background">
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-16">
           <h2 className="services-title text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-            My <span className="text-primary">Services</span>
+            {t('services.title')}
           </h2>
           <p className="services-description text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            I offer a comprehensive range of digital services to help bring your ideas to life. 
-            From web development to creative design and audio production.
+            {t('services.description')}
           </p>
         </div>
 
@@ -179,7 +145,7 @@ export default function Services() {
           >
             <a>
             <span className="relative z-10 flex items-center gap-2">
-              Reach out to me
+              {t('services.reachOut')}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </span>
             <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-purple-500/80 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />

@@ -1,0 +1,484 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "services": "Services",
+    "projects": "Projets",
+    "gallery": "Galerie",
+    "contact": "Contact",
+    "cyberOn": "Cyber On",
+    "cyberMode": "Mode Cyber",
+    "cursorOn": "Curseur On",
+    "cursorOff": "Curseur Off",
+    "talk": "Parlons"
+  },
+  "hero": {
+    "greeting": "Bonjour, je suis",
+    "name": "Gilbert",
+    "location": "Basé à Kigali, au Rwanda",
+    "roles": [
+      "développeur full-stack",
+      "designer UI/UX",
+      "producteur musical",
+      "créatif numérique",
+      "Fellow en génie logiciel à A2SV"
+    ],
+    "description": "Je suis développeur web et designer basé à Kigali, au Rwanda. Je conçois des sites modernes, des applications full-stack et des expériences numériques claires pour les startups, les marques et les entreprises en croissance. Je poursuis actuellement ma formation comme Software Engineering Fellow à A2SV (Africa to Silicon Valley), où je construis des applications web réelles, évolutives et soignées, autant sur l'interface que sur l'expérience utilisateur.",
+    "downloadCV": "Télécharger mon CV",
+    "viewWork": "Voir mon travail",
+    "scrollHint": "Faites défiler vers le bas pour en savoir plus"
+  },
+  "about": {
+    "title": "À propos",
+    "me": "Moi",
+    "description": "Je suis un développeur frontend et full-stack basé à Kigali, au Rwanda, passionné par le web moderne, le design d'interface, l'expérience utilisateur et la production musicale. À A2SV, je me forme en structures de données, algorithmes, conception de systèmes et résolution de problèmes concrets. J'aime transformer des idées en produits numériques performants grâce à un code propre, un design réfléchi et des interfaces réactives.",
+    "expertise": {
+      "frontend": "Développement Frontend",
+      "uiux": "Design UI/UX",
+      "music": "Production musicale"
+    },
+    "expertiseDescription": {
+      "frontend": "Conception d'interfaces utilisateur réactives et interactives avec des frameworks et bibliothèques modernes.",
+      "uiux": "Création de designs beaux et intuitifs qui améliorent l'expérience utilisateur et l'engagement.",
+      "music": "Production de musique et de contenu audio de haute qualité pour les médias et projets de divertissement."
+    },
+    "skillsTitle": "Compétences techniques",
+    "educationTitle": "Éducation & Certifications",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Next.js",
+      "Node.js",
+      "Python",
+      "JavaScript",
+      "HTML5",
+      "CSS3",
+      "Tailwind CSS",
+      "Git",
+      "PHP",
+      "Java",
+      "Adobe Creative Suite"
+    ],
+    "education": [
+      {
+        "degree": "Bourse en génie logiciel",
+        "institution": "A2SV (Africa to Silicon Valley)",
+        "year": "2026 - Présent"
+      },
+      {
+        "degree": "Double majeure prévue en informatique et physique appliquée",
+        "institution": "Université",
+        "year": "2025 - Présent"
+      },
+      {
+        "degree": "Développement Web Full Stack",
+        "institution": "Bootcamp de codage",
+        "year": "2024 - 2025"
+      },
+      {
+        "degree": "Certificat de production musicale",
+        "institution": "Audio Institute",
+        "year": "2024"
+      }
+    ]
+  },
+  "services": {
+    "title": "Mes services",
+    "description": "Je propose une gamme compl?te de services num?riques pour transformer vos id?es en solutions concr?tes, du d?veloppement web au design cr?atif en passant par la production audio.",
+    "serviceList": [
+      {
+        "title": "Développement Web",
+        "description": "Sites et applications web personnalisés construits avec des technologies modernes et les meilleures pratiques.",
+        "features": [
+          "Design réactif",
+          "Optimisation des performances",
+          "SEO convivial",
+          "Compatibilité multi-navigateurs"
+        ]
+      },
+      {
+        "title": "Design UI/UX",
+        "description": "Interfaces utilisateur belles et intuitives qui offrent une expérience exceptionnelle.",
+        "features": [
+          "Recherche utilisateur",
+          "Wireframing",
+          "Prototypage",
+          "Design visuel"
+        ]
+      },
+      {
+        "title": "Production musicale",
+        "description": "Services professionnels de production musicale pour les médias et projets de divertissement.",
+        "features": [
+          "Mixage audio",
+          "Conception sonore",
+          "Montage de podcast",
+          "Compositions originales"
+        ]
+      },
+      {
+        "title": "Développement Full-Stack",
+        "description": "Solutions web de bout en bout, y compris frontend, backend et base de données.",
+        "features": [
+          "Développement API",
+          "Conception de base de données",
+          "Configuration serveur",
+          "Déploiement cloud"
+        ]
+      },
+      {
+        "title": "Design orienté mobile",
+        "description": "Conceptions réactives optimisées pour mobiles et applications web progressives.",
+        "features": [
+          "Optimisation mobile",
+          "Interactions tactiles",
+          "Expérience type application",
+          "Fonctionnalité hors ligne"
+        ]
+      },
+      {
+        "title": "Services audio",
+        "description": "Édition audio professionnelle, mixage et mastering pour podcasts et contenu multimédia.",
+        "features": [
+          "Production de podcast",
+          "Restauration audio",
+          "Traitement vocal",
+          "Musique de fond"
+        ]
+      }
+    ],
+    "reachOut": "Contactez-moi"
+  },
+  "projects": {
+    "title": "Projets en vedette",
+    "description": "Une vitrine de mes travaux récents en développement web, design et production audio. Chaque projet reflète un défi et une solution différents.",
+    "viewAll": "Voir tous les projets",
+    "liveDemo": "Démonstration en direct",
+    "projectType": "Type",
+    "projectListIntro": "Projets en vedette :",
+    "listHeading": "Entrez un numéro de projet ou un nom de projet pour obtenir plus d'informations.",
+    "types": {
+      "webDevelopment": "Développement Web",
+      "uiuxDesign": "Design UI/UX",
+      "audioProduction": "Production Audio"
+    }
+  },
+  "contact": {
+    "title": "Me contacter",
+    "description": "Vous cherchez un développeur web ou un designer à Kigali, Rwanda ? J'aimerais en savoir plus sur votre site web, produit ou projet de refonte. Envoyez-moi un message et je répondrai dès que possible.",
+    "connectTitle": "Restons en contact",
+    "connectDescription": "Je reste ouvert aux opportunités en développement frontend, applications full-stack, design web, UI/UX et collaborations freelance à Kigali comme à l'international.",
+    "contactInfo": {
+      "email": {
+        "title": "Email",
+        "description": "Envoyez-moi un email à tout moment !"
+      },
+      "phone": {
+        "title": "Téléphone",
+        "description": "Appelez-moi pour les demandes urgentes"
+      },
+      "location": {
+        "title": "Lieu",
+        "description": "Disponible pour des réunions locales"
+      }
+    },
+    "formTitle": "Envoyer un message",
+    "sentTitle": "Message envoyé !",
+    "sentDescription": "Merci de m'avoir contacté. Je vous répondrai bientôt.",
+    "fields": {
+      "name": "Nom",
+      "email": "Email",
+      "subject": "Sujet",
+      "message": "Message"
+    },
+    "placeholders": {
+      "name": "Votre nom",
+      "email": "votre.email@exemple.com",
+      "subject": "De quoi s'agit-il ?",
+      "message": "Parlez-moi de votre projet..."
+    },
+    "sendMessage": "Envoyer le message",
+    "sending": "Envoi...",
+    "errorSubmit": "Erreur lors de l'envoi du formulaire, veuillez réessayer.",
+    "promptCancel": "Tapez cancel à tout moment pour arrêter."
+  },
+  "gallery": {
+    "title": "Galerie de projets",
+    "intro": "Projets et visuels de marque personnelle.",
+    "personal": "Personnel",
+    "categories": {
+      "personal": "Personnel",
+      "uiux": "UI/UX",
+      "fullStack": "Full Stack",
+      "webApp": "Web App",
+      "frontend": "Frontend",
+      "technical": "Technique"
+    }
+  },
+  "footer": {
+    "description": "Je suis un développeur passionné et un créatif qui aime concevoir des expériences numériques solides grâce à un développement web soigné, un design exigeant et une approche créative.",
+    "quickLinks": "Liens rapides",
+    "getInTouch": "Me contacter",
+    "faqButton": "FAQ & LÉGAL",
+    "popupSeoSummary": "Je conçois des sites web responsives, des portfolios modernes et des interfaces orientées business pour les personnes qui recherchent un développeur web à Kigali, au Rwanda. Cette fenêtre ajoute un contexte utile sur ma localisation et mes services sans encombrer durablement le pied de page.",
+    "popupSearchHint": "Si quelqu'un recherche Tuyambaze, Gilbert, Kigali design, Kigali Rwanda web design, Rwanda frontend developer, portfolio website developer Kigali, website designer in Rwanda ou frontend engineer in Kigali, cette section relie naturellement ces termes à mon travail, à mes compétences et à mes coordonnées.",
+    "faqTitle": "FAQ de Gilbert Tuyambaze",
+    "faqDescription": "Contenu compl?mentaire, r?dig? pour le r?f?rencement, ? destination des personnes qui recherchent un d?veloppeur web ou un designer ? Kigali, au Rwanda.",
+    "keywordCloudTitle": "Nuage de mots-cl?s",
+    "keywordGroups": {
+      "nameSearches": "Recherches de noms",
+      "kigaliSearches": "Recherches Kigali et Rwanda",
+      "serviceSearches": "Recherches de services",
+      "intentSearches": "Recherches d'intention"
+    },
+    "tabs": {
+      "faq": "FAQ",
+      "legal": "Légal"
+    },
+    "legalTitle": "Droits d'auteur, conditions et s?curit?",
+    "backToTop": "Retour en haut",
+    "copyright": "© 2025 Gilbert Tuyambaze. Réalisé avec",
+    "coffee": "beaucoup de café.",
+    "socialEmail": "Email",
+    "socialGithub": "GitHub",
+    "socialLinkedIn": "LinkedIn",
+    "socialPhone": "Téléphone",
+    "socialLocation": "Lieu",
+    "faq": [
+      {
+        "question": "Qui est Gilbert Tuyambaze ?",
+        "answer": "Je suis développeur web et designer basé à Kigali, au Rwanda, et je crée des sites portfolio responsives, des sites professionnels et des expériences frontend modernes."
+      },
+      {
+        "question": "Quels services ce portfolio met-il en avant ?",
+        "answer": "Ce portfolio met en avant mon travail en design web à Kigali, en développement frontend, en landing pages, en sites portfolio, en sites d'entreprise, en amélioration UI et en accompagnement full-stack."
+      },
+      {
+        "question": "Quelles recherches permettent de me trouver ?",
+        "answer": "On peut me trouver grâce à des recherches comme Gilbert Tuyambaze, Tuyambaze Gilbert, Kigali web developer, Kigali Rwanda web design, Rwanda frontend developer ou web designer in Kigali."
+      },
+      {
+        "question": "Pourquoi garder ce contenu dans une fenêtre popup ?",
+        "answer": "Je garde ce contenu dans une fenêtre popup pour préserver un pied de page clair et compact, tout en ajoutant des informations utiles sur mon travail, ma localisation et mes services lorsque c'est nécessaire."
+      }
+    ],
+    "legal": [
+      {
+        "title": "Avis de droit d'auteur",
+        "content": "Tous les contenus originaux de ce portfolio, y compris les textes, les idées d'interface, les descriptions de projets, l'identité visuelle, les éléments graphiques personnalisés, les extraits de code présentés et la mise en page, sont la propriété intellectuelle de Gilbert Tuyambaze sauf mention contraire. Toute copie, revente ou redistribution sans autorisation est interdite."
+      },
+      {
+        "title": "Conditions d'utilisation",
+        "content": "Ce portfolio est destiné à la présentation professionnelle, aux revues de portfolio, aux échanges de recrutement et aux demandes de prestations. Les visiteurs peuvent consulter le site, partager son lien et me contacter pour une collaboration ou un projet. Toute usurpation, collecte abusive, scraping malveillant ou reproduction non autorisée de contenus protégés est interdite."
+      },
+      {
+        "title": "Vie privée et données de contact",
+        "content": "Si vous me contactez via ce portfolio, les informations transmises comme votre nom, votre email, le sujet et le message sont utilisées uniquement pour la communication, les échanges de projet et le suivi client. Ces données ne sont ni vendues ni utilisées volontairement à des fins marketing sans rapport."
+      },
+      {
+        "title": "Sécurité et usage responsable",
+        "content": "Des efforts raisonnables sont déployés pour maintenir ce portfolio sûr, réactif et agréable à utiliser sur les appareils modernes. Les visiteurs doivent éviter toute tentative d'accès non autorisé, tout abus automatisé, spam ou comportement perturbateur. Les services et liens tiers restent soumis à leurs propres pratiques de sécurité et de confidentialité."
+      }
+    ]
+  },
+  "notFound": {
+    "title": "Page non trouvée",
+    "description": "La page que vous recherchez n'existe pas ou a peut-être été déplacée.",
+    "returnHome": "Retour à l'accueil",
+    "goBack": "Revenir"
+  },
+  "pwa": {
+    "installTitle": "Installer l'application Portfolio",
+    "installDescription": "Enregistrez-la sur votre appareil pour un accès plus rapide et une navigation semblable à une application.",
+    "installButton": "Installer"
+  },
+  "language": {
+    "selectLabel": "Sélectionnez la langue",
+    "english": "English",
+    "french": "Français",
+    "kinyarwanda": "Kinyarwanda",
+    "spanish": "Español",
+    "chinese": "中文"
+  },
+  "visitor": {
+    "label": "Visiteurs",
+    "loading": "Chargement des visiteurs...",
+    "error": "Nombre de visiteurs indisponible.",
+    "message": "Visiteurs totaux : {{count}}"
+  },
+  "console": {
+    "ready": "Système prêt. Tapez help pour commencer.",
+    "quickCommands": [
+      "help",
+      "projects",
+      "contact",
+      "minimize",
+      "exit"
+    ],
+    "commands": {
+      "help": "help",
+      "clear": "clear",
+      "minimize": "minimize",
+      "exit": "exit"
+    },
+    "help": "Commandes disponibles :\nhelp, clear, minimize, exit\nsections, goto <section>\nhero, about, gilbert, images, image <name|number>, education, services\nprojects, project <name|number>, gallery\ncontact, socials, resume, cv\nopen <project>, github <project>\nmessage, send message\n\nGuide de profil :\n- Tapez hero pour voir le résumé du héros, les réalisations, les forces et le travail récent\n- Tapez gilbert pour voir à propos de moi et des images personnelles\n- Tapez images pour lister les portraits et visuels de marque de Gilbert\n- Ensuite, entrez un numéro d'image ou un nom d'image pour l'agrandir\n- Tapez education pour voir l'éducation et les certifications\n\nGuide des projets :\n- Exécutez ou cliquez sur projects pour lister tous les noms de projets\n- Ensuite, tapez un nom de projet ou un numéro de projet pour plus de détails\n\nLa correspondance de projet comprend les numéros, les noms partiels, les permutations de tokens, les saisies approximatives et les noms proches.\nLe mode message du terminal invite étape par étape : name > email > subject > message > confirm.\nTapez cancel à tout moment pour arrêter.\n\nExemples :\n- help\n- education\n- projects\n- project 1",
+    "sections": "Sections :\n- home\n- about\n- services\n- projects\n- gallery\n- contact",
+    "gotoSuccess": "Navigation vers {{section}}...",
+    "gotoFailure": "Section inconnue : {{section}}. Utilisez sections pour lister les cibles valides.",
+    "about": "Je m'appelle Gilbert Tuyambaze.\nJe suis développeur frontend et full-stack, designer UI/UX et technologue créatif.\nJe suis actuellement en formation de Software Engineering Fellow chez A2SV.\nMa stack principale comprend React, TypeScript, Next.js, Node.js et Tailwind CSS.",
+    "education": "Éducation & Certifications\n- Bourse en génie logiciel | A2SV (Africa to Silicon Valley) | 2026 - Présent\n- Double majeure prévue en BSc Informatique et BSc Physique Appliquée | Université | 2025 - Présent\n- Développement Web Full Stack | Bootcamp de codage | 2024 - 2025\n- Certificat de production musicale | Audio Institute | 2024",
+    "hero": "Aperçu\nJe suis un développeur frontend et full-stack, spécialisé dans les expériences web modernes, réactives et soignées.\nPoints forts : je suis Software Engineering Fellow à A2SV, j'ai livré plusieurs plateformes portfolio et projets clients, et j'ai acquis une solide expérience en applications web, branding et technologies créatives.\nMes points forts : React, TypeScript, Tailwind CSS, le soin apporté à l'UI, les interfaces réactives et la transformation d'idées en produits clairs et aboutis.\nParmi mes travaux récents : des systèmes de marketplace, des plateformes de ressources académiques, des applications de chat privées, des sites de conseil et des portfolios personnels.",
+    "gilbert": "Gilbert Hub\nJe suis un développeur frontend et full-stack basé à Kigali, designer UI/UX et technologue créatif.\nJe conçois des interfaces modernes, des applications web évolutives et des expériences utilisateur fluides avec React, TypeScript, Next.js, Node.js et Tailwind CSS.\n\nCe que vous pouvez ouvrir ensuite :\n- hero : mes réalisations, mes points forts et mon travail récent\n- about : mon résumé professionnel\n- education : ma formation et mes certifications\n- contact : mon email, mon téléphone et le message guidé du terminal\n\nRaccourcis de projet :\n{{projects}}\n\nÉtape suivante :\nTapez hero, about, education, contact, projects ou images.\nVous pouvez aussi taper project suivi d'un numéro ou du nom d'un projet pour plus de détails.",
+    "profileImages": "Images de Gilbert\n{{images}}\n\nEntrez un numéro d'image ou un nom d'image pour l'agrandir.",
+    "imageNotFound": "Image introuvable pour \"{{query}}\".\nTapez images pour lister les images disponibles, puis entrez un numéro d'image ou un nom d'image.",
+    "projectNotFound": "Projet introuvable pour \"{{query}}\".{{suggestionText}}",
+    "noProjectMatch": "Aucune correspondance de projet solide trouvée pour \"{{query}}\".{{suggestionText}}",
+    "openingLive": "Ouverture du projet en ligne : {{title}}",
+    "openingGithub": "Ouverture du dépôt GitHub pour {{title}}",
+    "messageModeStart": "Mode message terminal démarré.\nname > Entrez votre nom complet",
+    "sendingMessage": "Envoi du message terminal...",
+    "messageSent": "Message envoyé avec succès depuis le mode terminal.",
+    "messageFailed": "Échec de l'envoi du message. Vous pouvez taper message pour réessayer.",
+    "networkError": "Erreur réseau lors de l'envoi du message. Tapez message pour réessayer.",
+    "cancelled": "Mode message terminal annulé.",
+    "minimized": "Terminal minimisé. Utilisez le bouton de réouverture pour continuer.",
+    "promptValue": "{{step}} > Veuillez entrer une valeur.",
+    "promptEmailInvalid": "email > Veuillez entrer une adresse email valide",
+    "promptEmail": "email > Entrez votre adresse email",
+    "promptSubject": "subject > Entrez votre ligne de sujet",
+    "promptMessage": "message > Entrez votre texte de message",
+    "promptConfirm": "confirm > Tapez yes pour envoyer ou cancel pour arrêter",
+    "projectModeInfo": "Projets en vedette :\n{{projects}}\n\nEntrez un numéro de projet ou un nom de projet pour plus d'informations.",
+    "gallery": "Ouverture de la section galerie...\nExplorez des portraits, des assets de marque, des idées UI et des visuels de projet.\nImages personnelles en vedette :\n- Portrait héros - Gilbert\n- Portrait décontracté - Tuyambaze Gilbert\n- Carte de visite - Tuyambaze Gilbert",
+    "contactInfo": "Canaux de contact :\n- Email : mailto:tuyambazegilbert05@gmail.com\n- Téléphone : +250 (79) 343-8873\n- Emplacement : Kigali, Rwanda\n- Tapez message pour envoyer un message guidé du terminal.",
+    "socials": "Liens sociaux :\n- GitHub : https://github.com/GILBERT-Tuyambaze/\n- LinkedIn : https://www.linkedin.com/in/gilbert-tuyambaze-02044a3bb/\n- Email : mailto:tuyambazegilbert05@gmail.com",
+    "resume": "Ouverture du document de CV dans un nouvel onglet...",
+    "projectSuggestions": "Essayez l'un de ceux-ci : {{suggestions}}",
+    "projectNotRecognized": "Projet non reconnu en mode projet : {{query}}\nTapez un numéro de projet ou un nom de projet, ou tapez help pour voir les commandes prises en charge.",
+    "imageNotRecognized": "Image non reconnue en mode image : {{query}}\nTapez un numéro d'image ou un nom d'image, ou tapez help pour voir les commandes prises en charge.",
+    "commandUnknown": "Commande non reconnue : {{command}}\nTapez help pour voir les commandes prises en charge.",
+    "commandRunning": "Commande prise en charge la plus proche : {{command}}\nExécution en cours...",
+    "initializingTracking": "Initialisation du suivi...",
+    "fetchingVisitorData": "Récupération des données de visiteurs...",
+    "loadingModules": "Chargement des modules du portfolio...",
+    "matcherOnline": "Moteur de correspondance de projet approximatif en ligne.",
+    "helpHint": "Tapez help pour inspecter les commandes disponibles.",
+    "totalVisitors": "Nombre total de visiteurs : {{count}}",
+    "visitorError": "Suivi des visiteurs indisponible.",
+    "run": "exécuter",
+    "typingStatus": {
+      "ready": "prêt",
+      "typing": "écriture",
+      "sending": "envoi"
+    },
+    "promptPlaceholder": "Tapez un nom ou un numéro de projet comme : market place, ur hub, 3",
+    "modeLabel": "Mode Cyber",
+    "shortcut": "Ctrl + Shift + C",
+    "navigatorLabel": "Navigateur du portfolio",
+    "readyPrefix": "Système prêt. Tapez",
+    "readySuffix": "pour commencer.",
+    "githubButton": "GitHub",
+    "inputLabel": "Champ de commande cyber",
+    "composePlaceholder": "{{step}} > répondez ici ou tapez cancel",
+    "reopen": "Rouvrir le terminal"
+  },
+  "socialProof": {
+    "badge": "Preuve sociale",
+    "title": "Témoignages et retours de personnes ayant travaillé avec moi",
+    "description": "Cette section rassemble des témoignages et des retours directs de clients, collaborateurs et équipes pour aider les visiteurs à comprendre rapidement ce qu'implique une collaboration avec moi.",
+    "emptyTitle": "Aucun témoignage ni retour pour le moment",
+    "emptyDescription": "Le formulaire ci-dessous est déjà actif. Le premier message partagé apparaîtra ici dès son envoi.",
+    "kinds": {
+      "testimonial": "Témoignage",
+      "feedback": "Retour"
+    },
+    "stats": {
+      "total": "Total",
+      "rating": "Note moyenne"
+    },
+    "form": {
+      "badge": "Partagez votre avis",
+      "title": "Envoyer un témoignage ou un retour",
+      "kind": "Que souhaitez-vous partager ?",
+      "name": "Nom",
+      "role": "Fonction",
+      "company": "Entreprise",
+      "rating": "Note sur 5",
+      "message": "Message",
+      "placeholder": "Décrivez votre expérience de travail avec moi ou partagez votre retour en toute simplicité.",
+      "submit": "Envoyer",
+      "submitting": "Envoi en cours...",
+      "success": "Merci. Votre message fait désormais partie de cette vitrine.",
+      "error": "Votre message n'a pas pu être enregistré. Veuillez réessayer."
+    }
+  },
+  "dashboard": {
+    "badge": "Tableau de bord",
+    "title": "Tableau de bord de gestion du portfolio",
+    "description": "Connecté en tant que {{email}}. Depuis ici, vous pouvez piloter le compteur de visiteurs, consulter les messages reçus et gérer les témoignages ainsi que les retours publics.",
+    "back": "Retour au portfolio",
+    "refresh": "Actualiser",
+    "logout": "Se déconnecter",
+    "loading": "Chargement du tableau de bord...",
+    "checking": "Vérification des accès...",
+    "setupTitle": "Configuration du tableau de bord requise",
+    "setupDescription": "Ajoutez les valeurs Firebase dans l'environnement, activez Firestore et Firebase Authentication, puis créez le document de rôle administrateur.",
+    "signInTitle": "Connexion sécurisée au tableau de bord",
+    "signIn": "Se connecter",
+    "roleTitle": "Rôle administrateur requis",
+    "roleDescription": "Ce compte est connecté, mais il ne possède pas encore le rôle administrateur. Créez le document roles/{uid} dans Firestore pour débloquer le tableau de bord.",
+    "fields": {
+      "email": "Email",
+      "password": "Mot de passe"
+    },
+    "tabs": {
+      "overview": "Vue générale",
+      "messages": "Messages",
+      "social": "Preuve sociale"
+    },
+    "stats": {
+      "messages": "Messages",
+      "totalSocial": "Entrées sociales",
+      "visible": "Visible",
+      "hidden": "Masqué",
+      "visitors": "Visiteurs"
+    },
+    "counterTitle": "Contrôle du compteur de visiteurs",
+    "counterLabel": "Définir le compteur public",
+    "save": "Enregistrer",
+    "saving": "Enregistrement...",
+    "socialSummary": "Résumé de la preuve",
+    "summaryText": "Utilisez ce panneau pour garder votre preuve sociale à jour, masquer ce que vous ne souhaitez plus montrer et ajuster les textes lorsque vous voulez une présentation plus propre.",
+    "messagesTitle": "Messages de contact enregistrés",
+    "socialTitle": "Gestion des témoignages et retours",
+    "editorTitle": "Modifier une entrée",
+    "table": {
+      "sender": "Expéditeur",
+      "subject": "Sujet",
+      "message": "Message",
+      "received": "Reçu le",
+      "type": "Type",
+      "author": "Auteur",
+      "visibility": "Visibilité",
+      "actions": "Actions"
+    },
+    "kinds": {
+      "testimonial": "Témoignage",
+      "feedback": "Retour"
+    },
+    "visible": "Visible",
+    "hidden": "Masqué",
+    "edit": "Modifier",
+    "hide": "Masquer",
+    "show": "Afficher",
+    "delete": "Supprimer",
+    "saveChanges": "Enregistrer les modifications",
+    "cancel": "Annuler",
+    "emptyMessages": "Aucun message de contact enregistré.",
+    "emptySocial": "Aucun témoignage ni retour enregistré.",
+    "errors": {
+      "login": "La connexion a échoué. Vérifiez vos identifiants administrateur et la configuration Firebase Auth.",
+      "load": "Impossible de charger les données du tableau de bord. Vérifiez le rôle admin, les règles Firestore et le déploiement des Functions."
+    }
+  }
+}

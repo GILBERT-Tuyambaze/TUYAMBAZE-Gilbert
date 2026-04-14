@@ -1,0 +1,484 @@
+{
+  "nav": {
+    "home": "首页",
+    "about": "关于",
+    "services": "服务",
+    "projects": "项目",
+    "gallery": "画廊",
+    "contact": "联系",
+    "cyberOn": "Cyber On",
+    "cyberMode": "赛博模式",
+    "cursorOn": "Cursor On",
+    "cursorOff": "Cursor Off",
+    "talk": "聊一聊"
+  },
+  "hero": {
+    "greeting": "你好，我是",
+    "name": "Gilbert",
+    "location": "居住在卢旺达基加利",
+    "roles": [
+      "全栈开发者",
+      "UI/UX 设计师",
+      "音乐制作人",
+      "创意专业人士",
+      "A2SV 软件工程研究员"
+    ],
+    "description": "我是一名常驻卢旺达基加利的网页开发者与设计师，专注于为初创团队、品牌和成长型企业打造现代网站、全栈 Web 应用以及清晰顺畅的数字体验。我目前正在 A2SV (Africa to Silicon Valley) 接受软件工程训练，持续构建真实、可扩展，并兼顾界面质量与用户体验的 Web 产品。",
+    "downloadCV": "下载简历",
+    "viewWork": "查看我的作品",
+    "scrollHint": "向下滚动了解更多"
+  },
+  "about": {
+    "title": "关于",
+    "me": "我",
+    "description": "我是一名前端与全栈开发者，常驻卢旺达基加利，长期关注现代 Web 开发、网页设计、UI/UX 设计与音乐制作。在 A2SV 的训练中，我持续学习数据结构、算法、系统设计以及真实问题的解决方法。我喜欢用整洁的代码、清晰的设计思路和响应式体验，把想法转化为高性能、可扩展的数字产品。",
+    "expertise": {
+      "frontend": "前端开发",
+      "uiux": "UI/UX 设计",
+      "music": "音乐制作"
+    },
+    "expertiseDescription": {
+      "frontend": "使用现代框架和库构建响应式、交互式用户界面。",
+      "uiux": "创建漂亮且直观的设计，提升用户体验和参与度。",
+      "music": "为媒体和娱乐项目制作高质量的音乐和音频内容。"
+    },
+    "skillsTitle": "技术技能",
+    "educationTitle": "教育与认证",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Next.js",
+      "Node.js",
+      "Python",
+      "JavaScript",
+      "HTML5",
+      "CSS3",
+      "Tailwind CSS",
+      "Git",
+      "PHP",
+      "Java",
+      "Adobe Creative Suite"
+    ],
+    "education": [
+      {
+        "degree": "软件工程奖学金",
+        "institution": "A2SV (Africa to Silicon Valley)",
+        "year": "2026 - 至今"
+      },
+      {
+        "degree": "计划双学位：计算机科学与应用物理学士",
+        "institution": "大学",
+        "year": "2025 - 至今"
+      },
+      {
+        "degree": "全栈 Web 开发",
+        "institution": "编程训练营",
+        "year": "2024 - 2025"
+      },
+      {
+        "degree": "音乐制作证书",
+        "institution": "音频学院",
+        "year": "2024"
+      }
+    ]
+  },
+  "services": {
+    "title": "我的服务",
+    "description": "我提供一整套数字服务，帮助将您的想法变为现实。从网页开发到创意设计和音频制作。",
+    "serviceList": [
+      {
+        "title": "网页开发",
+        "description": "使用现代技术和最佳实践构建定制网站和 Web 应用。",
+        "features": [
+          "响应式设计",
+          "性能优化",
+          "SEO 友好",
+          "跨浏览器兼容"
+        ]
+      },
+      {
+        "title": "UI/UX 设计",
+        "description": "打造漂亮、直观的用户界面，提供卓越的用户体验。",
+        "features": [
+          "用户研究",
+          "线框图",
+          "原型",
+          "视觉设计"
+        ]
+      },
+      {
+        "title": "音乐制作",
+        "description": "为媒体和娱乐项目提供专业音乐制作服务。",
+        "features": [
+          "音频混音",
+          "声音设计",
+          "播客编辑",
+          "原创作曲"
+        ]
+      },
+      {
+        "title": "全栈开发",
+        "description": "端到端 Web 解决方案，包括前端、后端和数据库开发。",
+        "features": [
+          "API 开发",
+          "数据库设计",
+          "服务器配置",
+          "云部署"
+        ]
+      },
+      {
+        "title": "移动优先设计",
+        "description": "优化移动设备和渐进式 Web 应用的响应式设计。",
+        "features": [
+          "移动优化",
+          "触摸交互",
+          "类应用体验",
+          "离线功能"
+        ]
+      },
+      {
+        "title": "音频服务",
+        "description": "为播客和多媒体内容提供专业音频编辑、混音和母带处理。",
+        "features": [
+          "播客制作",
+          "音频修复",
+          "人声处理",
+          "背景音乐"
+        ]
+      }
+    ],
+    "reachOut": "与我联系"
+  },
+  "projects": {
+    "title": "精选项目",
+    "description": "展示我最近在网页开发、设计和音频制作方面的工作。每个项目都反映了不同的挑战和解决方案。",
+    "viewAll": "查看所有项目",
+    "liveDemo": "实时演示",
+    "projectType": "类型",
+    "projectListIntro": "精选项目：",
+    "listHeading": "输入项目编号或项目名称以获取更多信息。",
+    "types": {
+      "webDevelopment": "网页开发",
+      "uiuxDesign": "UI/UX 设计",
+      "audioProduction": "音频制作"
+    }
+  },
+  "contact": {
+    "title": "联系我",
+    "description": "想找一名在卢旺达基加利的网页开发者或网页设计师吗？我很想了解您的网站、产品或重设计项目。给我发消息，我会尽快回复。",
+    "connectTitle": "保持联系",
+    "connectDescription": "我始终欢迎前端开发、全栈 Web 应用、网站设计、UI/UX 工作和基加利及其他地区的自由职业合作机会。",
+    "contactInfo": {
+      "email": {
+        "title": "邮箱",
+        "description": "随时给我发邮件！"
+      },
+      "phone": {
+        "title": "电话",
+        "description": "紧急咨询请致电我"
+      },
+      "location": {
+        "title": "位置",
+        "description": "可参加本地会议"
+      }
+    },
+    "formTitle": "发送消息",
+    "sentTitle": "消息已发送！",
+    "sentDescription": "感谢您的联系。我会尽快回复。",
+    "fields": {
+      "name": "姓名",
+      "email": "邮箱",
+      "subject": "主题",
+      "message": "消息"
+    },
+    "placeholders": {
+      "name": "您的姓名",
+      "email": "your.email@example.com",
+      "subject": "这是关于什么？",
+      "message": "告诉我您的项目..."
+    },
+    "sendMessage": "发送消息",
+    "sending": "发送中...",
+    "errorSubmit": "提交表单时出错，请重试。",
+    "promptCancel": "随时输入 cancel 停止。"
+  },
+  "gallery": {
+    "title": "项目画廊",
+    "intro": "项目和个人品牌视觉。",
+    "personal": "个人",
+    "categories": {
+      "personal": "个人",
+      "uiux": "UI/UX",
+      "fullStack": "全栈",
+      "webApp": "Web 应用",
+      "frontend": "前端",
+      "technical": "技术"
+    }
+  },
+  "footer": {
+    "description": "我是一名充满热情的开发者，也是一位富有创意的数字创作者。我喜欢通过现代网页开发、扎实设计和有想法的内容来打造出色的数字体验。",
+    "quickLinks": "快速链接",
+    "getInTouch": "联系我",
+    "faqButton": "FAQ & 法律",
+    "faqTitle": "Gilbert Tuyambaze 常见问题",
+    "faqDescription": "为寻找基加利卢旺达网页开发者或网页设计师的人提供额外的搜索友好内容。",
+    "keywordCloudTitle": "关键词云",
+    "legalTitle": "版权所有、条款和安全",
+    "backToTop": "返回顶部",
+    "copyright": "© 2025 Gilbert Tuyambaze。用心打造，少不了",
+    "coffee": "很多咖啡。",
+    "socialEmail": "邮箱",
+    "socialGithub": "GitHub",
+    "socialLinkedIn": "LinkedIn",
+    "socialPhone": "电话",
+    "socialLocation": "位置",
+    "popupSeoSummary": "Gilbert Tuyambaze 为寻找卢旺达基加利网页开发者的客户打造响应式网站、作品集体验和面向业务的网页界面。这个弹窗在不长期占用页脚空间的前提下，补充了清晰的地域与服务信息。",
+    "popupSearchHint": "如果有人搜索 Tuyambaze、Gilbert、Kigali design、Kigali Rwanda web design、Rwanda frontend developer、portfolio website developer Kigali、website designer in Rwanda 或 frontend engineer in Kigali，这一部分可以把这些词与网站中的作品、技能和联系方式关联起来。",
+    "keywordGroups": {
+      "nameSearches": "姓名搜索",
+      "kigaliSearches": "基加利与卢旺达搜索",
+      "serviceSearches": "服务搜索",
+      "intentSearches": "意图搜索"
+    },
+    "tabs": {
+      "faq": "常见问题",
+      "legal": "法律"
+    },
+    "faq": [
+      {
+        "question": "Gilbert Tuyambaze 是谁？",
+        "answer": "我是一位常驻卢旺达基加利的网页开发者和设计师，专注于打造响应式作品集网站、商业网站、精致的界面系统以及现代前端体验。"
+      },
+      {
+        "question": "这个作品集重点展示什么？",
+        "answer": "这个作品集重点展示了我在基加利网页设计、前端开发、落地页、作品集网站、企业网站、UI 优化以及全栈实现支持方面的工作。"
+      },
+      {
+        "question": "大家可以通过哪些搜索词找到我？",
+        "answer": "大家可以通过 Gilbert Tuyambaze、Tuyambaze Gilbert、Kigali web developer、Kigali Rwanda web design、Rwanda frontend developer 或 web designer in Kigali 等搜索词找到我。"
+      },
+      {
+        "question": "为什么把这些内容放在弹窗里？",
+        "answer": "我把这些内容放在弹窗里，是为了让页脚保持简洁，同时在需要时提供更多关于我的工作、所在地和服务的信息。"
+      }
+    ],
+    "legal": [
+      {
+        "title": "版权声明",
+        "content": "本作品集网站上的所有原创内容，包括文字、界面创意、项目描述、品牌表达、自定义视觉、用于展示的代码片段以及版式呈现，除非另有说明，均属于 Gilbert Tuyambaze 的知识产权。未经许可，不得复制、转售或再分发原创内容。"
+      },
+      {
+        "title": "条款与条件",
+        "content": "本作品集用于职业展示、作品集评估、招聘沟通和服务咨询。访客可以浏览网站、分享链接，并联系 Gilbert Tuyambaze 进行合作或项目沟通。禁止冒用身份、出于恶意目的抓取内容，或未经同意复制受保护材料。"
+      },
+      {
+        "title": "隐私与联系数据",
+        "content": "如果您通过作品集联系 Gilbert Tuyambaze，您提供的姓名、邮箱、主题和消息等信息仅用于沟通、项目讨论和客户跟进。个人信息不会被故意出售，也不会被用于无关营销。"
+      },
+      {
+        "title": "安全与负责任的使用",
+        "content": "网站已尽合理努力保持安全、响应迅速并适配现代设备。访客应避免尝试未授权访问、自动化滥用、垃圾信息或破坏性行为。任何第三方链接、社交平台或外部服务仍受其自身安全与隐私政策约束。"
+      }
+    ]
+  },
+  "notFound": {
+    "title": "页面未找到",
+    "description": "您正在寻找的页面不存在或可能已被移动。",
+    "returnHome": "返回首页",
+    "goBack": "返回"
+  },
+  "pwa": {
+    "installTitle": "安装作品集应用",
+    "installDescription": "将其保存到设备以便更快捷地访问并获得类似应用的浏览体验。",
+    "installButton": "安装"
+  },
+  "language": {
+    "selectLabel": "选择语言",
+    "english": "English",
+    "french": "Français",
+    "kinyarwanda": "Kinyarwanda",
+    "spanish": "Español",
+    "chinese": "中文"
+  },
+  "visitor": {
+    "label": "访问者",
+    "loading": "正在加载访问者...",
+    "error": "访问者计数不可用。",
+    "message": "访问者总数：{{count}}"
+  },
+  "console": {
+    "ready": "系统已就绪。输入 help 开始。",
+    "quickCommands": [
+      "help",
+      "projects",
+      "contact",
+      "minimize",
+      "exit"
+    ],
+    "commands": {
+      "help": "help",
+      "clear": "clear",
+      "minimize": "minimize",
+      "exit": "exit"
+    },
+    "help": "可用命令：\nhelp, clear, minimize, exit\nsections, goto <section>\nhero, about, gilbert, images, image <name|number>, education, services\nprojects, project <name|number>, gallery\ncontact, socials, resume, cv\nopen <project>, github <project>\nmessage, send message\n\n个人导航：\n- 输入 hero 查看首屏概要、成果、优势和最近工作\n- 输入 gilbert 查看个人简介和个人图片\n- 输入 images 列出 Gilbert 的肖像与品牌视觉\n- 然后输入图片编号或图片名称进行展开\n- 输入 education 查看教育与认证\n\n项目导航：\n- 运行或点击 projects 列出所有项目名称\n- 然后输入项目名称或项目编号以查看更多详情\n\n项目匹配支持数字、部分名称、token 调换、模糊输入和相近名称。\n终端消息模式会按步骤引导：name > email > subject > message > confirm。\n随时输入 cancel 可以停止。\n\n示例：\n- help\n- education\n- projects\n- project 1",
+    "sections": "可用栏目：\n- home\n- about\n- services\n- projects\n- gallery\n- contact",
+    "gotoSuccess": "正在跳转到 {{section}}...",
+    "gotoFailure": "未识别的栏目：{{section}}。请输入 sections 查看可用目标。",
+    "about": "我是 Gilbert Tuyambaze。\n我是一名前端与全栈开发者、UI/UX 设计师，也是创意技术实践者。\n我目前正在 A2SV 接受软件工程方向的训练。\n我常用的核心技术包括 React、TypeScript、Next.js、Node.js 和 Tailwind CSS。",
+    "education": "教育与认证\n- 软件工程 Fellowship | A2SV (Africa to Silicon Valley) | 2026 - 至今\n- 计划攻读计算机科学与应用物理双学位 | 大学 | 2025 - 至今\n- 全栈 Web 开发 | 编程训练营 | 2024 - 2025\n- 音乐制作证书 | Audio Institute | 2024",
+    "hero": "概览\n我专注于打造现代、响应式且打磨细致的 Web 体验。\n我的亮点：我正在 A2SV 进行软件工程训练，已经交付了多个作品集项目与客户项目，并在 Web 应用、品牌表达和创意技术方向积累了扎实经验。\n我最擅长的是 React、TypeScript、Tailwind CSS、界面细节打磨、响应式设计，以及把想法转化为清晰成熟的产品体验。\n我最近的项目包括电商与市场平台、学术资源平台、私密聊天应用、咨询类网站和个人作品集站点。",
+    "gilbert": "Gilbert Hub\n我是一位常驻基加利的前端与全栈开发者、UI/UX 设计师，以及创意技术实践者。\n我使用 React、TypeScript、Next.js、Node.js 与 Tailwind CSS 打造现代界面、可扩展的 Web 应用，以及流畅的用户体验。\n\n接下来你可以查看：\n- hero：我的亮点、优势与近期工作\n- about：我的职业简介\n- education：我的教育与认证\n- contact：我的邮箱、电话与终端引导留言\n\n项目快捷入口：\n{{projects}}\n\n下一步：\n输入 hero、about、education、contact、projects 或 images。\n你也可以输入 project 加项目编号或项目名称来查看更多细节。",
+    "profileImages": "Gilbert 的图片\n{{images}}\n\n输入图片编号或图片名称以展开。",
+    "imageNotFound": "未找到与 \"{{query}}\" 匹配的图片。\n输入 images 列出可用图片，然后输入图片编号或图片名称。",
+    "projectNotFound": "未找到与 \"{{query}}\" 匹配的项目。{{suggestionText}}",
+    "noProjectMatch": "未找到强匹配项目 \"{{query}}\"。{{suggestionText}}",
+    "openingLive": "正在打开在线项目：{{title}}",
+    "openingGithub": "正在打开 {{title}} 的 GitHub 仓库",
+    "messageModeStart": "终端消息模式已启动。\nname > 输入您的全名",
+    "sendingMessage": "正在发送终端消息...",
+    "messageSent": "终端模式消息发送成功。",
+    "messageFailed": "消息发送失败。您可以输入 message 再次尝试。",
+    "networkError": "发送消息时网络错误。输入 message 再次尝试。",
+    "cancelled": "终端消息模式已取消。",
+    "minimized": "终端已最小化。使用重新打开按钮继续。",
+    "promptValue": "{{step}} > 请输入一个值。",
+    "promptEmailInvalid": "email > 请输入有效的邮箱地址",
+    "promptEmail": "email > 输入您的邮箱地址",
+    "promptSubject": "subject > 输入您的主题",
+    "promptMessage": "message > 输入您的消息",
+    "promptConfirm": "confirm > 输入 yes 发送，或输入 cancel 取消",
+    "projectModeInfo": "精选项目：\n{{projects}}\n\n输入项目编号或项目名称以获取更多信息。",
+    "gallery": "正在打开画廊部分...\n这里可以浏览人像、品牌素材、UI 灵感和项目视觉作品。\n精选个人图片：\n- 主形象照 - Gilbert\n- 日常形象照 - Tuyambaze Gilbert\n- 名片设计 - Tuyambaze Gilbert",
+    "contactInfo": "联系方式：\n- 邮箱：mailto:tuyambazegilbert05@gmail.com\n- 电话：+250 (79) 343-8873\n- 地点：基加利，卢旺达\n- 输入 message 可通过终端发送引导式留言。",
+    "socials": "社交链接：\n- GitHub：https://github.com/GILBERT-Tuyambaze/\n- LinkedIn：https://www.linkedin.com/in/gilbert-tuyambaze-02044a3bb/\n- 邮箱：mailto:tuyambazegilbert05@gmail.com",
+    "resume": "正在在新标签页中打开简历...",
+    "projectSuggestions": "尝试以下之一：{{suggestions}}",
+    "projectNotRecognized": "项目在项目模式中无法识别：{{query}}\n输入项目编号或项目名称，或输入 help 查看支持的命令。",
+    "imageNotRecognized": "图片在图片模式中无法识别：{{query}}\n输入图片编号或图片名称，或输入 help 查看支持的命令。",
+    "commandUnknown": "无法识别命令：{{command}}\n输入 help 查看支持的命令。",
+    "commandRunning": "最接近的支持命令：{{command}}\n正在为您运行...",
+    "initializingTracking": "正在初始化跟踪...",
+    "fetchingVisitorData": "正在获取访客数据...",
+    "loadingModules": "正在加载作品集模块...",
+    "matcherOnline": "近似项目匹配器已上线。",
+    "helpHint": "输入 help 以检查可用命令。",
+    "totalVisitors": "访问者总数：{{count}}",
+    "visitorError": "访客跟踪不可用。",
+    "run": "运行",
+    "typingStatus": {
+      "ready": "就绪",
+      "typing": "输入中",
+      "sending": "发送中"
+    },
+    "promptPlaceholder": "输入项目名称或编号，例如：market place、ur hub、3",
+    "modeLabel": "赛博模式",
+    "shortcut": "Ctrl + Shift + C",
+    "navigatorLabel": "作品集导航器",
+    "readyPrefix": "系统已就绪。输入",
+    "readySuffix": "开始使用。",
+    "githubButton": "GitHub",
+    "inputLabel": "赛博命令输入",
+    "composePlaceholder": "{{step}} > 在此回复或输入 cancel",
+    "reopen": "重新打开终端"
+  },
+  "socialProof": {
+    "badge": "社交证明",
+    "title": "客户评价与反馈",
+    "description": "本部分汇集了客户、合作伙伴和团队成员的真实评价与反馈，帮助访问者快速了解与我合作的体验。",
+    "emptyTitle": "暂无评价或反馈",
+    "emptyDescription": "下面的表单已可使用。首条提交后将显示在此处。",
+    "kinds": {
+      "testimonial": "评价",
+      "feedback": "反馈"
+    },
+    "stats": {
+      "total": "总数",
+      "rating": "平均评分"
+    },
+    "form": {
+      "badge": "分享你的体验",
+      "title": "提交评价或反馈",
+      "kind": "您想分享什么？",
+      "name": "姓名",
+      "role": "职位",
+      "company": "公司",
+      "rating": "评分（5分制）",
+      "message": "消息",
+      "placeholder": "请描述您与我的合作体验，或分享您的反馈。",
+      "submit": "提交",
+      "submitting": "提交中...",
+      "success": "感谢您，您的消息已成功提交。",
+      "error": "提交失败，请重试。"
+    }
+  },
+  "dashboard": {
+    "badge": "控制面板",
+    "title": "作品集管理仪表盘",
+    "description": "您已登录为 {{email}}。在此处，您可以管理访客计数、查看消息，并控制公开显示的评价和反馈。",
+    "back": "返回作品集",
+    "refresh": "刷新",
+    "logout": "登出",
+    "loading": "正在加载仪表盘...",
+    "checking": "正在验证访问权限...",
+    "setupTitle": "需要仪表盘设置",
+    "setupDescription": "请在环境中添加 Firebase 配置，启用 Firestore 和 Firebase Authentication，然后创建管理员角色文档。",
+    "signInTitle": "安全登录仪表盘",
+    "signIn": "登录",
+    "roleTitle": "需要管理员角色",
+    "roleDescription": "该帐户已登录，但尚未具有管理员角色。请在 Firestore 中创建 roles/{uid} 文档以激活仪表盘。",
+    "fields": {
+      "email": "邮箱",
+      "password": "密码"
+    },
+    "tabs": {
+      "overview": "总览",
+      "messages": "消息",
+      "social": "社交证明"
+    },
+    "stats": {
+      "messages": "消息",
+      "totalSocial": "社交条目",
+      "visible": "可见",
+      "hidden": "隐藏",
+      "visitors": "访客"
+    },
+    "counterTitle": "访客计数控制",
+    "counterLabel": "设置公开计数",
+    "save": "保存",
+    "saving": "保存中...",
+    "socialSummary": "社交概览",
+    "summaryText": "使用此面板保持社交证明内容的更新，隐藏不想展示的条目，并在需要时调整文本以获得清晰的展示。",
+    "messagesTitle": "已保存联系消息",
+    "socialTitle": "评价与反馈管理",
+    "editorTitle": "编辑条目",
+    "table": {
+      "sender": "发送者",
+      "subject": "主题",
+      "message": "消息",
+      "received": "接收时间",
+      "type": "类型",
+      "author": "作者",
+      "visibility": "可见性",
+      "actions": "操作"
+    },
+    "kinds": {
+      "testimonial": "评价",
+      "feedback": "反馈"
+    },
+    "visible": "可见",
+    "hidden": "隐藏",
+    "edit": "编辑",
+    "hide": "隐藏",
+    "show": "显示",
+    "delete": "删除",
+    "saveChanges": "保存更改",
+    "cancel": "取消",
+    "emptyMessages": "暂无已保存的联系消息。",
+    "emptySocial": "暂无已保存的评价或反馈。",
+    "errors": {
+      "login": "登录失败。请检查管理员凭据和 Firebase 身份验证配置。",
+      "load": "无法加载仪表盘数据。请检查管理员角色、Firestore 规则和 Functions 是否已部署。"
+    }
+  }
+}

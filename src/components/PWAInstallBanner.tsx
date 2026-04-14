@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { usePWA } from '@/hooks/usePWA'
 import { Download, X, Smartphone, Zap } from 'lucide-react'
 
 export default function PWAInstallBanner() {
+  const { t } = useTranslation()
   const { isInstallable, isInstalled, installApp } = usePWA()
   const [isDismissed, setIsDismissed] = useState(false)
 
@@ -29,9 +31,9 @@ export default function PWAInstallBanner() {
         </div>
 
         <div className="flex-1 min-w-0">
-          <h3 className="text-xs font-semibold mb-1">Install Portfolio App</h3>
+          <h3 className="text-xs font-semibold mb-1">{t('pwa.installTitle')}</h3>
           <p className="text-[11px] text-white/90 mb-3">
-            Save it to your device for quicker access and app-like browsing.
+            {t('pwa.installDescription')}
           </p>
 
           <div className="flex items-center space-x-2">
@@ -41,7 +43,7 @@ export default function PWAInstallBanner() {
               className="bg-white text-blue-600 hover:bg-white/90 font-medium px-3 py-1 h-8 text-xs rounded-full transition-all duration-300 hover:scale-105"
             >
               <Download className="w-3 h-3 mr-1" />
-              Install
+              {t('pwa.installButton')}
               <Zap className="w-3 h-3 ml-1" />
             </Button>
 

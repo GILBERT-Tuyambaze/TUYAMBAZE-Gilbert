@@ -13,8 +13,11 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Github, Linkedin, Mail, Heart, ArrowUp } from 'lucide-react';
 import { revealElements } from '@/hooks/useScrollReveal';
+import { useTranslation } from 'react-i18next';
+import { VisitorCounter } from './VisitorCounter';
 
 export default function Footer() {
+  const { t } = useTranslation();
   useEffect(() => {
     revealElements('.footer-content', {
       origin: 'bottom',
@@ -56,68 +59,37 @@ export default function Footer() {
   };
 
   const socialLinks = [
-    { icon: Github, href: 'https://github.com/GILBERT-Tuyambaze/', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://www.linkedin.com/in/gilbert-tuyambaze-02044a3bb', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:tuyambazegilbert05@gmail.com', label: 'Email' },
+    { icon: Github, href: 'https://github.com/GILBERT-Tuyambaze/', label: t('footer.socialGithub', { defaultValue: 'GitHub' }) },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/gilbert-tuyambaze-02044a3bb', label: t('footer.socialLinkedIn', { defaultValue: 'LinkedIn' }) },
+    { icon: Mail, href: 'mailto:tuyambazegilbert05@gmail.com', label: t('footer.socialEmail', { defaultValue: 'Email' }) },
   ];
 
   const quickLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Services', href: '#services' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
+    { name: t('nav.home'), href: '#home' },
+    { name: t('nav.about'), href: '#about' },
+    { name: t('nav.services'), href: '#services' },
+    { name: t('nav.projects'), href: '#projects' },
+    { name: t('nav.contact'), href: '#contact' },
   ];
 
-  const seoFaqs = [
-    {
-      question: 'Who is Gilbert Tuyambaze?',
-      answer:
-        'Gilbert Tuyambaze is a Kigali, Rwanda web developer and web designer who builds responsive portfolio sites, business websites, polished UI systems, and modern frontend experiences.',
-    },
-    {
-      question: 'What services does this Kigali portfolio highlight?',
-      answer:
-        'This portfolio focuses on web design in Kigali, Rwanda, frontend development, landing pages, portfolio websites, business websites, UI refinement, and full-stack implementation support.',
-    },
-    {
-      question: 'What searches should lead people here?',
-      answer:
-        'Useful search phrases include Gilbert Tuyambaze, Tuyambaze Gilbert, Kigali web developer, Kigali Rwanda web design, Rwanda frontend developer, and web designer in Kigali.',
-    },
-    {
-      question: 'Why keep this content in a popup?',
-      answer:
-        'It keeps the footer compact for users while still adding strong Kigali, Rwanda, web design, and web development context in a place you can open only when needed.',
-    },
-  ];
+  const rawSeoFaqs = t('footer.faq', { returnObjects: true });
+  const seoFaqs = (Array.isArray(rawSeoFaqs) ? rawSeoFaqs : []) as Array<{
+    question: string
+    answer: string
+  }>;
 
-  const trustSections = [
-    {
-      title: 'Copyright Notice',
-      content:
-        'All original portfolio content on this website, including text, interface ideas, project descriptions, branding, custom visuals, code samples shared for presentation, and layout presentation, is the intellectual property of Gilbert Tuyambaze unless stated otherwise. Unauthorized copying, resale, or redistribution of original content without permission is not allowed.',
-    },
-    {
-      title: 'Terms And Conditions',
-      content:
-        'This portfolio is provided for professional presentation, portfolio review, hiring discussions, and service inquiries. Visitors may browse, share the site link, and contact Gilbert Tuyambaze for collaboration or project work. Misuse, impersonation, scraping for harmful purposes, or reproduction of protected material without consent is prohibited.',
-    },
-    {
-      title: 'Privacy And Contact Data',
-      content:
-        'If you contact Gilbert Tuyambaze through the portfolio, shared details such as your name, email address, subject, and message are used only for communication, project discussion, and client follow-up. Personal information is not intentionally sold or shared for unrelated marketing purposes.',
-    },
-    {
-      title: 'Security And Responsible Use',
-      content:
-        'Reasonable efforts are made to keep this portfolio secure, responsive, and safe to use across modern devices. Visitors should avoid attempting unauthorized access, automated abuse, spam, or disruptive actions. Any third-party links, social platforms, or external services remain subject to their own security and privacy practices.',
-    },
-  ];
+  const rawTrustSections = t('footer.legal', { returnObjects: true });
+  const trustSections = (Array.isArray(rawTrustSections) ? rawTrustSections : []) as Array<{
+    title: string
+    content: string
+  }>;
+
+  const seoSummary = t('footer.popupSeoSummary');
+  const searchHint = t('footer.popupSearchHint');
 
   const keywordGroups = [
     {
-      title: 'Name Searches',
+      titleKey: 'footer.keywordGroups.nameSearches',
       terms: [
         'Gilbert Tuyambaze',
         'Tuyambaze Gilbert',
@@ -132,7 +104,7 @@ export default function Footer() {
       ],
     },
     {
-      title: 'Kigali And Rwanda Searches',
+      titleKey: 'footer.keywordGroups.kigaliSearches',
       terms: [
         'Kigali web developer',
         'Kigali web designer',
@@ -149,7 +121,7 @@ export default function Footer() {
       ],
     },
     {
-      title: 'Service Searches',
+      titleKey: 'footer.keywordGroups.serviceSearches',
       terms: [
         'React developer Kigali',
         'Tailwind CSS developer Rwanda',
@@ -166,7 +138,7 @@ export default function Footer() {
       ],
     },
     {
-      title: 'Intent Searches',
+      titleKey: 'footer.keywordGroups.intentSearches',
       terms: [
         'hire web developer Kigali',
         'hire web designer Rwanda',
@@ -241,8 +213,7 @@ export default function Footer() {
               Gilbert <span className="text-primary">Tuyambaze</span>
             </h3>
             <p className="max-w-md leading-relaxed text-muted-foreground">
-              Passionate developer and creative professional dedicated to crafting exceptional
-              digital experiences through innovative web development, strong design, and creative content.
+              {t('footer.description')}
             </p>
             <div className="flex gap-4">
               {socialLinks.map((social, index) => (
@@ -261,7 +232,7 @@ export default function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold">Quick Links</h4>
+            <h4 className="text-lg font-semibold">{t('footer.quickLinks')}</h4>
             <nav className="flex flex-col space-y-2">
               {quickLinks.map((link, index) => (
                 <a
@@ -276,7 +247,7 @@ export default function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold">Get In Touch</h4>
+            <h4 className="text-lg font-semibold">{t('footer.getInTouch')}</h4>
             <div className="space-y-3 text-muted-foreground">
               <p className="footer-links cursor-pointer transition-colors hover:text-primary">
                 tuyambazegilbert05@gmail.com
@@ -294,57 +265,51 @@ export default function Footer() {
         <Separator className="my-8" />
 
         <div className="footer-bottom flex flex-col items-center justify-between gap-4 md:flex-row">
-          <p className="flex items-center gap-2 text-sm text-muted-foreground">
-            © 2025 Gilbert Tuyambaze. Made with <Heart className="h-4 w-4 animate-pulse text-red-500" /> and lots of coffee.
-          </p>
+          <div className="flex flex-col items-center gap-3 md:items-start">
+            <VisitorCounter className="rounded border border-border bg-background/90 px-4 py-2 text-sm font-medium text-foreground shadow-sm" />
+            <p className="flex items-center gap-2 text-sm text-muted-foreground">
+              {t('footer.copyright')} <Heart className="h-4 w-4 animate-pulse text-red-500" /> {t('footer.coffee')}
+            </p>
+          </div>
 
           <div className="flex flex-wrap items-center justify-center gap-2">
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="outline" size="sm" className="hover:border-primary/50 hover:bg-primary/5">
-                  FAQ & LEGAL
+                  {t('footer.faqButton')}
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-2xl">
                 <DialogHeader>
-                  <DialogTitle>Gilbert Tuyambaze FAQ</DialogTitle>
+                  <DialogTitle>{t('footer.faqTitle')}</DialogTitle>
                   <DialogDescription>
-                    Extra search-friendly content for people looking for a Kigali, Rwanda web developer or web designer.
+                    {t('footer.faqDescription')}
                   </DialogDescription>
                 </DialogHeader>
 
                 <Tabs defaultValue="seo" className="w-full">
                   <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="seo">FAQ</TabsTrigger>
-                    <TabsTrigger value="legal">Legal</TabsTrigger>
+                    <TabsTrigger value="seo">{t('footer.tabs.faq')}</TabsTrigger>
+                    <TabsTrigger value="legal">{t('footer.tabs.legal')}</TabsTrigger>
                   </TabsList>
 
                   <TabsContent value="seo" className="space-y-5">
                     <div className="space-y-4 text-sm leading-7 text-muted-foreground">
-                      <p>
-                        Gilbert Tuyambaze creates responsive websites, portfolio experiences, and business-focused web
-                        interfaces for clients searching for a web developer in Kigali, Rwanda. This popup adds stronger
-                        location and service context without taking permanent space in the footer.
-                      </p>
-                      <p>
-                        If someone searches for Tuyambaze, Gilbert, Kigali design, Kigali Rwanda web design, Rwanda
-                        frontend developer, portfolio website developer Kigali, website designer in Rwanda, or frontend
-                        engineer in Kigali, this section helps connect those terms to the work, skills, and contact
-                        information shown across the site.
-                      </p>
+                      <p>{seoSummary}</p>
+                      <p>{searchHint}</p>
                     </div>
 
                     <div className="space-y-4">
                       {keywordGroups.map((group) => (
-                        <div key={group.title} className="space-y-2">
-                          <h4 className="text-sm font-semibold text-foreground">{group.title}</h4>
+                        <div key={group.titleKey} className="space-y-2">
+                          <h4 className="text-sm font-semibold text-foreground">{t(group.titleKey)}</h4>
                           <p className="text-sm leading-7 text-muted-foreground">{group.terms.join(', ')}</p>
                         </div>
                       ))}
                     </div>
 
                     <div className="space-y-3 rounded-lg border border-primary/10 bg-muted/30 p-4">
-                      <h4 className="text-sm font-semibold text-foreground">Keyword Cloud</h4>
+                      <h4 className="text-sm font-semibold text-foreground">{t('footer.keywordCloudTitle')}</h4>
                       <div className="flex flex-wrap gap-2">
                         {keywordCloud.map((term) => (
                           <span
@@ -358,26 +323,30 @@ export default function Footer() {
                     </div>
 
                     <Accordion type="single" collapsible className="w-full">
-                      {seoFaqs.map((item) => (
-                        <AccordionItem key={item.question} value={item.question}>
-                          <AccordionTrigger className="text-left">{item.question}</AccordionTrigger>
+                      {seoFaqs.map((item, index) => {
+                        const question = item.question || `FAQ ${index + 1}`;
+                        return (
+                        <AccordionItem key={`${question}-${index}`} value={`${question}-${index}`}>
+                          <AccordionTrigger className="text-left">{question}</AccordionTrigger>
                           <AccordionContent className="text-sm leading-7 text-muted-foreground">
                             {item.answer}
                           </AccordionContent>
                         </AccordionItem>
-                      ))}
+                      )})}
                     </Accordion>
                   </TabsContent>
 
                   <TabsContent value="legal" className="space-y-3 rounded-lg border border-border/60 bg-background/70 p-4">
-                    <h4 className="text-sm font-semibold text-foreground">Copyright, Terms, And Security</h4>
+                    <h4 className="text-sm font-semibold text-foreground">{t('footer.legalTitle')}</h4>
                     <div className="space-y-3">
-                      {trustSections.map((section) => (
-                        <div key={section.title} className="space-y-1">
-                          <h5 className="text-sm font-medium text-foreground">{section.title}</h5>
+                      {trustSections.map((section, index) => {
+                        const title = section.title || `Section ${index + 1}`;
+                        return (
+                        <div key={`${title}-${index}`} className="space-y-1">
+                          <h5 className="text-sm font-medium text-foreground">{title}</h5>
                           <p className="text-sm leading-7 text-muted-foreground">{section.content}</p>
                         </div>
-                      ))}
+                      )})}
                     </div>
                   </TabsContent>
                 </Tabs>
@@ -391,7 +360,7 @@ export default function Footer() {
               className="group hover:bg-primary/10"
             >
               <ArrowUp className="mr-2 h-4 w-4 transition-transform group-hover:-translate-y-1" />
-              Back to Top
+              {t('footer.backToTop')}
             </Button>
           </div>
         </div>
