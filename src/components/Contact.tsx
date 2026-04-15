@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
-import { revealElements } from '@/hooks/useScrollReveal';
+import { initializeScrollReveal, revealElements } from '@/hooks/useScrollReveal';
 import { useTranslation } from 'react-i18next';
 import { submitStoredContactMessage } from '@/lib/portfolioData';
 
@@ -25,11 +25,13 @@ export default function Contact() {
 
   useEffect(() => {
     // Contact section animations
-    revealElements('.contact-title', { origin: 'top', distance: '60px', duration: 1000, delay: 200 });
-    revealElements('.contact-description', { origin: 'bottom', distance: '40px', duration: 800, delay: 400 });
-    revealElements('.contact-info', { origin: 'bottom', distance: '40px', duration: 800, delay: 400, interval: 100 });
-    revealElements('.contact-form', { origin: 'bottom', distance: '40px', duration: 800, delay: 400 });
-    revealElements('.form-field', { origin: 'bottom', distance: '30px', duration: 600, delay: 600, interval: 50 });
+    initializeScrollReveal();
+    const revealSettings = { origin: 'bottom', distance: '40px', duration: 800, reset: false, viewFactor: 0.25, viewOffset: { top: 90, right: 0, bottom: 0, left: 0 } };
+    revealElements('.contact-title', { origin: 'top', distance: '60px', duration: 1000, delay: 200, reset: false, viewFactor: 0.25, viewOffset: { top: 90, right: 0, bottom: 0, left: 0 } });
+    revealElements('.contact-description', { ...revealSettings, delay: 300 });
+    revealElements('.contact-info', { ...revealSettings, delay: 400, interval: 100 });
+    revealElements('.contact-form', { ...revealSettings, delay: 400 });
+    revealElements('.form-field', { origin: 'bottom', distance: '30px', duration: 600, delay: 500, interval: 50, reset: false, viewFactor: 0.25, viewOffset: { top: 90, right: 0, bottom: 0, left: 0 } });
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -129,9 +131,9 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-20 px-4 bg-muted overflow-x-hidden">
+    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted overflow-x-hidden scroll-mt-24 md:scroll-mt-28 lg:scroll-mt-32">
       <div className="container mx-auto max-w-7xl">
-        <div className="text-center mb-16">
+        <div className="text-center mb-14 px-2 sm:mb-16 sm:px-0">
           <h2 className="contact-title text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
             {t('contact.title')}
           </h2>
@@ -153,7 +155,7 @@ export default function Contact() {
             <div className="space-y-6">
               {contactInfo.map((info, index) => (
                 <Card key={index} className="contact-info group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                  <CardContent className="p-6 flex items-start gap-4">
+                  <CardContent className="p-6 flex flex-col sm:flex-row items-start gap-4">
                     <div className={`p-3 rounded-full ${info.bgColor} group-hover:scale-110 transition-transform duration-300`}>
                       <info.icon className={`w-6 h-6 ${info.color}`} />
                     </div>
@@ -169,11 +171,12 @@ export default function Contact() {
           </div>
 
           {/* Contact Form */}
-          <Card className="contact-form hover:shadow-xl transition-shadow duration-300">
-            <CardHeader>
-              <CardTitle className="text-2xl font-bold">{t('contact.formTitle')}</CardTitle>
-            </CardHeader>
-            <CardContent>
+          <div className="pt-4 sm:pt-0">
+            <Card className="contact-form hover:shadow-xl transition-shadow duration-300">
+              <CardHeader>
+                <CardTitle className="text-2xl font-bold">{t('contact.formTitle')}</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6 sm:p-8">
               {isSubmitted ? (
                 <div className="text-center py-12">
                   <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
@@ -257,6 +260,7 @@ export default function Contact() {
               )}
             </CardContent>
           </Card>
+          </div>
         </div>
       </div>
     </section>

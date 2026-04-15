@@ -11,6 +11,13 @@ interface ScrollRevealOptions {
   opacity?: number;
   reset?: boolean;
   interval?: number;
+  viewFactor?: number;
+  viewOffset?: {
+    top?: number;
+    right?: number;
+    bottom?: number;
+    left?: number;
+  };
 }
 
 export const useScrollReveal = (options: ScrollRevealOptions = {}) => {
@@ -25,6 +32,8 @@ export const useScrollReveal = (options: ScrollRevealOptions = {}) => {
         easing: 'ease-out',
         opacity: 0,
         scale: 0.9,
+        viewFactor: 0.2,
+        viewOffset: { top: 0, right: 0, bottom: 0, left: 0 },
         ...options,
       };
 
@@ -54,6 +63,8 @@ export const revealElements = (selector: string, options: ScrollRevealOptions = 
     easing: 'ease-out',
     opacity: 0,
     scale: 0.9,
+    viewFactor: 0.2,
+    viewOffset: { top: 0, right: 0, bottom: 0, left: 0 },
     ...options,
   };
 

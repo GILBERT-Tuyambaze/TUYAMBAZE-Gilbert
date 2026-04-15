@@ -1178,6 +1178,7 @@ You can also type project followed by a project number or project name for more 
   };
 
   const visibleHistory = useMemo(() => history.slice(-18), [history]);
+  const inputType = adminLoginState?.step === 'password' ? 'password' : 'text';
 
   const terminalMaxHeight = viewportHeight ? Math.max(320, viewportHeight - 16) : undefined;
 
@@ -1277,7 +1278,7 @@ You can also type project followed by a project number or project name for more 
               <label htmlFor="cyber-input" className="sr-only">{t('console.inputLabel')}</label>
               <div className="cyber-console__prompt flex items-center gap-2 rounded-2xl border border-[#00ff9f]/30 bg-black/30 px-3 py-3 shadow-inner shadow-[#00ff9f]/5 sm:gap-3 sm:px-4">
                 <span className="text-[#00ff9f]">&gt;</span>
-                <input ref={inputRef} id="cyber-input" type="text" value={command} onChange={(event) => setCommand(event.target.value)} placeholder={composeState ? t('console.composePlaceholder', { step: composeState.step }) : t('console.promptPlaceholder')} autoComplete="off" spellCheck={false} className="cyber-console__input min-w-0 flex-1 bg-transparent text-sm text-[#e6ffe6] outline-none placeholder:text-[#00ff9f]/30" />
+                <input ref={inputRef} id="cyber-input" type={inputType} value={command} onChange={(event) => setCommand(event.target.value)} placeholder={composeState ? t('console.composePlaceholder', { step: composeState.step }) : t('console.promptPlaceholder')} autoComplete={adminLoginState?.step === 'password' ? 'current-password' : 'off'} spellCheck={false} className="cyber-console__input min-w-0 flex-1 bg-transparent text-sm text-[#e6ffe6] outline-none placeholder:text-[#00ff9f]/30" />
                 <span className="cyber-console__typing-indicator hidden text-[10px] uppercase tracking-[0.24em] text-[#00ff9f]/55 sm:inline">
                   {isSendingMessage
                     ? t('console.typingStatus.sending')

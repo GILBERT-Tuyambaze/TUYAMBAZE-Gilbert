@@ -19,37 +19,36 @@ import { VisitorCounter } from './VisitorCounter';
 export default function Footer() {
   const { t } = useTranslation();
   useEffect(() => {
-    revealElements('.footer-content', {
+    const footerReveal = {
       origin: 'bottom',
+      distance: '40px',
+      duration: 900,
+      reset: false,
+      viewFactor: 0.25,
+      viewOffset: { top: 90, right: 0, bottom: 0, left: 0 },
+    };
+
+    revealElements('.footer-content', {
+      ...footerReveal,
       distance: '60px',
-      duration: 1000,
-      reset: true,
       delay: 200,
     });
 
     revealElements('.footer-social', {
-      origin: 'bottom',
-      distance: '40px',
-      duration: 800,
+      ...footerReveal,
       delay: 400,
-      reset: true,
       interval: 100,
     });
 
     revealElements('.footer-links', {
-      origin: 'bottom',
-      distance: '40px',
-      duration: 800,
+      ...footerReveal,
       delay: 600,
-      reset: true,
       interval: 50,
     });
 
     revealElements('.footer-bottom', {
-      origin: 'bottom',
+      ...footerReveal,
       distance: '30px',
-      duration: 600,
-      reset: true,
       delay: 800,
     });
   }, []);
