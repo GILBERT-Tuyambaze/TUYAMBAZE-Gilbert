@@ -478,7 +478,7 @@
     "emptySocial": "No testimonials or feedback stored yet.",
     "errors": {
       "login": "Login failed. Check your admin credentials and Firebase Auth setup.",
-      "load": "Dashboard data could not be loaded. Check your admin role, Firestore rules, and Functions deployment."
+      "load": "Dashboard analytics are temporarily unavailable. Please check your admin role and Firestore rules."
     }
   }
 }

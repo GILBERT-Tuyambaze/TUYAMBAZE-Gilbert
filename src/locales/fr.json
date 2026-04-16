@@ -478,7 +478,7 @@
     "emptySocial": "Aucun témoignage ni retour enregistré.",
     "errors": {
       "login": "La connexion a échoué. Vérifiez vos identifiants administrateur et la configuration Firebase Auth.",
-      "load": "Impossible de charger les données du tableau de bord. Vérifiez le rôle admin, les règles Firestore et le déploiement des Functions."
+      "load": "Les analyses du tableau de bord sont temporairement indisponibles. Vérifiez votre rôle admin et les règles Firestore."
     }
   }
 }

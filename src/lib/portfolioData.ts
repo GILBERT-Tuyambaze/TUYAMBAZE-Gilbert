@@ -1,10 +1,12 @@
 import {
   addDoc,
   collection,
+  deleteField,
   deleteDoc,
   doc,
   getDoc,
   getDocs,
+  increment,
   limit,
   onSnapshot,
   orderBy,
@@ -15,6 +17,7 @@ import {
   Timestamp,
   updateDoc,
   where,
+  writeBatch,
 } from 'firebase/firestore';
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, type User } from 'firebase/auth';
 import { auth, firestore, isFirebaseConfigured } from '@/lib/firebase';
@@ -27,6 +30,26 @@ export type ContactSubmission = {
   message: string;
   createdAt: Date | null;
   source: 'portfolio';
+};
+
+export type VisitSession = {
+  id: string;
+  sessionKey: string;
+  entryPath: string;
+  currentPath: string;
+  exitPath: string;
+  pageViews: number;
+  durationSeconds: number;
+  locale: string;
+  timeZone: string;
+  referrer: string;
+  userAgent: string;
+  screenWidth: number;
+  screenHeight: number;
+  startedAt: Date | null;
+  lastSeenAt: Date | null;
+  endedAt: Date | null;
+  isActive: boolean;
 };
 
 export type SocialProofKind = 'testimonial' | 'feedback';
@@ -48,6 +71,8 @@ export type DashboardData = {
   visitorCount: number;
   contactSubmissions: ContactSubmission[];
   testimonials: Testimonial[];
+  visitSessions: VisitSession[];
+  analyticsAvailable: boolean;
 };
 
 type FirestoreDoc = {
@@ -65,6 +90,7 @@ type AdminRole = {
 
 const CONTACT_SUBMISSIONS = 'contactSubmissions';
 const TESTIMONIALS = 'testimonials';
+const VISIT_SESSIONS = 'visitSessions';
 const STATS = 'stats';
 const VISITOR_COUNT_DOC = 'visitorCount';
 const ROLES = 'roles';
@@ -76,6 +102,10 @@ const MAX_MESSAGE_LENGTH = 3000;
 const MAX_CONTACT_MESSAGE_LENGTH = 5000;
 const MAX_ROLE_LENGTH = 120;
 const MAX_COMPANY_LENGTH = 120;
+const MAX_PATH_LENGTH = 240;
+const MAX_REFERRER_LENGTH = 500;
+const MAX_TIMEZONE_LENGTH = 80;
+const MAX_USER_AGENT_LENGTH = 500;
 
 const toDate = (value: Timestamp | Date | { seconds: number } | null | undefined): Date | null => {
   if (!value) return null;
@@ -95,6 +125,26 @@ const mapContactSubmission = (data: FirestoreDoc): ContactSubmission => ({
   message: String(data.message ?? ''),
   createdAt: toDate(data.createdAt),
   source: 'portfolio',
+});
+
+const mapVisitSession = (data: FirestoreDoc): VisitSession => ({
+  id: data.id,
+  sessionKey: String(data.sessionKey ?? data.id),
+  entryPath: String(data.entryPath ?? '/'),
+  currentPath: String(data.currentPath ?? '/'),
+  exitPath: String(data.exitPath ?? '/'),
+  pageViews: Number(data.pageViews ?? 1),
+  durationSeconds: Number(data.durationSeconds ?? 0),
+  locale: String(data.locale ?? ''),
+  timeZone: String(data.timeZone ?? ''),
+  referrer: String(data.referrer ?? ''),
+  userAgent: String(data.userAgent ?? ''),
+  screenWidth: Number(data.screenWidth ?? 0),
+  screenHeight: Number(data.screenHeight ?? 0),
+  startedAt: toDate(data.startedAt as Timestamp | Date | { seconds: number } | null | undefined),
+  lastSeenAt: toDate(data.lastSeenAt as Timestamp | Date | { seconds: number } | null | undefined),
+  endedAt: toDate(data.endedAt as Timestamp | Date | { seconds: number } | null | undefined),
+  isActive: Boolean(data.isActive ?? false),
 });
 
 const mapSocialEntry = (data: FirestoreDoc): Testimonial => ({
@@ -137,6 +187,11 @@ const normalizeMultiline = (value: string, maxLength: number) =>
 
 const validateEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
+const sanitizePath = (value: string) => {
+  const normalized = value.trim() || '/';
+  return normalized.slice(0, MAX_PATH_LENGTH);
+};
+
 export const submitStoredContactMessage = async (input: Omit<ContactSubmission, 'id' | 'createdAt' | 'source'>) => {
   const db = requireFirestore();
   const name = trimToLength(input.name, MAX_NAME_LENGTH);
@@ -156,6 +211,65 @@ export const submitStoredContactMessage = async (input: Omit<ContactSubmission, 
     source: 'portfolio',
     createdAt: serverTimestamp(),
   });
+};
+
+export const createVisitSession = async (input: {
+  sessionId: string;
+  entryPath: string;
+  currentPath: string;
+  locale: string;
+  timeZone: string;
+  referrer: string;
+  userAgent: string;
+  screenWidth: number;
+  screenHeight: number;
+}) => {
+  const db = requireFirestore();
+  const sessionId = trimToLength(input.sessionId, 120);
+
+  await setDoc(doc(db, VISIT_SESSIONS, sessionId), {
+    sessionKey: sessionId,
+    entryPath: sanitizePath(input.entryPath),
+    currentPath: sanitizePath(input.currentPath),
+    exitPath: sanitizePath(input.currentPath),
+    pageViews: 1,
+    durationSeconds: 0,
+    locale: trimToLength(input.locale || 'unknown', 40),
+    timeZone: trimToLength(input.timeZone || 'unknown', MAX_TIMEZONE_LENGTH),
+    referrer: trimToLength(input.referrer || 'direct', MAX_REFERRER_LENGTH),
+    userAgent: trimToLength(input.userAgent || 'unknown', MAX_USER_AGENT_LENGTH),
+    screenWidth: Math.max(0, Math.round(input.screenWidth || 0)),
+    screenHeight: Math.max(0, Math.round(input.screenHeight || 0)),
+    startedAt: serverTimestamp(),
+    lastSeenAt: serverTimestamp(),
+    endedAt: null,
+    isActive: true,
+  }, { merge: true });
+};
+
+export const updateVisitSession = async (input: {
+  sessionId: string;
+  currentPath: string;
+  exitPath?: string;
+  durationSeconds: number;
+  isActive: boolean;
+  incrementPageView?: boolean;
+}) => {
+  const db = requireFirestore();
+  const payload: Record<string, unknown> = {
+    currentPath: sanitizePath(input.currentPath),
+    exitPath: sanitizePath(input.exitPath ?? input.currentPath),
+    durationSeconds: Math.max(0, Math.round(input.durationSeconds)),
+    isActive: input.isActive,
+    lastSeenAt: serverTimestamp(),
+    endedAt: input.isActive ? null : serverTimestamp(),
+  };
+
+  if (input.incrementPageView) {
+    payload.pageViews = increment(1);
+  }
+
+  await setDoc(doc(db, VISIT_SESSIONS, trimToLength(input.sessionId, 120)), payload, { merge: true });
 };
 
 export const submitPortfolioSocialProof = async (
@@ -285,6 +399,16 @@ export const getDashboardData = async (): Promise<DashboardData> => {
     getDocs(query(collection(db, CONTACT_SUBMISSIONS), orderBy('createdAt', 'desc'), limit(100))),
     getDocs(query(collection(db, TESTIMONIALS), orderBy('createdAt', 'desc'), limit(100))),
   ]);
+  const visitSessionsResult = await getDocs(
+    query(collection(db, VISIT_SESSIONS), orderBy('startedAt', 'desc'), limit(200))
+  )
+    .then((snapshot) => ({ available: true, snapshot }))
+    .catch((error) => {
+      if (error instanceof Error && /permission|insufficient/i.test(error.message)) {
+        return { available: false, snapshot: null };
+      }
+      throw error;
+    });
 
   const visitorCount = visitorSnapshot.exists() ? Number(visitorSnapshot.data()?.count ?? 0) : 0;
 
@@ -296,6 +420,12 @@ export const getDashboardData = async (): Promise<DashboardData> => {
     testimonials: socialSnapshot.docs.map((entry) =>
       mapSocialEntry({ id: entry.id, ...entry.data() })
     ),
+    visitSessions: visitSessionsResult.snapshot
+      ? visitSessionsResult.snapshot.docs.map((entry) =>
+          mapVisitSession({ id: entry.id, ...entry.data() })
+        )
+      : [],
+    analyticsAvailable: visitSessionsResult.available,
   };
 };
 
@@ -324,6 +454,17 @@ export const updateSocialEntry = async (
 export const deleteSocialEntry = async (entryId: string) => {
   const db = requireFirestore();
   await deleteDoc(doc(db, TESTIMONIALS, entryId));
+};
+
+export const deleteContactSubmissions = async (entryIds: string[]) => {
+  const db = requireFirestore();
+  const batch = writeBatch(db);
+
+  entryIds.forEach((entryId) => {
+    batch.delete(doc(db, CONTACT_SUBMISSIONS, entryId));
+  });
+
+  await batch.commit();
 };
 
 export const loginAdmin = async (email: string, password: string) => {

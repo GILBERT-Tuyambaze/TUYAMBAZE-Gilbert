@@ -17,19 +17,21 @@ import {
 } from '@/components/ui/table';
 import { Textarea } from '@/components/ui/textarea';
 import {
+  deleteContactSubmissions,
   deleteSocialEntry,
   getCurrentAdminRole,
   getDashboardData,
   loginAdmin,
   logoutAdmin,
-  setVisitorCountValue,
   updateSocialEntry,
   watchAdminUser,
   type ContactSubmission,
   type SocialProofKind,
   type Testimonial,
+  type VisitSession,
 } from '@/lib/portfolioData';
 import { isFirebaseConfigured } from '@/lib/firebase';
+import { Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import {
   Activity,
   ArrowLeft,
@@ -84,12 +86,14 @@ export default function Dashboard() {
   const [loadingData, setLoadingData] = useState(false);
   const [contactSubmissions, setContactSubmissions] = useState<ContactSubmission[]>([]);
   const [socialEntries, setSocialEntries] = useState<Testimonial[]>([]);
-  const [visitorCountInput, setVisitorCountInput] = useState('0');
-  const [savingVisitorCount, setSavingVisitorCount] = useState(false);
+  const [visitSessions, setVisitSessions] = useState<VisitSession[]>([]);
+  const [visitorCount, setVisitorCount] = useState(0);
   const [editingEntryId, setEditingEntryId] = useState<string | null>(null);
   const [editor, setEditor] = useState<ReturnType<typeof createEditorState> | null>(null);
   const [savingEditor, setSavingEditor] = useState(false);
   const [deletingEntryId, setDeletingEntryId] = useState<string | null>(null);
+  const [selectedMessageIds, setSelectedMessageIds] = useState<string[]>([]);
+  const [deletingMessages, setDeletingMessages] = useState(false);
   const [actionMessage, setActionMessage] = useState('');
   const [actionError, setActionError] = useState('');
 
@@ -136,7 +140,15 @@ export default function Dashboard() {
       const data = await getDashboardData();
       setContactSubmissions(data.contactSubmissions);
       setSocialEntries(data.testimonials);
-      setVisitorCountInput(String(data.visitorCount));
+      setVisitSessions(data.visitSessions);
+      setVisitorCount(data.visitorCount);
+      if (!data.analyticsAvailable) {
+        setDataError(
+          t('dashboard.errors.load', {
+            defaultValue: 'Dashboard analytics are temporarily unavailable. The rest of your dashboard data is still loaded.',
+          })
+        );
+      }
     } catch (error) {
       setDataError(
         dashboardErrorMessage(
@@ -160,6 +172,53 @@ export default function Dashboard() {
     () => socialEntries.filter((entry) => entry.visible).length,
     [socialEntries]
   );
+
+  const activeVisitSessions = useMemo(
+    () => visitSessions.filter((session) => session.isActive).length,
+    [visitSessions]
+  );
+
+  const averageVisitDuration = useMemo(() => {
+    if (visitSessions.length === 0) return 0;
+    return Math.round(
+      visitSessions.reduce((total, session) => total + session.durationSeconds, 0) / visitSessions.length
+    );
+  }, [visitSessions]);
+
+  const totalPageViews = useMemo(
+    () => visitSessions.reduce((total, session) => total + session.pageViews, 0),
+    [visitSessions]
+  );
+
+  const visitsByDay = useMemo(() => {
+    const grouped = new Map<string, number>();
+
+    visitSessions.forEach((session) => {
+      const source = session.startedAt ?? session.lastSeenAt ?? session.endedAt;
+      if (!source) return;
+      const key = source.toISOString().slice(0, 10);
+      grouped.set(key, (grouped.get(key) ?? 0) + 1);
+    });
+
+    return Array.from(grouped.entries())
+      .sort(([a], [b]) => a.localeCompare(b))
+      .slice(-7)
+      .map(([date, visits]) => ({ date, visits }));
+  }, [visitSessions]);
+
+  const visitsByPath = useMemo(() => {
+    const grouped = new Map<string, number>();
+
+    visitSessions.forEach((session) => {
+      const key = session.entryPath || '/';
+      grouped.set(key, (grouped.get(key) ?? 0) + 1);
+    });
+
+    return Array.from(grouped.entries())
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 6)
+      .map(([path, visits]) => ({ path, visits }));
+  }, [visitSessions]);
 
   const hiddenEntriesCount = useMemo(
     () => socialEntries.filter((entry) => !entry.visible).length,
@@ -199,42 +258,45 @@ export default function Dashboard() {
     await logoutAdmin();
   };
 
-  const handleSaveVisitorCount = async () => {
-    const nextValue = Number(visitorCountInput);
-    if (!Number.isFinite(nextValue) || nextValue < 0) {
-      setActionError(
-        t('dashboard.errors.invalidCounter', {
-          defaultValue: 'Visitor count must be a valid number greater than or equal to zero.',
-        })
-      );
+  const toggleMessageSelection = (entryId: string) => {
+    setSelectedMessageIds((current) =>
+      current.includes(entryId) ? current.filter((id) => id !== entryId) : [...current, entryId]
+    );
+  };
+
+  const toggleSelectAllMessages = () => {
+    setSelectedMessageIds((current) =>
+      current.length === contactSubmissions.length ? [] : contactSubmissions.map((entry) => entry.id)
+    );
+  };
+
+  const handleDeleteMessages = async (entryIds: string[]) => {
+    if (entryIds.length === 0) {
       return;
     }
 
-    setSavingVisitorCount(true);
+    setDeletingMessages(true);
     setActionError('');
     setActionMessage('');
+
     try {
-      await setVisitorCountValue(nextValue);
+      await deleteContactSubmissions(entryIds);
+      setSelectedMessageIds((current) => current.filter((id) => !entryIds.includes(id)));
+      await loadDashboardData();
       setActionMessage(
-        t('dashboard.messages.counterSaved', {
-          defaultValue: 'Visitor count updated successfully.',
+        t('dashboard.messagesDeleted', {
+          defaultValue: 'Selected messages were deleted successfully.',
         })
       );
     } catch {
       setActionError(
-        t('dashboard.errors.counterSave', {
-          defaultValue: 'The visitor count could not be updated right now. Please try again.',
+        t('dashboard.errors.messageDelete', {
+          defaultValue: 'Those messages could not be deleted right now. Please try again.',
         })
       );
     } finally {
-      setSavingVisitorCount(false);
+      setDeletingMessages(false);
     }
-  };
-
-  const handleAdjustVisitorCount = (amount: number) => {
-    const current = Number(visitorCountInput);
-    const safeCurrent = Number.isFinite(current) ? current : 0;
-    setVisitorCountInput(String(Math.max(0, safeCurrent + amount)));
   };
 
   const startEditing = (entry: Testimonial) => {
@@ -362,6 +424,12 @@ export default function Dashboard() {
                 <Button type="submit" className="w-full bg-cyan-500 text-slate-950 hover:bg-cyan-400">
                   {t('dashboard.signIn')}
                 </Button>
+                <Button asChild type="button" variant="outline" className="w-full border-cyan-500/30 bg-slate-900/60 text-cyan-100 hover:bg-cyan-500/10">
+                  <Link to="/">
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    {t('dashboard.back')}
+                  </Link>
+                </Button>
                 {authError ? <p className="text-sm text-rose-400">{authError}</p> : null}
               </form>
             </CardContent>
@@ -450,7 +518,7 @@ export default function Dashboard() {
               { label: t('dashboard.stats.totalSocial'), value: socialEntries.length, icon: MessageSquareQuote },
               { label: t('dashboard.stats.visible'), value: visibleEntriesCount, icon: Eye },
               { label: t('dashboard.stats.hidden'), value: hiddenEntriesCount, icon: EyeOff },
-              { label: t('dashboard.stats.visitors'), value: visitorCountInput, icon: Users },
+              { label: t('dashboard.stats.visitors'), value: visitorCount, icon: Users },
             ].map((item) => (
               <Card key={item.label} className="dashboard-panel dashboard-panel--metric border-cyan-500/15 bg-slate-900/70 shadow-[inset_0_0_0_1px_rgba(34,211,238,0.04)]">
                 <CardContent className="flex items-center justify-between p-5">
@@ -494,27 +562,35 @@ export default function Dashboard() {
                 <CardHeader>
                   <CardTitle className="dashboard-section-title flex items-center gap-2 font-mono text-cyan-100">
                     <Activity className="h-5 w-5 text-cyan-300" />
-                    {t('dashboard.counterTitle')}
+                    {t('dashboard.analyticsTitle', { defaultValue: 'Visitor analytics' })}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-5">
-                  <div className="space-y-2">
-                    <Label htmlFor="visitor-count">{t('dashboard.counterLabel')}</Label>
-                    <Input
-                      id="visitor-count"
-                      type="number"
-                      min={0}
-                      value={visitorCountInput}
-                      onChange={(event) => setVisitorCountInput(event.target.value)}
-                    />
+                <CardContent className="space-y-6">
+                  <div className="grid gap-4 sm:grid-cols-3">
+                    <div className="dashboard-panel rounded-xl border border-cyan-500/10 bg-slate-900/60 p-4">
+                      <p className="text-xs uppercase tracking-[0.22em] text-slate-400">{t('dashboard.activeSessions', { defaultValue: 'Active sessions' })}</p>
+                      <p className="mt-2 font-mono text-3xl text-cyan-100">{activeVisitSessions}</p>
+                    </div>
+                    <div className="dashboard-panel rounded-xl border border-cyan-500/10 bg-slate-900/60 p-4">
+                      <p className="text-xs uppercase tracking-[0.22em] text-slate-400">{t('dashboard.avgVisit', { defaultValue: 'Avg. visit' })}</p>
+                      <p className="mt-2 font-mono text-3xl text-cyan-100">{averageVisitDuration}s</p>
+                    </div>
+                    <div className="dashboard-panel rounded-xl border border-cyan-500/10 bg-slate-900/60 p-4">
+                      <p className="text-xs uppercase tracking-[0.22em] text-slate-400">{t('dashboard.pageViews', { defaultValue: 'Page views' })}</p>
+                      <p className="mt-2 font-mono text-3xl text-cyan-100">{totalPageViews}</p>
+                    </div>
                   </div>
-                  <div className="flex flex-wrap gap-3">
-                    <Button variant="outline" onClick={() => handleAdjustVisitorCount(100)} className="dashboard-action border-cyan-500/20 bg-slate-900/60 text-cyan-100">+100</Button>
-                    <Button variant="outline" onClick={() => handleAdjustVisitorCount(500)} className="dashboard-action border-cyan-500/20 bg-slate-900/60 text-cyan-100">+500</Button>
-                    <Button variant="outline" onClick={() => handleAdjustVisitorCount(1000)} className="dashboard-action border-cyan-500/20 bg-slate-900/60 text-cyan-100">+1000</Button>
-                    <Button onClick={() => void handleSaveVisitorCount()} disabled={savingVisitorCount} className="dashboard-action bg-cyan-500 text-slate-950 hover:bg-cyan-400">
-                      {savingVisitorCount ? t('dashboard.saving') : t('dashboard.save')}
-                    </Button>
+
+                  <div className="h-64 rounded-2xl border border-cyan-500/10 bg-slate-900/60 p-4">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={visitsByDay}>
+                        <CartesianGrid stroke="rgba(148,163,184,0.14)" vertical={false} />
+                        <XAxis dataKey="date" stroke="#94a3b8" tickLine={false} axisLine={false} />
+                        <YAxis stroke="#94a3b8" tickLine={false} axisLine={false} allowDecimals={false} />
+                        <Tooltip />
+                        <Area type="monotone" dataKey="visits" stroke="#22d3ee" fill="rgba(34,211,238,0.28)" />
+                      </AreaChart>
+                    </ResponsiveContainer>
                   </div>
                 </CardContent>
               </Card>
@@ -535,27 +611,126 @@ export default function Dashboard() {
                     <p className="text-xs uppercase tracking-[0.22em] text-slate-400">{t('dashboard.kinds.feedback')}</p>
                     <p className="mt-2 font-mono text-3xl text-cyan-100">{feedbackCount}</p>
                   </div>
+                  <div className="h-56 rounded-2xl border border-cyan-500/10 bg-slate-900/60 p-4">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={visitsByPath}>
+                        <CartesianGrid stroke="rgba(148,163,184,0.14)" vertical={false} />
+                        <XAxis dataKey="path" stroke="#94a3b8" tickLine={false} axisLine={false} />
+                        <YAxis stroke="#94a3b8" tickLine={false} axisLine={false} allowDecimals={false} />
+                        <Tooltip />
+                        <Bar dataKey="visits" fill="#a78bfa" radius={[8, 8, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
                   <p>{t('dashboard.summaryText')}</p>
                 </CardContent>
               </Card>
             </div>
+
+            <Card className="dashboard-panel border-cyan-500/15 bg-slate-950/80">
+              <CardHeader>
+                <CardTitle className="dashboard-section-title font-mono text-cyan-100">{t('dashboard.sessionsTitle', { defaultValue: 'Visit sessions' })}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4 md:hidden">
+                  {visitSessions.length > 0 ? visitSessions.slice(0, 12).map((session) => (
+                    <div key={session.id} className="dashboard-panel rounded-2xl border border-cyan-500/10 bg-slate-900/55 p-4">
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <Badge variant={session.isActive ? 'default' : 'outline'}>{session.isActive ? t('dashboard.live', { defaultValue: 'Live' }) : t('dashboard.closed', { defaultValue: 'Closed' })}</Badge>
+                        <span className="text-xs text-slate-400">{session.timeZone || session.locale || 'Unknown'}</span>
+                      </div>
+                      <p className="mt-3 text-sm text-slate-200">{session.entryPath}</p>
+                      <p className="mt-2 text-xs text-slate-400">{t('dashboard.arrived', { defaultValue: 'Arrived' })}: {formatDate(session.startedAt, i18n.language)}</p>
+                      <p className="text-xs text-slate-400">{t('dashboard.left', { defaultValue: 'Left' })}: {formatDate(session.endedAt ?? session.lastSeenAt, i18n.language)}</p>
+                      <p className="text-xs text-slate-400">{t('dashboard.duration', { defaultValue: 'Duration' })}: {session.durationSeconds}s</p>
+                    </div>
+                  )) : (
+                    <p className="text-center text-slate-400">{t('dashboard.noSessions', { defaultValue: 'No visit sessions collected yet.' })}</p>
+                  )}
+                </div>
+                <div className="hidden overflow-x-auto md:block">
+                  <Table className="min-w-[980px]">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>{t('dashboard.table.status', { defaultValue: 'Status' })}</TableHead>
+                        <TableHead>{t('dashboard.table.path', { defaultValue: 'Path' })}</TableHead>
+                        <TableHead>{t('dashboard.table.location', { defaultValue: 'Time / location' })}</TableHead>
+                        <TableHead>{t('dashboard.arrived', { defaultValue: 'Arrived' })}</TableHead>
+                        <TableHead>{t('dashboard.left', { defaultValue: 'Left' })}</TableHead>
+                        <TableHead>{t('dashboard.duration', { defaultValue: 'Duration' })}</TableHead>
+                        <TableHead>{t('dashboard.pageViews', { defaultValue: 'Page views' })}</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {visitSessions.length > 0 ? visitSessions.slice(0, 50).map((session) => (
+                        <TableRow key={session.id}>
+                          <TableCell>
+                            <Badge variant={session.isActive ? 'default' : 'outline'}>
+                              {session.isActive ? t('dashboard.live', { defaultValue: 'Live' }) : t('dashboard.closed', { defaultValue: 'Closed' })}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>{session.entryPath}</TableCell>
+                          <TableCell className="text-slate-300">{session.timeZone || session.locale || 'Unknown'}</TableCell>
+                          <TableCell>{formatDate(session.startedAt, i18n.language)}</TableCell>
+                          <TableCell>{formatDate(session.endedAt ?? session.lastSeenAt, i18n.language)}</TableCell>
+                          <TableCell>{session.durationSeconds}s</TableCell>
+                          <TableCell>{session.pageViews}</TableCell>
+                        </TableRow>
+                      )) : (
+                        <TableRow>
+                          <TableCell colSpan={7} className="text-center text-slate-400">{t('dashboard.noSessions', { defaultValue: 'No visit sessions collected yet.' })}</TableCell>
+                        </TableRow>
+                      )}
+                    </TableBody>
+                  </Table>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="messages">
             <Card className="dashboard-panel border-cyan-500/15 bg-slate-950/80">
               <CardHeader>
-                <CardTitle className="dashboard-section-title font-mono text-cyan-100">{t('dashboard.messagesTitle')}</CardTitle>
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <CardTitle className="dashboard-section-title font-mono text-cyan-100">{t('dashboard.messagesTitle')}</CardTitle>
+                  <div className="flex flex-wrap gap-2">
+                    <Button variant="outline" onClick={toggleSelectAllMessages} className="dashboard-action border-cyan-500/20 bg-slate-900/60 text-cyan-100">
+                      {contactSubmissions.length > 0 && selectedMessageIds.length === contactSubmissions.length
+                        ? t('dashboard.clearSelection', { defaultValue: 'Clear selection' })
+                        : t('dashboard.selectAll', { defaultValue: 'Select all' })}
+                    </Button>
+                    <Button variant="destructive" onClick={() => void handleDeleteMessages(selectedMessageIds)} disabled={selectedMessageIds.length === 0 || deletingMessages}>
+                      <Trash2 className="mr-2 h-4 w-4" />
+                      {deletingMessages
+                        ? t('dashboard.deleting', { defaultValue: 'Deleting...' })
+                        : t('dashboard.deleteSelected', { defaultValue: 'Delete selected' })}
+                    </Button>
+                  </div>
+                </div>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4 md:hidden">
                   {contactSubmissions.length > 0 ? contactSubmissions.map((entry) => (
                     <div key={entry.id} className="dashboard-panel rounded-2xl border border-cyan-500/10 bg-slate-900/55 p-4">
                       <div className="flex flex-wrap items-start justify-between gap-3">
-                        <div>
-                          <p className="font-medium text-slate-100">{entry.name}</p>
-                          <a className="text-sm text-cyan-300 hover:underline" href={`mailto:${entry.email}`}>{entry.email}</a>
+                        <div className="flex items-start gap-3">
+                          <input
+                            type="checkbox"
+                            checked={selectedMessageIds.includes(entry.id)}
+                            onChange={() => toggleMessageSelection(entry.id)}
+                            className="mt-1 h-4 w-4 accent-cyan-400"
+                          />
+                          <div>
+                            <p className="font-medium text-slate-100">{entry.name}</p>
+                            <a className="text-sm text-cyan-300 hover:underline" href={`mailto:${entry.email}`}>{entry.email}</a>
+                          </div>
                         </div>
-                        <span className="text-xs text-slate-400">{formatDate(entry.createdAt, i18n.language)}</span>
+                        <div className="flex flex-col items-end gap-2">
+                          <span className="text-xs text-slate-400">{formatDate(entry.createdAt, i18n.language)}</span>
+                          <Button size="sm" variant="destructive" onClick={() => void handleDeleteMessages([entry.id])}>
+                            {t('dashboard.delete')}
+                          </Button>
+                        </div>
                       </div>
                       <p className="mt-3 text-sm font-medium text-cyan-100">{entry.subject}</p>
                       <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-slate-300">{entry.message}</p>
@@ -568,15 +743,25 @@ export default function Dashboard() {
                   <Table className="min-w-[760px]">
                     <TableHeader>
                       <TableRow>
+                        <TableHead>{t('dashboard.select', { defaultValue: 'Select' })}</TableHead>
                         <TableHead>{t('dashboard.table.sender')}</TableHead>
                         <TableHead>{t('dashboard.table.subject')}</TableHead>
                         <TableHead>{t('dashboard.table.message')}</TableHead>
                         <TableHead>{t('dashboard.table.received')}</TableHead>
+                        <TableHead>{t('dashboard.table.actions')}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {contactSubmissions.length > 0 ? contactSubmissions.map((entry) => (
                         <TableRow key={entry.id}>
+                          <TableCell>
+                            <input
+                              type="checkbox"
+                              checked={selectedMessageIds.includes(entry.id)}
+                              onChange={() => toggleMessageSelection(entry.id)}
+                              className="h-4 w-4 accent-cyan-400"
+                            />
+                          </TableCell>
                           <TableCell>
                             <div className="font-medium text-slate-100">{entry.name}</div>
                             <a className="text-sm text-cyan-300 hover:underline" href={`mailto:${entry.email}`}>{entry.email}</a>
@@ -584,10 +769,15 @@ export default function Dashboard() {
                           <TableCell>{entry.subject}</TableCell>
                           <TableCell className="max-w-md whitespace-pre-wrap text-slate-300">{entry.message}</TableCell>
                           <TableCell>{formatDate(entry.createdAt, i18n.language)}</TableCell>
+                          <TableCell>
+                            <Button size="sm" variant="destructive" onClick={() => void handleDeleteMessages([entry.id])}>
+                              {t('dashboard.delete')}
+                            </Button>
+                          </TableCell>
                         </TableRow>
                       )) : (
                         <TableRow>
-                          <TableCell colSpan={4} className="text-center text-slate-400">{t('dashboard.emptyMessages')}</TableCell>
+                          <TableCell colSpan={6} className="text-center text-slate-400">{t('dashboard.emptyMessages')}</TableCell>
                         </TableRow>
                       )}
                     </TableBody>

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -7,13 +7,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { MessageSquareText, Quote, Send, Star } from 'lucide-react';
-import { revealElements } from '@/hooks/useScrollReveal';
 import {
   submitPortfolioSocialProof,
   watchVisibleSocialProof,
   type SocialProofKind,
   type Testimonial,
 } from '@/lib/portfolioData';
+import { useSpatialOS } from '@/hooks/useSpatialOS';
 
 const initialForm = {
   kind: 'testimonial' as SocialProofKind,
@@ -30,23 +30,41 @@ export default function Testimonials() {
   const [loading, setLoading] = useState(true);
   const [submitState, setSubmitState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState(initialForm);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  useSpatialOS({ rootRef: sectionRef, deps: [items.length, loading] });
+
+  const handleCardMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    const card = event.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+    const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+
+    card.dataset.tiltX = `${-y * 8}`;
+    card.dataset.tiltY = `${x * 8}`;
+  };
+
+  const handleCardMouseLeave = (event: React.MouseEvent<HTMLDivElement>) => {
+    const card = event.currentTarget;
+    card.dataset.tiltX = '0';
+    card.dataset.tiltY = '0';
+  };
 
   useEffect(() => {
-    revealElements('.testimonials-title', { origin: 'top', distance: '48px', duration: 900, delay: 180 });
-    revealElements('.testimonial-card', { origin: 'bottom', distance: '32px', duration: 800, delay: 260, interval: 80 });
-
-    let unsubscribe: (() => void) | undefined;
+    let unsubscribe = () => {};
 
     try {
-      unsubscribe = watchVisibleSocialProof((nextItems) => {
-        setItems(nextItems);
+      unsubscribe = watchVisibleSocialProof((data) => {
+        setItems(data);
         setLoading(false);
       });
-    } catch {
+    } catch (error) {
+      console.error('Testimonials subscription failed:', error);
       setLoading(false);
     }
 
-    return () => unsubscribe?.();
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   const averageRating = useMemo(() => {
@@ -111,11 +129,11 @@ export default function Testimonials() {
   };
 
   return (
-    <section id="testimonials" className="relative overflow-hidden bg-background px-4 py-20">
+    <section ref={sectionRef} id="testimonials" className="relative overflow-hidden bg-background px-4 py-20">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(16,185,129,0.12),transparent_28%)]" />
       <div className="container relative mx-auto max-w-7xl">
         <div className="mb-14 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-3xl">
+          <div className="max-w-3xl" data-spatial data-spatial-intensity="0.85" data-spatial-depth="2" data-spatial-blur="false">
             <Badge variant="outline" className="mb-4 border-primary/30 bg-primary/5 text-primary">
               {t('socialProof.badge')}
             </Badge>
@@ -127,7 +145,7 @@ export default function Testimonials() {
             </p>
           </div>
 
-          <Card className="w-full max-w-md border-primary/20 bg-background/90 shadow-xl">
+          <Card className="w-full max-w-md border-primary/20 bg-background/90 shadow-xl" data-spatial data-spatial-intensity="0.9" data-spatial-depth="4" data-spatial-velocity-response="0.7">
             <CardContent className="grid grid-cols-3 gap-4 p-6 text-center">
               <div>
                 <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">{t('socialProof.stats.total')}</p>
@@ -152,8 +170,19 @@ export default function Testimonials() {
                 <Card key={index} className="testimonial-card min-h-[230px] animate-pulse border-border/70 bg-muted/40" />
               ))
             ) : items.length > 0 ? (
-              items.map((item) => (
-                <Card key={item.id} className="testimonial-card border-border/70 bg-background/90 shadow-lg">
+              items.map((item, index) => (
+                <Card
+                  key={item.id}
+                  data-spatial
+                  data-spatial-intensity="1"
+                  data-spatial-depth={String(index + 1)}
+                  data-spatial-velocity-response="1"
+                  data-tilt-x="0"
+                  data-tilt-y="0"
+                  onMouseMove={handleCardMouseMove}
+                  onMouseLeave={handleCardMouseLeave}
+                  className="testimonial-card border-border/70 bg-background/90 shadow-lg transition-shadow duration-300 hover:shadow-2xl"
+                >
                   <CardHeader className="space-y-4">
                     <div className="flex items-start justify-between gap-4">
                       <div>
@@ -201,7 +230,7 @@ export default function Testimonials() {
             )}
           </div>
 
-          <Card className="border-primary/20 bg-background/95 shadow-2xl">
+          <Card className="border-primary/20 bg-background/95 shadow-2xl" data-spatial data-spatial-intensity="0.82" data-spatial-depth="5" data-spatial-velocity-response="0.6" data-spatial-blur="false">
             <CardHeader>
               <Badge variant="secondary" className="w-fit">{t('socialProof.form.badge')}</Badge>
               <CardTitle className="text-2xl">{t('socialProof.form.title')}</CardTitle>

@@ -478,7 +478,7 @@
     "emptySocial": "暂无已保存的评价或反馈。",
     "errors": {
       "login": "登录失败。请检查管理员凭据和 Firebase 身份验证配置。",
-      "load": "无法加载仪表盘数据。请检查管理员角色、Firestore 规则和 Functions 是否已部署。"
+      "load": "仪表盘分析数据暂时不可用。请检查管理员角色和 Firestore 规则。"
     }
   }
 }

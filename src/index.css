@@ -80,6 +80,51 @@
         scroll-behavior: smooth;
     }
 
+    [data-spatial] {
+        will-change: transform, opacity, filter;
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
+        transition: box-shadow 280ms ease, border-color 280ms ease, background-color 280ms ease, color 280ms ease;
+    }
+
+    [data-focus='true'] {
+        filter: none !important;
+        box-shadow: 0 24px 80px rgba(15, 23, 42, 0.18);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        :where(
+            a,
+            button,
+            [role='button'],
+            input[type='checkbox'],
+            input[type='radio'],
+            .project-card,
+            .gallery-card,
+            .contact-form,
+            .contact-info,
+            .dashboard-panel
+        ):not([data-spatial]) {
+            transition: transform 220ms ease, box-shadow 220ms ease;
+            transform-origin: center;
+        }
+
+        :where(
+            a,
+            button,
+            [role='button'],
+            input[type='checkbox'],
+            input[type='radio'],
+            .project-card,
+            .gallery-card,
+            .contact-form,
+            .contact-info,
+            .dashboard-panel
+        ):not([data-spatial]):hover {
+            transform: scale(1.018);
+        }
+    }
+
     html {
         scrollbar-width: thin;
         scrollbar-color: rgba(59, 130, 246, 0.4) transparent;

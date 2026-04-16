@@ -529,6 +529,7 @@ export default function CyberConsole() {
   const { count: visitorCount, loading: visitorCountLoading, error: visitorCountError } = useVisitorCount();
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [command, setCommand] = useState('');
+  const [secretCommand, setSecretCommand] = useState('');
   const [isMinimized, setIsMinimized] = useState(false);
   const [composeState, setComposeState] = useState<ComposeState | null>(null);
   const [adminLoginState, setAdminLoginState] = useState<AdminLoginState | null>(null);
@@ -582,20 +583,22 @@ export default function CyberConsole() {
   useEffect(() => {
     clearStartupTimers();
     if (!isCyberMode) {
-      setHistory([]);
-      setCommand('');
-      setIsMinimized(false);
-      setComposeState(null);
-      setAdminLoginState(null);
+        setHistory([]);
+        setCommand('');
+        setSecretCommand('');
+        setIsMinimized(false);
+        setComposeState(null);
+        setAdminLoginState(null);
       setIsSendingMessage(false);
       setLookupMode(null);
       return;
     }
-    setHistory([]);
-    setCommand('');
-    setIsMinimized(false);
-    setComposeState(null);
-    setAdminLoginState(null);
+      setHistory([]);
+      setCommand('');
+      setSecretCommand('');
+      setIsMinimized(false);
+      setComposeState(null);
+      setAdminLoginState(null);
     setIsSendingMessage(false);
     setLookupMode(null);
     const timers: number[] = [];
@@ -818,6 +821,7 @@ You can also type project followed by a project number or project name for more 
 
   const startComposeFlow = () => {
     setAdminLoginState(null);
+    setSecretCommand('');
     setComposeState({
       step: 'name',
       data: { name: '', email: '', subject: '', message: '' },
@@ -827,6 +831,7 @@ You can also type project followed by a project number or project name for more 
 
   const startAdminLoginFlow = () => {
     setComposeState(null);
+    setSecretCommand('');
     setAdminLoginState({ step: 'email', email: '' });
     addHistory({
       type: 'output',
@@ -932,19 +937,22 @@ You can also type project followed by a project number or project name for more 
       return true;
     }
 
-    if (value.toLowerCase() === 'cancel') {
-      setAdminLoginState(null);
-      addHistory({ type: 'output', text: 'Admin login cancelled.' });
-      return true;
-    }
+      if (value.toLowerCase() === 'cancel') {
+        setAdminLoginState(null);
+        setSecretCommand('');
+        addHistory({ type: 'output', text: 'Admin login cancelled.' });
+        return true;
+      }
 
-    if (adminLoginState.step === 'email') {
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-        addHistory({ type: 'output', text: 'email > Please enter a valid email address' });
+      if (adminLoginState.step === 'email') {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          addHistory({ type: 'output', text: 'email > Please enter a valid email address' });
         return true;
       }
 
       setAdminLoginState({ step: 'password', email: value });
+      setCommand('');
+      setSecretCommand('');
       addHistory({ type: 'output', text: 'password > Enter your password' });
       return true;
     }
@@ -953,10 +961,12 @@ You can also type project followed by a project number or project name for more 
       try {
         await loginAdmin(adminLoginState.email, value);
         setAdminLoginState(null);
+        setSecretCommand('');
         addHistory({ type: 'output', text: 'Access granted. Redirecting to dashboard...' });
         navigate('/dashboard');
       } catch {
         setAdminLoginState(null);
+        setSecretCommand('');
         addHistory({ type: 'output', text: 'Access denied. Invalid admin credentials.' });
       }
       return true;
@@ -985,12 +995,13 @@ You can also type project followed by a project number or project name for more 
     }
 
     if (adminLoginState) {
-      const handledAdminLogin = await continueAdminLoginFlow(cleaned);
-      if (handledAdminLogin) {
-        setCommand('');
-        return;
+        const handledAdminLogin = await continueAdminLoginFlow(cleaned);
+        if (handledAdminLogin) {
+          setCommand('');
+          setSecretCommand('');
+          return;
+        }
       }
-    }
 
     if (normalized === 'clear') {
       clearStartupTimers();
@@ -1173,12 +1184,14 @@ You can also type project followed by a project number or project name for more 
       return;
     }
 
-    addHistory({ type: 'output', text: t('console.commandUnknown', { command: cleaned }) });
-    setCommand('');
-  };
+      addHistory({ type: 'output', text: t('console.commandUnknown', { command: cleaned }) });
+      setCommand('');
+      setSecretCommand('');
+    };
 
   const visibleHistory = useMemo(() => history.slice(-18), [history]);
   const inputType = adminLoginState?.step === 'password' ? 'password' : 'text';
+  const activeInputValue = adminLoginState?.step === 'password' ? secretCommand : command;
 
   const terminalMaxHeight = viewportHeight ? Math.max(320, viewportHeight - 16) : undefined;
 
@@ -1274,15 +1287,22 @@ You can also type project followed by a project number or project name for more 
                 <div ref={historyEndRef} />
               </div>
             </div>
-            <form onSubmit={(event) => { event.preventDefault(); void runCommand(command); }} className="pointer-events-auto shrink-0 pt-3">
+            <form onSubmit={(event) => { event.preventDefault(); void runCommand(adminLoginState?.step === 'password' ? secretCommand : command); }} className="pointer-events-auto shrink-0 pt-3">
               <label htmlFor="cyber-input" className="sr-only">{t('console.inputLabel')}</label>
               <div className="cyber-console__prompt flex items-center gap-2 rounded-2xl border border-[#00ff9f]/30 bg-black/30 px-3 py-3 shadow-inner shadow-[#00ff9f]/5 sm:gap-3 sm:px-4">
                 <span className="text-[#00ff9f]">&gt;</span>
-                <input ref={inputRef} id="cyber-input" type={inputType} value={command} onChange={(event) => setCommand(event.target.value)} placeholder={composeState ? t('console.composePlaceholder', { step: composeState.step }) : t('console.promptPlaceholder')} autoComplete={adminLoginState?.step === 'password' ? 'current-password' : 'off'} spellCheck={false} className="cyber-console__input min-w-0 flex-1 bg-transparent text-sm text-[#e6ffe6] outline-none placeholder:text-[#00ff9f]/30" />
+                <input ref={inputRef} id="cyber-input" type={inputType} value={activeInputValue} onChange={(event) => {
+                  if (adminLoginState?.step === 'password') {
+                    setSecretCommand(event.target.value);
+                    setCommand('');
+                    return;
+                  }
+                  setCommand(event.target.value);
+                }} placeholder={composeState ? t('console.composePlaceholder', { step: composeState.step }) : adminLoginState?.step === 'password' ? 'password > secure entry' : t('console.promptPlaceholder')} autoComplete={adminLoginState?.step === 'password' ? 'new-password' : 'off'} autoCapitalize="none" autoCorrect="off" data-lpignore="true" spellCheck={false} className="cyber-console__input min-w-0 flex-1 bg-transparent text-sm text-[#e6ffe6] outline-none placeholder:text-[#00ff9f]/30" />
                 <span className="cyber-console__typing-indicator hidden text-[10px] uppercase tracking-[0.24em] text-[#00ff9f]/55 sm:inline">
                   {isSendingMessage
                     ? t('console.typingStatus.sending')
-                    : command
+                    : activeInputValue
                     ? t('console.typingStatus.typing')
                     : composeState
                     ? composeState.step

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import {
@@ -12,46 +12,14 @@ import {
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Github, Linkedin, Mail, Heart, ArrowUp } from 'lucide-react';
-import { revealElements } from '@/hooks/useScrollReveal';
+import { useSpatialOS } from '@/hooks/useSpatialOS';
 import { useTranslation } from 'react-i18next';
 import { VisitorCounter } from './VisitorCounter';
 
 export default function Footer() {
   const { t } = useTranslation();
-  useEffect(() => {
-    const footerReveal = {
-      origin: 'bottom',
-      distance: '40px',
-      duration: 900,
-      reset: false,
-      viewFactor: 0.25,
-      viewOffset: { top: 90, right: 0, bottom: 0, left: 0 },
-    };
-
-    revealElements('.footer-content', {
-      ...footerReveal,
-      distance: '60px',
-      delay: 200,
-    });
-
-    revealElements('.footer-social', {
-      ...footerReveal,
-      delay: 400,
-      interval: 100,
-    });
-
-    revealElements('.footer-links', {
-      ...footerReveal,
-      delay: 600,
-      interval: 50,
-    });
-
-    revealElements('.footer-bottom', {
-      ...footerReveal,
-      distance: '30px',
-      delay: 800,
-    });
-  }, []);
+  const footerRef = useRef<HTMLElement | null>(null);
+  useSpatialOS({ rootRef: footerRef });
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -204,14 +172,14 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-muted/50 border-t">
+    <footer ref={footerRef} className="bg-muted/50 border-t">
       <div className="container mx-auto max-w-7xl px-4 py-12">
         <div className="footer-content mb-8 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4 lg:col-span-2">
-            <h3 className="text-2xl font-bold">
+            <h3 className="text-2xl font-bold" data-spatial data-spatial-intensity="0.9" data-spatial-depth="2" data-spatial-blur="false">
               Gilbert <span className="text-primary">Tuyambaze</span>
             </h3>
-            <p className="max-w-md leading-relaxed text-muted-foreground">
+            <p className="max-w-md leading-relaxed text-muted-foreground" data-spatial data-spatial-intensity="0.72" data-spatial-depth="3">
               {t('footer.description')}
             </p>
             <div className="flex gap-4">
@@ -219,10 +187,15 @@ export default function Footer() {
                 <a
                   key={index}
                   href={social.href}
-                  className="footer-social group rounded-full bg-background p-3 transition-all duration-300 hover:scale-110 hover:bg-primary hover:text-primary-foreground"
+                  className="footer-social group rounded-full bg-background p-3 transition-colors duration-300 hover:bg-primary hover:text-primary-foreground"
                   aria-label={social.label}
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-spatial
+                  data-spatial-intensity="0.78"
+                  data-spatial-depth={String(index + 4)}
+                  data-spatial-velocity-response="0.8"
+                  data-spatial-blur="false"
                 >
                   <social.icon className="h-5 w-5 transition-transform group-hover:rotate-12" />
                 </a>
@@ -231,13 +204,17 @@ export default function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold">{t('footer.quickLinks')}</h4>
+            <h4 className="text-lg font-semibold" data-spatial data-spatial-intensity="0.68" data-spatial-depth="5" data-spatial-blur="false">{t('footer.quickLinks')}</h4>
             <nav className="flex flex-col space-y-2">
               {quickLinks.map((link, index) => (
                 <a
                   key={index}
                   href={link.href}
                   className="footer-links transform text-muted-foreground transition-colors duration-200 hover:translate-x-1 hover:text-primary"
+                  data-spatial
+                  data-spatial-intensity="0.58"
+                  data-spatial-depth={String(index + 6)}
+                  data-spatial-velocity-response="0.6"
                 >
                   {link.name}
                 </a>
@@ -246,15 +223,15 @@ export default function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold">{t('footer.getInTouch')}</h4>
+            <h4 className="text-lg font-semibold" data-spatial data-spatial-intensity="0.68" data-spatial-depth="5" data-spatial-blur="false">{t('footer.getInTouch')}</h4>
             <div className="space-y-3 text-muted-foreground">
-              <p className="footer-links cursor-pointer transition-colors hover:text-primary">
+              <p className="footer-links cursor-pointer transition-colors hover:text-primary" data-spatial data-spatial-intensity="0.5" data-spatial-depth="6">
                 tuyambazegilbert05@gmail.com
               </p>
-              <p className="footer-links cursor-pointer transition-colors hover:text-primary">
+              <p className="footer-links cursor-pointer transition-colors hover:text-primary" data-spatial data-spatial-intensity="0.5" data-spatial-depth="7">
                 +250 (79) 343-8873
               </p>
-              <p className="footer-links cursor-pointer transition-colors hover:text-primary">
+              <p className="footer-links cursor-pointer transition-colors hover:text-primary" data-spatial data-spatial-intensity="0.5" data-spatial-depth="8">
                 Kigali, Rwanda
               </p>
             </div>
@@ -266,7 +243,7 @@ export default function Footer() {
         <div className="footer-bottom flex flex-col items-center justify-between gap-4 md:flex-row">
           <div className="flex flex-col items-center gap-3 md:items-start">
             <VisitorCounter className="rounded border border-border bg-background/90 px-4 py-2 text-sm font-medium text-foreground shadow-sm" />
-            <p className="flex items-center gap-2 text-sm text-muted-foreground">
+            <p className="flex items-center gap-2 text-sm text-muted-foreground" data-spatial data-spatial-intensity="0.62" data-spatial-depth="9" data-spatial-blur="false">
               {t('footer.copyright')} <Heart className="h-4 w-4 animate-pulse text-red-500" /> {t('footer.coffee')}
             </p>
           </div>
@@ -357,6 +334,11 @@ export default function Footer() {
               size="sm"
               onClick={scrollToTop}
               className="group hover:bg-primary/10"
+              data-spatial
+              data-spatial-intensity="0.9"
+              data-spatial-depth="10"
+              data-spatial-velocity-response="0.9"
+              data-spatial-blur="false"
             >
               <ArrowUp className="mr-2 h-4 w-4 transition-transform group-hover:-translate-y-1" />
               {t('footer.backToTop')}

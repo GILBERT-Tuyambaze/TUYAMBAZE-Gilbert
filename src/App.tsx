@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { CyberModeProvider } from '@/components/CyberModeProvider';
+import PortfolioAnalyticsTracker from '@/components/PortfolioAnalyticsTracker';
 import Index from './pages/Index';
 import NotFound from './pages/NotFound';
 import Dashboard from './pages/Dashboard';
@@ -17,6 +18,7 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+            <PortfolioAnalyticsTracker />
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/dashboard" element={<Dashboard />} />

@@ -571,7 +571,7 @@
     "emptySocial": "Nta testimonial cyangwa feedback birabikwa.",
     "errors": {
       "login": "Kwinjira byanze. Reba admin credentials na Firebase Auth.",
-      "load": "Ntibyashobotse gupakurura dashboard. Reba admin role, Firestore rules na Functions deployment."
+      "load": "Imibare ya dashboard ntiboneka ubu. Reba admin role yawe na Firestore rules."
     }
   }
 }

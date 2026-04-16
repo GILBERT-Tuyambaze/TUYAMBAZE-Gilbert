@@ -42,6 +42,87 @@ service cloud.firestore {
         && request.resource.data.count == resource.data.count + 1;
     }
 
+    function isValidVisitPath(field) {
+      return field is string && field.size() >= 1 && field.size() <= 240;
+    }
+
+    function isValidVisitSessionCreate(sessionId) {
+      return request.resource.data.keys().hasOnly([
+          "sessionKey",
+          "entryPath",
+          "currentPath",
+          "exitPath",
+          "pageViews",
+          "durationSeconds",
+          "locale",
+          "timeZone",
+          "referrer",
+          "userAgent",
+          "screenWidth",
+          "screenHeight",
+          "startedAt",
+          "lastSeenAt",
+          "endedAt",
+          "isActive"
+        ])
+        && request.resource.data.sessionKey == sessionId
+        && isValidVisitPath(request.resource.data.entryPath)
+        && isValidVisitPath(request.resource.data.currentPath)
+        && isValidVisitPath(request.resource.data.exitPath)
+        && request.resource.data.pageViews is int
+        && request.resource.data.pageViews >= 1
+        && request.resource.data.durationSeconds is int
+        && request.resource.data.durationSeconds >= 0
+        && isValidString(request.resource.data.locale, 2, 40)
+        && isValidString(request.resource.data.timeZone, 2, 80)
+        && request.resource.data.referrer is string
+        && request.resource.data.referrer.size() <= 500
+        && request.resource.data.userAgent is string
+        && request.resource.data.userAgent.size() <= 500
+        && request.resource.data.screenWidth is int
+        && request.resource.data.screenWidth >= 0
+        && request.resource.data.screenHeight is int
+        && request.resource.data.screenHeight >= 0
+        && request.resource.data.isActive is bool;
+    }
+
+    function isValidVisitSessionUpdate() {
+      return request.resource.data.keys().hasOnly([
+          "sessionKey",
+          "entryPath",
+          "currentPath",
+          "exitPath",
+          "pageViews",
+          "durationSeconds",
+          "locale",
+          "timeZone",
+          "referrer",
+          "userAgent",
+          "screenWidth",
+          "screenHeight",
+          "startedAt",
+          "lastSeenAt",
+          "endedAt",
+          "isActive"
+        ])
+        && request.resource.data.sessionKey == resource.data.sessionKey
+        && request.resource.data.entryPath == resource.data.entryPath
+        && request.resource.data.locale == resource.data.locale
+        && request.resource.data.timeZone == resource.data.timeZone
+        && request.resource.data.referrer == resource.data.referrer
+        && request.resource.data.userAgent == resource.data.userAgent
+        && request.resource.data.screenWidth == resource.data.screenWidth
+        && request.resource.data.screenHeight == resource.data.screenHeight
+        && request.resource.data.startedAt == resource.data.startedAt
+        && isValidVisitPath(request.resource.data.currentPath)
+        && isValidVisitPath(request.resource.data.exitPath)
+        && request.resource.data.pageViews is int
+        && request.resource.data.pageViews >= resource.data.pageViews
+        && request.resource.data.durationSeconds is int
+        && request.resource.data.durationSeconds >= resource.data.durationSeconds
+        && request.resource.data.isActive is bool;
+    }
+
     function isValidContactCreate() {
       return request.resource.data.keys().hasOnly(["name", "email", "subject", "message", "source", "createdAt"])
         && request.resource.data.source == "portfolio"
@@ -83,15 +164,16 @@ service cloud.firestore {
 
     match /stats/visitorCount {
       allow read: if true;
-      allow create: if isValidCounterCreate() || (hasAdminRole() && isValidCounterPayload());
-      allow update: if isValidCounterIncrement() || (hasAdminRole() && isValidCounterPayload());
+      allow create: if isValidCounterCreate();
+      allow update: if isValidCounterIncrement();
       allow delete: if false;
     }
 
     match /contactSubmissions/{documentId} {
       allow create: if isValidContactCreate();
       allow read: if hasAdminRole();
-      allow update, delete: if false;
+      allow update: if false;
+      allow delete: if hasAdminRole();
     }
 
     match /testimonials/{documentId} {
@@ -104,6 +186,13 @@ service cloud.firestore {
     match /roles/{userId} {
       allow read: if hasAdminRole() || isRoleDocOwner(userId);
       allow write: if false;
+    }
+
+    match /visitSessions/{sessionId} {
+      allow create: if isValidVisitSessionCreate(sessionId);
+      allow read: if hasAdminRole();
+      allow update: if isValidVisitSessionUpdate();
+      allow delete: if false;
     }
   }
 }

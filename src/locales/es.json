@@ -478,7 +478,7 @@
     "emptySocial": "Todav?a no hay testimonios ni comentarios guardados.",
     "errors": {
       "login": "No se pudo iniciar sesi?n. Revisa tus credenciales de administrador y la configuraci?n de Firebase Auth.",
-      "load": "No se pudieron cargar los datos del dashboard. Revisa el rol de admin, las reglas de Firestore y el despliegue de Functions."
+      "load": "Las analíticas del dashboard no están disponibles temporalmente. Revisa tu rol de admin y las reglas de Firestore."
     }
   }
 }
